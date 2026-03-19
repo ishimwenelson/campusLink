@@ -1,0 +1,88 @@
+// firestore.rules
+// Deploy with: firebase deploy --only firestore:rules
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper functions ────────────────────────────────────────────────────
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getRole() {
+      // Prefer custom claim, fallback to Firestore field
+      return request.auth.token.role != null
+        ? request.auth.token.role
+        : get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    function isRole(r) {
+      return isAuthenticated() && getRole() == r;
+    }
+
+    function isAnyRole(roles) {
+      return isAuthenticated() && getRole() in roles;
+    }
+
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    // ── Users ────────────────────────────────────────────────────────────────
+    match /users/{uid} {
+      // Members read/write only their own doc
+      allow read: if isOwner(uid) || isAnyRole(['secretary','treasurer','president','boardMember']);
+      allow create: if isRole('secretary');
+      allow update: if isOwner(uid)
+                    || isAnyRole(['secretary','president','treasurer']);
+      allow delete: if isRole('president');
+
+      // ── Payments subcollection ──────────────────────────────────────────
+      match /payments/{paymentId} {
+        allow read:   if isOwner(uid) || isAnyRole(['treasurer','president']);
+        allow create: if isOwner(uid) || isAnyRole(['treasurer','president','secretary']);
+        allow update, delete: if isAnyRole(['treasurer','president']);
+      }
+
+      // ── Documents subcollection ─────────────────────────────────────────
+      match /documents/{docId} {
+        allow read:   if isOwner(uid) || isAnyRole(['secretary','president']);
+        allow create: if isOwner(uid) || isRole('secretary');
+        allow update, delete: if isRole('secretary') || isRole('president');
+      }
+
+      // ── Emergency Requests subcollection ────────────────────────────────
+      match /emergencyRequests/{reqId} {
+        allow read:   if isOwner(uid) || isAnyRole(['president','treasurer']);
+        allow create: if isOwner(uid);
+        allow update: if isRole('president');  // only president can approve/reject
+        allow delete: if false;
+      }
+    }
+
+    // ── Proposals ────────────────────────────────────────────────────────────
+    match /proposals/{proposalId} {
+      allow read: if isAuthenticated();
+      allow create: if isAnyRole(['investor','president','boardMember']);
+      allow update: if isAuthenticated();  // votes & comments by any member
+      allow delete: if isRole('president');
+    }
+
+    // ── Meetings ─────────────────────────────────────────────────────────────
+    match /meetings/{meetingId} {
+      allow read: if isAuthenticated();
+      allow create: if isAnyRole(['boardMember','president','secretary']);
+      allow update: if isAnyRole(['boardMember','president','secretary']);
+      allow delete: if isAnyRole(['boardMember','president']);
+    }
+
+    // ── Notifications ─────────────────────────────────────────────────────────
+    match /notifications/{notifId} {
+      allow read:   if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated();   // server-side triggers & admin SDK
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+  }
+}

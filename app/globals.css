@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 224 71.4% 4.1%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 38 92% 50%;
+    --radius: 1rem;
+
+    /* CampusLink Gold Tokens */
+    --gold-primary: #d97706;
+    --gold-light: #f59e0b;
+    --gold-dark: #b45309;
+    --gold-pale: #fef3c7;
+    --gold-shine: #fde68a;
+  }
+
+  .dark {
+    --background: 20 14% 6%;
+    --foreground: 45 30% 95%;
+    --card: 20 12% 10%;
+    --card-foreground: 45 30% 95%;
+    --muted: 20 10% 14%;
+    --muted-foreground: 30 8% 60%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 20 14% 8%;
+    --border: 20 10% 18%;
+    --input: 20 10% 18%;
+    --ring: 38 92% 50%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-size: 0.8125rem; /* Reduced to 13px */
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Inter', sans-serif;
+    @apply tracking-tight font-bold;
+  }
+  
+  h1 { @apply text-2xl lg:text-3xl font-black; }
+  h2 { @apply text-lg lg:text-xl font-bold; }
+  h3 { @apply text-base lg:text-lg font-bold; }
+  h4 { @apply text-sm lg:text-base font-semibold; }
+}
+
+@layer components {
+  /* Gold gradient button */
+  .btn-gold {
+    @apply relative overflow-hidden bg-stone-900 
+           text-white font-bold px-5 py-2.5 rounded-[1.5rem] shadow-[0_10px_30px_rgba(217,119,6,0.15)] 
+           hover:shadow-[0_15px_40px_rgba(217,119,6,0.25)] transition-all duration-500
+           hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-2 text-xs;
+    background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .btn-gold::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-light) 100%);
+  }
+  .btn-gold:hover::before {
+    @apply opacity-20;
+  }
+
+  /* Shimmer skeleton */
+  .skeleton {
+    @apply relative overflow-hidden bg-amber-50 rounded-lg;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(90deg, transparent 0%, rgba(253,230,138,0.5) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite;
+  }
+
+  /* Gold card */
+  .card-gold {
+    @apply bg-white border border-stone-100 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]
+           hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-500;
+  }
+
+  /* Stat card */
+  .stat-card {
+    @apply card-gold p-8 relative overflow-hidden;
+  }
+  .stat-card::before {
+    content: '';
+    @apply absolute -top-12 -right-12 w-48 h-48 rounded-full opacity-5;
+    background: var(--gold-primary);
+    filter: blur(40px);
+  }
+
+  /* Progress circle wrapper */
+  .progress-circle {
+    @apply relative inline-flex items-center justify-center;
+  }
+
+  /* Sidebar nav item */
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-xl text-[13px] font-semibold
+           text-stone-500 hover:text-stone-900 hover:bg-stone-50
+           transition-all duration-300 cursor-pointer;
+  }
+  .nav-item.active {
+    @apply bg-stone-900 text-white shadow-xl shadow-stone-200/50;
+  }
+
+  /* Badge */
+  .badge-gold {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold
+           bg-amber-100 text-amber-800;
+  }
+  .badge-success {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold
+           bg-green-100 text-green-800;
+  }
+  .badge-danger {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold
+           bg-red-100 text-red-800;
+  }
+  .badge-pending {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold
+           bg-orange-100 text-orange-800;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700;
+  }
+
+  .bg-pattern-subtle {
+    background-image: radial-gradient(circle at 1px 1px, rgba(217,119,6,0.08) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-md bg-white/70 border border-white/50 rounded-2xl shadow-xl;
+  }
+
+  .gold-border {
+    @apply border-2 border-amber-400/30;
+  }
+
+  /* Notched accent for cards - Scalloped edge effect */
+  .card-notch-accent {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 75%;
+    background-color: currentColor;
+    border-radius: 99px 0 0 99px;
+    mask-image: radial-gradient(circle at 100% 50%, transparent 8px, black 9px);
+  }
+
+  /* Circular progress indicator utilities */
+  .circular-progress-bg {
+    @apply fill-none stroke-stone-100;
+  }
+  .circular-progress-indicator {
+    @apply fill-none transition-all duration-1000 ease-out;
+    stroke-linecap: round;
+  }
+
+  /* Custom Scrollbar for dashboards */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-stone-200 rounded-full hover:bg-stone-300 transition-colors;
+  }
+}

@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 45 30% 97%;
+    --foreground: 20 14% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14% 8%;
+    --muted: 40 20% 94%;
+    --muted-foreground: 30 8% 46%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 20 14% 8%;
+    --border: 38 30% 88%;
+    --input: 38 30% 88%;
+    --ring: 38 92% 50%;
+    --radius: 0.75rem;
+
+    /* CampusLink Gold Tokens */
+    --gold-primary: #d97706;
+    --gold-light: #f59e0b;
+    --gold-dark: #b45309;
+    --gold-pale: #fef3c7;
+    --gold-shine: #fde68a;
+  }
+
+  .dark {
+    --background: 20 14% 6%;
+    --foreground: 45 30% 95%;
+    --card: 20 12% 10%;
+    --card-foreground: 45 30% 95%;
+    --muted: 20 10% 14%;
+    --muted-foreground: 30 8% 60%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 20 14% 8%;
+    --border: 20 10% 18%;
+    --input: 20 10% 18%;
+    --ring: 38 92% 50%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'DM Sans', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  /* Gold gradient button */
+  .btn-gold {
+    @apply relative overflow-hidden bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 
+           text-white font-semibold px-6 py-3 rounded-xl shadow-lg 
+           hover:shadow-amber-200 transition-all duration-300
+           hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-gold::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-amber-400 to-yellow-400 opacity-0 
+           transition-opacity duration-300;
+  }
+  .btn-gold:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Shimmer skeleton */
+  .skeleton {
+    @apply relative overflow-hidden bg-amber-50 rounded-lg;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(90deg, transparent 0%, rgba(253,230,138,0.5) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite;
+  }
+
+  /* Gold card */
+  .card-gold {
+    @apply bg-white border border-amber-100 rounded-2xl shadow-sm
+           hover:shadow-md hover:shadow-amber-100/50 transition-all duration-300;
+  }
+
+  /* Stat card */
+  .stat-card {
+    @apply card-gold p-6 relative overflow-hidden;
+  }
+  .stat-card::before {
+    content: '';
+    @apply absolute top-0 right-0 w-32 h-32 rounded-full opacity-5;
+    background: var(--gold-primary);
+    transform: translate(30%, -30%);
+  }
+
+  /* Progress circle wrapper */
+  .progress-circle {
+    @apply relative inline-flex items-center justify-center;
+  }
+
+  /* Sidebar nav item */
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium
+           text-stone-600 hover:text-amber-700 hover:bg-amber-50
+           transition-all duration-200 cursor-pointer;
+  }
+  .nav-item.active {
+    @apply bg-gradient-to-r from-amber-500 to-yellow-500 text-white shadow-md shadow-amber-200;
+  }
+
+  /* Badge */
+  .badge-gold {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold
+           bg-amber-100 text-amber-800;
+  }
+  .badge-success {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold
+           bg-green-100 text-green-800;
+  }
+  .badge-danger {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold
+           bg-red-100 text-red-800;
+  }
+  .badge-pending {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold
+           bg-orange-100 text-orange-800;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700;
+  }
+
+  .bg-pattern-subtle {
+    background-image: radial-gradient(circle at 1px 1px, rgba(217,119,6,0.08) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-md bg-white/70 border border-white/50 rounded-2xl shadow-xl;
+  }
+
+  .gold-border {
+    @apply border-2 border-amber-400/30;
+  }
+}

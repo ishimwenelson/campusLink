@@ -1,0 +1,73 @@
+// firestore.rules — CampusLink Investment
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helpers ─────────────────────────────────────────────────────────────
+    function isSignedIn() { return request.auth != null; }
+    function uid() { return request.auth.uid; }
+    function role() { return request.auth.token.role; }
+    function isRole(r) { return isSignedIn() && role() == r; }
+    function isPresident() { return isRole('president'); }
+    function isTreasurer() { return isRole('treasurer'); }
+    function isSecretary() { return isRole('secretary'); }
+    function isBoardMember() { return isRole('boardMember') || isPresident(); }
+    function isInvestor() { return isRole('investor') || isPresident() || isBoardMember(); }
+    function isStaff() { return isSecretary() || isTreasurer() || isPresident() || isBoardMember(); }
+
+    // ── Users ────────────────────────────────────────────────────────────────
+    match /users/{userId} {
+      // Member reads own doc; staff reads all
+      allow read: if isSignedIn() && (uid() == userId || isStaff());
+      // Secretary creates new members; user updates own; president updates all
+      allow create: if isSecretary() || isPresident();
+      allow update: if (uid() == userId) || isPresident() || isTreasurer();
+      allow delete: if isPresident();
+
+      // Payments subcollection
+      match /payments/{paymentId} {
+        allow read: if uid() == userId || isStaff();
+        allow create: if uid() == userId || isTreasurer() || isPresident();
+        allow update, delete: if isTreasurer() || isPresident();
+      }
+
+      // Documents subcollection
+      match /documents/{docId} {
+        allow read: if uid() == userId || isStaff();
+        allow create, update: if uid() == userId || isSecretary() || isPresident();
+        allow delete: if isSecretary() || isPresident();
+      }
+
+      // Emergency requests
+      match /emergencyRequests/{reqId} {
+        allow read: if uid() == userId || isPresident() || isTreasurer();
+        allow create: if uid() == userId;
+        allow update: if isPresident();
+        allow delete: if isPresident();
+      }
+    }
+
+    // ── Proposals ────────────────────────────────────────────────────────────
+    match /proposals/{proposalId} {
+      allow read: if isSignedIn();
+      allow create: if isInvestor();
+      allow update: if isInvestor() || isPresident(); // voting + approval
+      allow delete: if isPresident();
+    }
+
+    // ── Meetings ─────────────────────────────────────────────────────────────
+    match /meetings/{meetingId} {
+      allow read: if isSignedIn();
+      allow create, update: if isBoardMember();
+      allow delete: if isPresident();
+    }
+
+    // ── Notifications ────────────────────────────────────────────────────────
+    match /notifications/{notifId} {
+      allow read: if isSignedIn() && (resource.data.userId == uid() || isStaff());
+      allow create: if isStaff() || isSignedIn();
+      allow update: if resource.data.userId == uid(); // mark as read
+      allow delete: if resource.data.userId == uid() || isPresident();
+    }
+  }
+}

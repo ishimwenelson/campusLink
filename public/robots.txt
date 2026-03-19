@@ -1,0 +1,10 @@
+# CampusLink Investment - SEO Configuration
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /auth/reset-password
+
+# Sitemap (TBD if generated)
+# Sitemap: https://campuslink.io/sitemap.xml
