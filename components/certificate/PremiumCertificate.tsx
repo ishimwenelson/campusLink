@@ -16,7 +16,7 @@ export const PremiumCertificate = forwardRef<HTMLDivElement, PremiumCertificateP
 
     return (
       <>
-        {/* Font Imports */}
+        {}
         <style dangerouslySetInnerHTML={{
           __html: `
           @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600;700&display=swap');
@@ -197,11 +197,11 @@ export const PremiumCertificate = forwardRef<HTMLDivElement, PremiumCertificateP
         ` }} />
 
         <div ref={ref} className="cert-container" id="premium-certificate">
-          {/* Background */}
+          {}
           <img className="cert-bg" src="/images/bg.jpg" alt="" />
 
           <div className="cert-content">
-            {/* Logo top right */}
+            {}
             <div className="logo-block">
               <img className="logo-img" src="/images/logo.png" alt="Logo" />
               <div className="logo-text">
@@ -210,13 +210,13 @@ export const PremiumCertificate = forwardRef<HTMLDivElement, PremiumCertificateP
               </div>
             </div>
 
-            {/* Main Title */}
+            {}
             <h1 className="cert-title">COMPLETION CERTIFICATE</h1>
 
-            {/* Top ornament line */}
+            {}
             <img className="top-line" src="/images/top line.png" alt="" />
 
-            {/* Body paragraphs */}
+            {}
             <div className="cert-body">
               <p>
                 This is to certify that <span className="name-placeholder">{profile.fullName}</span> has completed
@@ -228,7 +228,7 @@ export const PremiumCertificate = forwardRef<HTMLDivElement, PremiumCertificateP
               </p>
             </div>
 
-            {/* Date & Signature */}
+            {}
             <div className="cert-footer-row">
               <span className="label"><strong>Date:</strong> {date}</span>
               <div className="flex flex-col items-center">
@@ -237,17 +237,17 @@ export const PremiumCertificate = forwardRef<HTMLDivElement, PremiumCertificateP
               </div>
             </div>
 
-            {/* Decorations */}
+            {}
             <img className="bottom-left" src="/images/bottom line.png" alt="" />
             <img className="bottom-right" src="/images/bottom line.png" alt="" style={{ transform: 'scaleX(-1)' }} />
 
-            {/* Bottom center branding */}
+            {}
             <div className="bottom-center">
               <span className="brand">CAMPUSLINK</span>
               <span className="sub">Investment Association</span>
             </div>
 
-            {/* QR Code bottom right */}
+            {}
             <div className="qr-code-block">
               <QRCodeSVG
                 value={`https://campuslink.com/verify/${profile.uid}`}

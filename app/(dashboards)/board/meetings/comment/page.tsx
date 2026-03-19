@@ -74,7 +74,7 @@ function CommentContainer() {
 
     return (
         <div className="min-h-screen bg-stone-50 pb-32">
-            {/* Header section - Presidential Command Style */}
+            {}
             <div className="bg-white border-b border-stone-200/60 sticky top-0 z-30">
                 <div className="max-w-6xl mx-auto px-6 py-6">
                     <div className="flex items-center justify-between mb-8">
@@ -95,7 +95,7 @@ function CommentContainer() {
                     </div>
 
                     <div className="flex flex-col lg:flex-row gap-10">
-                        {/* Meeting Metadata Panel */}
+                        {}
                         <div className="lg:w-1/3 space-y-6">
 
 
@@ -131,7 +131,7 @@ function CommentContainer() {
                             </div>
                         </div>
 
-                        {/* Stats & Actions */}
+                        {}
                         <div className="flex-1 flex flex-col justify-end gap-6">
                             <div className="flex flex-wrap items-center gap-4">
                                 <div className="px-5 py-3 bg-stone-900 rounded-[1.25rem] border border-stone-800 shadow-xl shadow-stone-900/10 flex items-center gap-5 group hover:scale-[1.02] transition-all">
@@ -158,7 +158,7 @@ function CommentContainer() {
                 </div>
             </div>
 
-            {/* Content list - Scrollable Intelligence Archive */}
+            {}
             <div className="max-w-6xl mx-auto px-6 mt-10">
                 <div className="flex items-center gap-4 mb-6">
                     <span className="h-px bg-stone-200 flex-1" />

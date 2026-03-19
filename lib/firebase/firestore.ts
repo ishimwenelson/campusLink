@@ -1,6 +1,4 @@
-/**
- * Firestore helper functions for CampusLink Investment
- */
+
 import {
   doc, getDoc, setDoc, updateDoc, addDoc, deleteDoc,
   collection, query, where, orderBy, getDocs, onSnapshot,
@@ -16,7 +14,7 @@ import type {
 import { getInterestAmount, getShareCount, calculateYearlyPayments } from "@/lib/types";
 import { formatRF } from "@/lib/utils/format";
 
-// ── Users ────────────────────────────────────────────────────────────────────
+
 
 export async function getUser(uid: string): Promise<CampusUser | null> {
   const cacheKey = `user_${uid}`;
@@ -57,7 +55,7 @@ export async function updateUser(uid: string, data: Partial<CampusUser>) {
   return res;
 }
 
-// ── Payments ─────────────────────────────────────────────────────────────────
+
 
 export async function addPayment(uid: string, payment: Omit<Payment, "id">) {
   const ref = await addDoc(collection(db, "users", uid, "payments"), payment);
@@ -82,7 +80,7 @@ export async function getUserPayments(uid: string): Promise<Payment[]> {
   return data;
 }
 
-// ── Emergency Requests ───────────────────────────────────────────────────────
+
 
 export async function createEmergencyRequest(
   uid: string,
@@ -109,7 +107,7 @@ export async function createEmergencyRequest(
   const ref = await addDoc(collection(db, "users", uid, "emergencyRequests"), data);
   clearCache(`emergencies_${uid}`);
   
-  // Trigger: Notify Admins of new request
+  
   await notifyAdmins(
     "New Emergency Request",
     `${userName} has requested ${formatRF(amount)}.`,
@@ -131,7 +129,7 @@ export async function approveEmergencyRequest(
   });
   clearCache(`emergencies_${uid}`);
 
-  // Trigger: Notify Member of approval
+  
   await notifyUser(
     uid,
     "Emergency Loan Approved",
@@ -151,7 +149,7 @@ export async function rejectEmergencyRequest(
     updatedAt: new Date().toISOString()
   });
 
-  // Trigger: Notify Member of rejection
+  
   await notifyUser(
     uid,
     "Emergency Loan Rejected",
@@ -170,14 +168,14 @@ export async function disburseEmergencyRequest(
   if (!reqSnap.exists()) throw new Error("Request not found");
   const req = reqSnap.data() as EmergencyRequest;
 
-  // 1. Update request status
+  
   await updateDoc(reqRef, { 
     status: "disbursed", 
     disbursedBy: releasingTreasurerId,
     disbursedAt: new Date().toISOString()
   });
 
-  // 2. Update user balances (Only now the money is officially "taken")
+  
   await updateDoc(doc(db, "users", uid), {
     emergencyTaken: increment(req.amount),
     interestOwed: increment(req.interestAmount),
@@ -186,7 +184,7 @@ export async function disburseEmergencyRequest(
   clearCache(`payments_${uid}`);
   clearCache("user");
 
-  // 3. Log an official disbursement transaction
+  
   await addDoc(collection(db, "users", uid, "payments"), {
     amount: req.amount,
     date: new Date().toISOString(),
@@ -196,7 +194,7 @@ export async function disburseEmergencyRequest(
     note: `Emergency Loan Disbursed: ${formatRF(req.amount)}`,
   });
 
-  // Trigger: Notify Member of disbursement
+  
   await notifyUser(
     uid,
     "Funds Released",
@@ -220,12 +218,12 @@ export async function checkOverdueEmergencies(uid: string) {
   for (const snap of reqsSnap.docs) {
     const data = snap.data() as EmergencyRequest;
     if (!data.penaltyApplied && new Date(data.dueDate) < now) {
-      const penalty = data.amount * 0.10; // 10% penalty
+      const penalty = data.amount * 0.10; 
       totalPenaltyToAdd += penalty;
 
-      // Update the request document itself
+      
       updates.push(updateDoc(doc(db, "users", uid, "emergencyRequests", snap.id), {
-        interestRate: 0.15, // 5% base + 10% penalty
+        interestRate: 0.15, 
         interestAmount: increment(penalty),
         penaltyApplied: true,
         updatedAt: now.toISOString()
@@ -234,12 +232,12 @@ export async function checkOverdueEmergencies(uid: string) {
   }
 
   if (totalPenaltyToAdd > 0) {
-    // Update the user's total interest owed
+    
     updates.push(updateDoc(doc(db, "users", uid), {
       interestOwed: increment(totalPenaltyToAdd)
     }));
     await Promise.all(updates);
-    return true; // Penalties were applied
+    return true; 
   }
 
   return false;
@@ -254,7 +252,7 @@ export async function checkAnnualShortfallPenalties(uid: string) {
   const startYear = new Date(user.createdAt as any).getFullYear();
   const currentYear = new Date().getFullYear();
   
-  // Get all payments to calculate yearly progress
+  
   const paymentsSnap = await getDocs(collection(db, "users", uid, "payments"));
   const payments = paymentsSnap.docs.map(d => d.data() as any);
   
@@ -264,14 +262,14 @@ export async function checkAnnualShortfallPenalties(uid: string) {
   let totalPenaltyToAdd = 0;
   const newlyPenalizedYears: number[] = [];
   
-  // Only check years in the past
+  
   const pastYears = yearlyRoadmap.filter((y: any) => y.year < currentYear);
   
   for (const yearData of pastYears) {
     if (!yearData.isCompleted && !penalizedYears.includes(yearData.year)) {
       const shortfall = yearData.target - yearData.paid;
       if (shortfall > 0) {
-        const penalty = shortfall * 0.50; // 50% penalty
+        const penalty = shortfall * 0.50; 
         totalPenaltyToAdd += penalty;
         newlyPenalizedYears.push(yearData.year);
       }
@@ -312,11 +310,11 @@ export async function repayEmergency(
 ) {
   const userRef = doc(db, "users", uid);
   
-  // Logic: Repay interest first, then principal
+  
   let interestRepaid = Math.min(amount, currentInterest);
   let principalRepaid = Math.max(0, amount - interestRepaid);
   
-  // Cap principal repayment to what is actually owed
+  
   principalRepaid = Math.min(principalRepaid, currentPrincipal);
   
   await updateDoc(userRef, {
@@ -324,7 +322,7 @@ export async function repayEmergency(
     emergencyTaken: increment(-principalRepaid),
   });
 
-  // Log as a special payment record
+  
   await addDoc(collection(db, "users", uid, "payments"), {
     amount: amount,
     date: new Date().toISOString(),
@@ -333,7 +331,7 @@ export async function repayEmergency(
     note: `Emergency Repay: ${interestRepaid > 0 ? 'Interest ' : ''}${principalRepaid > 0 ? '+ Principal' : ''}`,
   });
 
-  // Logic: If debt is fully cleared, mark all disbursed requests as paid
+  
   const userSnap = await getDoc(userRef);
   const user = userSnap.data() as CampusUser;
   if ((user.emergencyTaken || 0) <= 0 && (user.interestOwed || 0) <= 0) {
@@ -357,14 +355,14 @@ export async function recordTreasurerEmergencyPayback(
 ) {
   const userRef = doc(db, "users", uid);
   
-  // Logic: Repay interest first, then principal (standard rule)
+  
   let interestRepaid = Math.min(amount, currentInterest);
   let principalRepaid = Math.max(0, amount - interestRepaid);
   
-  // Cap principal repayment to what is actually owed
+  
   principalRepaid = Math.min(principalRepaid, currentPrincipal);
   
-  // 1. Update balances
+  
   await updateDoc(userRef, {
     interestOwed: increment(-interestRepaid),
     emergencyTaken: increment(-principalRepaid),
@@ -374,7 +372,7 @@ export async function recordTreasurerEmergencyPayback(
   clearCache(`emergencies_${uid}`);
   clearCache(`payments_${uid}`);
 
-  // Log as an official Treasurer Manual payment record
+  
   await addDoc(collection(db, "users", uid, "payments"), {
     amount: amount,
     date: new Date().toISOString(),
@@ -384,7 +382,7 @@ export async function recordTreasurerEmergencyPayback(
     status: "completed"
   });
 
-  // Trigger: Notify Member of payback
+  
   await notifyUser(
     uid,
     "Emergency Payback Recorded",
@@ -392,7 +390,7 @@ export async function recordTreasurerEmergencyPayback(
     "payment"
   );
 
-  // Logic: If debt is fully cleared, mark all disbursed requests as paid
+  
   const userSnap = await getDoc(userRef);
   const user = userSnap.data() as CampusUser;
   if ((user.emergencyTaken || 0) <= 0 && (user.interestOwed || 0) <= 0) {
@@ -416,7 +414,7 @@ export async function repayShortfallPenalty(uid: string, amount: number, provide
   });
   clearCache("user");
 
-  // Log as a special payment record
+  
   await addDoc(collection(db, "users", uid, "payments"), {
     amount: amount,
     date: new Date().toISOString(),
@@ -436,7 +434,7 @@ export async function getAllPendingEmergencyRequests() {
   
   for (const d of snap.docs) {
     const data = d.data() as EmergencyRequest;
-    // We still need the user doc for the full name etc., but now we only fetch what we found
+    
     const userSnap = await getDoc(doc(db, "users", data.userId));
     results.push({
       ...data,
@@ -503,7 +501,7 @@ export async function getAllEmergencyRequests() {
   return results;
 }
 
-// ── Proposals ────────────────────────────────────────────────────────────────
+
 
 export async function getProposals(): Promise<Proposal[]> {
   const cacheKey = "proposals";
@@ -558,18 +556,18 @@ export async function voteOnProposal(
     const voters = { ...votes.voters };
 
     if (existingVote === vote) {
-      // TOGGLE OFF
+      
       votes[vote] = Math.max(0, votes[vote] - 1);
       delete voters[userId];
       votes.totalVoters = Math.max(0, votes.totalVoters - 1);
     } else if (existingVote) {
-      // SWITCH
+      
       const otherVote = existingVote === 'yes' ? 'no' : 'yes';
       votes[otherVote] = Math.max(0, votes[otherVote] - 1);
       votes[vote] = votes[vote] + 1;
       voters[userId] = vote;
     } else {
-      // NEW VOTE
+      
       votes[vote] = votes[vote] + 1;
       voters[userId] = vote;
       votes.totalVoters = votes.totalVoters + 1;
@@ -577,7 +575,7 @@ export async function voteOnProposal(
 
     votes.voters = voters;
 
-    // Check status
+    
     const requiredYesStr = data.requiredPercentage || 70;
     const requiredYesVotes = Math.ceil(totalVoters * (requiredYesStr / 100));
     const currentTotalVotes = votes.yes + votes.no;
@@ -609,7 +607,7 @@ export async function addProposalComment(
   });
 }
 
-// ── Meetings ─────────────────────────────────────────────────────────────────
+
 
 export async function getMeetings(): Promise<Meeting[]> {
   const cacheKey = "meetings";
@@ -645,7 +643,7 @@ export async function addAttendeeToMeeting(meetingId: string, userId: string) {
   });
 }
 
-// ── Notifications ────────────────────────────────────────────────────────────
+
 
 export async function createNotification(notif: Omit<Notification, "id">) {
   return await addDoc(collection(db, "notifications"), notif);
@@ -722,7 +720,7 @@ export async function notifyAllUsers(title: string, message: string, type: Notif
   return await Promise.all(promises);
 }
 
-// ── Documents ────────────────────────────────────────────────────────────────
+
 
 export async function saveUserDocument(uid: string, docData: Omit<UserDocument, "id">) {
   return await addDoc(collection(db, "users", uid, "documents"), docData);
@@ -733,9 +731,9 @@ export async function getUserDocuments(uid: string): Promise<UserDocument[]> {
   return snap.docs.map((d) => ({ id: d.id, ...d.data() } as UserDocument));
 }
 
-// ── Global Query Cache ─────────────────────────────────────────────
+
 const queryCache = new Map<string, { data: any, timestamp: number }>();
-const CACHE_TTL = 30000; // 30 seconds cache
+const CACHE_TTL = 30000; 
 
 function getCached(key: string) {
   const cached = queryCache.get(key);
@@ -749,18 +747,18 @@ function setCache(key: string, data: any) {
   queryCache.set(key, { data, timestamp: Date.now() });
 }
 
-// Clear relevant cache on mutations
+
 export function clearCache(keyPattern?: string) {
   if (!keyPattern) {
     queryCache.clear();
     return;
   }
-  for (const key of queryCache.keys()) { // Corrected from .Keys() to .keys()
+  for (const key of queryCache.keys()) { 
     if (key.includes(keyPattern)) queryCache.delete(key);
   }
 }
 
-// ── Dividend Management ────────────────────────────────────────────────────────
+
 
 export async function getDividendProjects(): Promise<DividendProject[]> {
   const snap = await getDocs(collection(db, "dividendProjects"));
@@ -840,7 +838,7 @@ export async function getUserDividendSummary(userId: string): Promise<UserDivide
   const claimedDividends = dividends.filter(d => d.status === 'claimed').reduce((sum, d) => sum + d.dividendAmount, 0);
   const pendingDividends = dividends.filter(d => d.status === 'distributed').reduce((sum, d) => sum + d.dividendAmount, 0);
 
-  // Get project names for the summary
+  
   const projectIds = [...new Set(dividends.map(d => d.projectId))];
   const projectDocs = await Promise.all(
     projectIds.map(id => getDoc(doc(db, "dividendProjects", id)))
@@ -866,7 +864,7 @@ export async function getUserDividendSummary(userId: string): Promise<UserDivide
   };
 }
 
-// ── Campus Info ───────────────────────────────────────────────────────────────
+
 
 export async function getCampusInfo(): Promise<CampusInfo[]> {
   const snap = await getDocs(
@@ -906,13 +904,13 @@ export async function incrementCampusInfoViews(id: string): Promise<void> {
   });
 }
 
-// ── System Settings ──────────────────────────────────────────────────────────
+
 
 export async function getSystemSettings() {
   const ref = doc(db, "settings", "system");
   const snap = await getDoc(ref);
   if (snap.exists()) return snap.data();
-  // Default settings if not found
+  
   return {
     shareUnitPrice: 1000,
     minShareThreshold: 400000,
@@ -925,7 +923,7 @@ export async function updateSystemSettings(data: any) {
   const oldSettings = await getSystemSettings();
   await setDoc(ref, { ...data, updatedAt: new Date().toISOString() }, { merge: true });
 
-  // Trigger: Notify everyone if share value changed
+  
   if (oldSettings.shareUnitPrice !== data.shareUnitPrice) {
     await notifyAllUsers(
       "Share Value Updated",
@@ -935,7 +933,7 @@ export async function updateSystemSettings(data: any) {
   }
 }
 
-// ── Share Transfer Transaction ───────────────────────────────────────────────
+
 
 export async function transferShares(senderId: string, recipientId: string, amount: number) {
   const senderRef = doc(db, "users", senderId);
@@ -950,7 +948,7 @@ export async function transferShares(senderId: string, recipientId: string, amou
 
     const sender = senderSnap.data() as CampusUser;
     
-    // Strict business rules
+    
     if (sender.paidSoFar < 400000) {
       throw new Error("You must have at least 400,000 RF to transfer shares.");
     }
@@ -958,7 +956,7 @@ export async function transferShares(senderId: string, recipientId: string, amou
       throw new Error("Insufficient shares to complete this transfer.");
     }
 
-    // Atomic updates - Update both actual equity (paidSoFar) and commitment (totalShareValue)
+    
     transaction.update(senderRef, {
       paidSoFar: increment(-amount),
       totalShareValue: increment(-amount)
@@ -970,7 +968,7 @@ export async function transferShares(senderId: string, recipientId: string, amou
     });
     clearCache("user");
 
-    // Log for sender
+    
     const senderLogRef = doc(collection(db, "users", senderId, "payments"));
     transaction.set(senderLogRef, {
       amount: -amount,
@@ -981,7 +979,7 @@ export async function transferShares(senderId: string, recipientId: string, amou
       status: "completed"
     });
 
-    // Log for recipient
+    
     const recipientLogRef = doc(collection(db, "users", recipientId, "payments"));
     transaction.set(recipientLogRef, {
       amount: amount,
@@ -1001,13 +999,13 @@ export async function recordAdminPayment(userId: string, amount: number, note?: 
     const userSnap = await transaction.get(userRef);
     if (!userSnap.exists()) throw new Error("User not found");
 
-    // 1. Update user monetary balance only (as per institutional rules)
+    
     transaction.update(userRef, {
       paidSoFar: increment(amount)
     });
     clearCache("user");
 
-    // 2. Record the payment log
+    
     const paymentLogRef = doc(collection(db, "users", userId, "payments"));
     transaction.set(paymentLogRef, {
       amount,
@@ -1019,7 +1017,7 @@ export async function recordAdminPayment(userId: string, amount: number, note?: 
     });
   });
 
-  // Trigger: Notify Member of manual saving
+  
   await notifyUser(
     userId,
     "Savings Recorded",
@@ -1028,7 +1026,7 @@ export async function recordAdminPayment(userId: string, amount: number, note?: 
   );
 }
 
-// ── Meeting Comments ────────────────────────────────────────────────────────
+
 
 export async function addMeetingComment(meetingId: string, comment: Omit<MeetingComment, "id">) {
   const ref = await addDoc(collection(db, "meetings", meetingId, "comments"), comment);
@@ -1044,7 +1042,7 @@ export async function getMeetingComments(meetingId: string): Promise<MeetingComm
   return snap.docs.map(d => ({ id: d.id, ...d.data() } as MeetingComment));
 }
 
-// ── Project Drafts ──────────────────────────────────────────────────────────
+
 
 export const createProjectDraft = async (draft: Omit<ProjectDraft, 'id'>) => {
   const docRef = await addDoc(collection(db, "projectDrafts"), {
@@ -1068,10 +1066,10 @@ export const getProjectDrafts = async (role: UserRole, uid: string) => {
   let q;
   
   if (role === 'boardMember' || role === 'president') {
-    // Board members see submitted/reviewing drafts
+    
     q = query(draftsRef, where("status", "in", ["submitted", "under_review", "feedback_given"]), orderBy("updatedAt", "desc"));
   } else {
-    // Investors see their own drafts
+    
     q = query(draftsRef, where("createdBy", "==", uid), orderBy("updatedAt", "desc"));
   }
   
@@ -1092,7 +1090,7 @@ export const deleteProjectDraft = async (id: string) => {
   await deleteDoc(docRef);
 };
 
-// ── Share Marketplace ──────────────────────────────────────────────────────
+
 
 export async function createShareListing(uid: string, userName: string, amount: number, price: number, isLiquidation: boolean) {
   const userRef = doc(db, "users", uid);
@@ -1102,7 +1100,7 @@ export async function createShareListing(uid: string, userName: string, amount: 
   const settings = await getSystemSettings();
   const sharePrice = settings.shareUnitPrice || 1000;
 
-  // 1. Check for existing active listings to prevent over-listing
+  
   const activeListingsSnap = await getDocs(query(
     collection(db, "marketListings"),
     where("sellerId", "==", uid),
@@ -1116,12 +1114,12 @@ export async function createShareListing(uid: string, userName: string, amount: 
     throw new Error("You already have active listings. Please close them before liquidating your entire portfolio.");
   }
 
-  if (amount > (totalUserShares - alreadyListedShares + 0.001)) { // Floating point safety
+  if (amount > (totalUserShares - alreadyListedShares + 0.001)) { 
     throw new Error(`Insufficient available shares. You already have ${Math.round(alreadyListedShares)} units listed on the market.`);
   }
 
-  // Rule: Must be > 400,000 RF to sell partial. 
-  // If not liquidation, the remainder must be >= 400,000
+  
+  
   const amountInRF = amount * sharePrice;
 
   if (!isLiquidation) {
@@ -1129,8 +1127,8 @@ export async function createShareListing(uid: string, userName: string, amount: 
       throw new Error(`You must maintain at least 400 shares (${formatRF(400000)}) unless you are leaving Campus Link.`);
     }
   } else {
-    // If liquidation, must sell ALL shares
-    if (Math.abs(amountInRF - user.paidSoFar) > 1) { // Floating point safety
+    
+    if (Math.abs(amountInRF - user.paidSoFar) > 1) { 
       throw new Error(`When leaving Campus Link, you must list all your shares (${Math.round(user.paidSoFar / sharePrice)} units) for sale.`);
     }
   }
@@ -1214,7 +1212,7 @@ export async function acceptShareOffer(offer: ShareOffer) {
     const sharePrice = settings.exists() ? (settings.data().shareUnitPrice || 1000) : 1000;
     const shareValueInRF = offer.requestedShares * sharePrice;
 
-    // 1. Update balances
+    
     transaction.update(sellerRef, {
       paidSoFar: increment(-shareValueInRF),
       totalShareValue: increment(-shareValueInRF)
@@ -1225,19 +1223,19 @@ export async function acceptShareOffer(offer: ShareOffer) {
       totalShareValue: increment(shareValueInRF)
     });
 
-    // 2. Update listing
+    
     const newAvailable = listing.availableShares - offer.requestedShares;
     transaction.update(listingRef, {
       availableShares: newAvailable,
       status: newAvailable === 0 ? 'closed' : 'open'
     });
 
-    // 3. Update offer status
+    
     transaction.update(doc(db, "marketListings", offer.listingId, "offers", offer.id), {
       status: 'accepted'
     });
 
-    // 4. Log transactions
+    
     const logBatch = [
       { 
         uid: offer.sellerId, 
@@ -1263,7 +1261,7 @@ export async function acceptShareOffer(offer: ShareOffer) {
       });
     }
 
-    // 5. Official Market Audit Log
+    
     const auditRef = doc(collection(db, "marketHistory"));
     transaction.set(auditRef, {
       sellerId: offer.sellerId,

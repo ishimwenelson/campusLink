@@ -59,9 +59,9 @@ export function TransferSharesModal({ isOpen, onClose, sender }: TransferSharesM
         setTransferring(true);
         try {
             await transferShares(sender.uid, recipient.uid, totalRF);
-            toast.success("Shares transferred successfully! 🚀");
+            toast.success("Shares transferred successfully! ");
             onClose();
-            // Reset state
+            
             setStep("lookup");
             setRecipient(null);
             setShareCount(0);
@@ -92,7 +92,7 @@ export function TransferSharesModal({ isOpen, onClose, sender }: TransferSharesM
                     exit={{ scale: 0.9, opacity: 0, y: 20 }}
                     className="relative w-full max-w-xl bg-stone-900 border border-stone-800 rounded-[40px] overflow-hidden shadow-2xl"
                 >
-                    {/* Progress Bar */}
+                    {}
                     <div className="absolute top-0 left-0 h-1 bg-stone-800 w-full">
                         <motion.div 
                             className="h-full bg-amber-500"

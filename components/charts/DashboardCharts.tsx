@@ -13,7 +13,7 @@ import {
 import { formatRF, formatDate } from "@/lib/utils/format";
 import type { Proposal, CampusUser, Meeting } from "@/lib/types";
 
-// Chart Types
+
 export interface ChartData {
   name: string;
   value: number;
@@ -33,7 +33,7 @@ export interface CategoryData {
   percentage?: number;
 }
 
-// Flexible data interfaces to handle different chart data formats
+
 export interface FlexibleChartData {
   name?: string;
   category?: string;
@@ -44,7 +44,7 @@ export interface FlexibleChartData {
   [key: string]: any;
 }
 
-// Color Palette
+
 const COLORS = {
   primary: "#f59e0b",
   secondary: "#10b981", 
@@ -63,7 +63,7 @@ const CHART_COLORS = [
   "#ec4899", "#06b6d4", "#84cc16", "#f97316", "#6366f1"
 ];
 
-// Component Props
+
 interface ChartCardProps {
   title: string;
   subtitle?: string;
@@ -77,7 +77,7 @@ interface ChartCardProps {
   className?: string;
 }
 
-// Base Chart Card Component
+
 export function ChartCard({ title, subtitle, icon, children, trend, className = "" }: ChartCardProps) {
   return (
     <motion.div
@@ -109,7 +109,7 @@ export function ChartCard({ title, subtitle, icon, children, trend, className = 
   );
 }
 
-// Line Chart Component
+
 export function CustomLineChart({ data, dataKey, height = 300 }: { 
   data: any[]; 
   dataKey: string;
@@ -150,7 +150,7 @@ export function CustomLineChart({ data, dataKey, height = 300 }: {
   );
 }
 
-// Area Chart Component
+
 export function CustomAreaChart({ data, dataKey, height = 300 }: { 
   data: any[]; 
   dataKey: string;
@@ -191,7 +191,7 @@ export function CustomAreaChart({ data, dataKey, height = 300 }: {
   );
 }
 
-// Bar Chart Component
+
 export function CustomBarChart({ data, dataKey, height = 300 }: { 
   data: any[]; 
   dataKey: string;
@@ -225,7 +225,7 @@ export function CustomBarChart({ data, dataKey, height = 300 }: {
   );
 }
 
-// Pie Chart Component
+
 export function CustomPieChart({ data, height = 300 }: { 
   data: any[]; 
   height?: number;
@@ -261,7 +261,7 @@ export function CustomPieChart({ data, height = 300 }: {
   );
 }
 
-// Radial Chart Component
+
 export function CustomRadialChart({ data, height = 300 }: { 
   data: { name: string; value: number; fill: string }[]; 
   height?: number;
@@ -284,7 +284,7 @@ export function CustomRadialChart({ data, height = 300 }: {
   );
 }
 
-// Member Dashboard Charts
+
 export function MemberDashboardCharts({ memberData }: { memberData: any }) {
   const savingsData = [
     { month: "Jan", amount: 50000 },
@@ -355,7 +355,7 @@ export function MemberDashboardCharts({ memberData }: { memberData: any }) {
   );
 }
 
-// President Dashboard Charts
+
 export function PresidentDashboardCharts({ presidentData }: { presidentData: any }) {
   const revenueData = [
     { month: "Jan", amount: 2500000 },
@@ -427,11 +427,11 @@ export function PresidentDashboardCharts({ presidentData }: { presidentData: any
   );
 }
 
-// Treasurer Dashboard Charts
+
 export function TreasurerDashboardCharts({ treasurerData }: { treasurerData: { members: any[] } }) {
   const { members } = treasurerData;
 
-  // Real Cash Flow Analysis (Saving trends)
+  
   const currentYearVal = new Date().getFullYear();
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   
@@ -450,7 +450,7 @@ export function TreasurerDashboardCharts({ treasurerData }: { treasurerData: { m
 
   return (
     <div className="bg-white rounded-[2.5rem] border border-stone-100 shadow-xl p-5 h-full flex flex-col gap-4">
-      {/* Header */}
+      {}
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-white shadow-md shadow-amber-200">
           <TrendingUp size={16} />
@@ -573,7 +573,7 @@ export function ShareDistributionChart({ members }: { members: any[] }) {
   );
 }
 
-// Secretary Dashboard Charts
+
 export function SecretaryDashboardCharts({ secretaryData }: { secretaryData: any }) {
   const meetingData = [
     { month: "Jan", attended: 45, total: 50 },
@@ -671,12 +671,12 @@ export function SecretaryDashboardCharts({ secretaryData }: { secretaryData: any
   );
 }
 
-// Board Member Dashboard Charts
+
 export function BoardMemberDashboardCharts({ boardData }: { boardData: { proposals: Proposal[], members: CampusUser[], meetings: Meeting[] } }) {
   const { proposals, members, meetings } = boardData;
 
-  // ─── Real data transformation for Governance Performance (Attendance by Role) ───
-  // Map internal roles to display names
+  
+  
   const roleMapping: Record<string, string> = {
     secretary: "Secretariat",
     treasurer: "Treasury",
@@ -690,17 +690,17 @@ export function BoardMemberDashboardCharts({ boardData }: { boardData: { proposa
   const committeeData = Object.entries(roleMapping).map(([role, name]) => {
     const roleMembers = members.filter(m => m.role === role);
     if (roleMembers.length === 0 || completedMeetings.length === 0) {
-      return { name, efficiency: 80 }; // Fallback
+      return { name, efficiency: 80 }; 
     }
 
     let totalPossibleAttendances = 0;
     let actualAttendances = 0;
 
     completedMeetings.forEach(meeting => {
-      // Check if this role was even invited to the meeting
+      
       if (meeting.invitedRoles?.includes(role as any)) {
         totalPossibleAttendances += roleMembers.length;
-        // Count how many members of this role were in the attendees list
+        
         const attendeesOfThisRole = meeting.attendees?.filter((uid: string) => 
           roleMembers.some(rm => rm.uid === uid)
         ).length || 0;
@@ -715,7 +715,7 @@ export function BoardMemberDashboardCharts({ boardData }: { boardData: { proposa
     return { name, efficiency };
   });
 
-  // Real data transformation for Proposal Activity (Monthly)
+  
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const currentMonthIdx = new Date().getMonth();
   const yearToDisplay = new Date().getFullYear();
@@ -734,7 +734,7 @@ export function BoardMemberDashboardCharts({ boardData }: { boardData: { proposa
     };
   }).slice(0, currentMonthIdx + 1);
 
-  // Real data transformation for Decision Distribution
+  
   const approvedCount = proposals.filter(p => p.status === "approved").length;
   const rejectedCount = proposals.filter(p => p.status === "rejected").length;
   const pendingCount = proposals.filter(p => p.status === "active" || p.status === "pending" || p.status === "under_review").length;
@@ -746,7 +746,7 @@ export function BoardMemberDashboardCharts({ boardData }: { boardData: { proposa
     { name: `Pending(${pendingCount})`, value: pendingCount, fill: COLORS.warning, percentage: Math.round((pendingCount / total) * 100) }
   ];
 
-  // Default fallback if no data
+  
   if (votingData.length === 0) {
     votingData.push({ name: "No Data", value: 1, fill: COLORS.gray, percentage: 0 });
   }

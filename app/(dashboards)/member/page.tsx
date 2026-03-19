@@ -42,12 +42,12 @@ export default function MemberDashboard() {
   useEffect(() => {
     if (!profile?.uid) return;
     
-    // First check for and apply any overdue penalties
+    
     Promise.all([
       checkOverdueEmergencies(profile.uid),
       checkAnnualShortfallPenalties(profile.uid)
     ]).then(() => {
-      // Then fetch the latest data
+      
       return Promise.all([
         getUserPayments(profile.uid),
         getUserEmergencyRequests(profile.uid),
@@ -78,18 +78,18 @@ export default function MemberDashboard() {
   );
   const allYearsCompleted = yearlySchedule.every(year => year.isCompleted);
 
-  // Check for newly completed years and trigger confetti
+  
   useEffect(() => {
     if (loading) return;
 
-    // Check if any year just became completed
+    
     yearlySchedule.forEach((yr, index) => {
       if (yr.isCompleted && !completedYears.has(index)) {
         setCompletedYear(index);
         setCompletedYears(prev => new Set(prev).add(index));
-        // Show toast notification
-        toast.success(`🎉 Congratulations! Year ${index + 1} completed!`);
-        // Reset after animation
+        
+        toast.success(` Congratulations! Year ${index + 1} completed!`);
+        
         setTimeout(() => setCompletedYear(null), 5000);
       }
     });
@@ -108,7 +108,7 @@ export default function MemberDashboard() {
     <div className="p-2 lg:p-4 max-w-[1400px] mx-auto space-y-8">
       <Confetti trigger={completed || completedYear !== null} />
 
-      {/* Header - Standardized heart */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
         className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-stone-100 pb-8"
@@ -147,7 +147,7 @@ export default function MemberDashboard() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
             className="space-y-8"
           >
-            {/* Welcome hero */}
+            {}
             <div className="relative overflow-hidden rounded-[3rem] bg-[#09090b] p-10 lg:p-14 shadow-[0_50px_100px_rgba(0,0,0,0.3)] border border-stone-800">
               <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full -mr-300 -mt-300 blur-[120px]" />
               <div className="relative flex flex-col lg:flex-row items-center justify-between gap-12">
@@ -193,13 +193,13 @@ export default function MemberDashboard() {
                     size={220}
                     label="Growth Status"
                     sublabel={`${Math.round(progressPercent)}%`}
-                    emoji={completed ? "🏁" : "✨"}
+                    emoji={completed ? "" : ""}
                   />
                 </div>
               </div>
             </div>
 
-            {/* Financial Overview Cards */}
+            {}
             <div className="grid grid-cols-2 lg:grid-cols-5 gap-6">
               <StatCard
                 title="Total Savings" value={formatRF(profile.paidSoFar)} subtitle="Accumulated equity" icon={TrendingUp} color="gold" delay={0.1}
@@ -224,7 +224,7 @@ export default function MemberDashboard() {
             </div>
 
             <div className="space-y-12">
-              {/* Year Breakdown - Full Width heart */}
+              {}
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <h2 className="font-display text-2xl text-stone-900 font-bold">5-Year Growth Map</h2>
@@ -264,7 +264,7 @@ export default function MemberDashboard() {
                   })}
                 </div>
 
-                {/* Certificate Button */}
+                {}
                 {allYearsCompleted && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -280,12 +280,12 @@ export default function MemberDashboard() {
                       <CheckCircle2 size={20} />
                       Get Your Certificate
                     </motion.button>
-                    <p className="text-xs text-stone-500 mt-2">🎉 Congratulations! You've completed your 5-year commitment.</p>
+                    <p className="text-xs text-stone-500 mt-2"> Congratulations! You've completed your 5-year commitment.</p>
                   </motion.div>
                 )}
               </div>
 
-              {/* Current Status - Full Width Bottom heart */}
+              
               <div className="bg-white p-8 lg:p-12 rounded-[3rem] border border-stone-100 shadow-[0_30px_60px_-12px_rgba(0,0,0,0.05)] space-y-10">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                   <h3 className="font-display text-3xl text-stone-900 font-black tracking-tight">Portfolio Status</h3>
@@ -365,7 +365,7 @@ export default function MemberDashboard() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
             className="space-y-8"
           >
-            {/* High-Density Emergency Stats heart */}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <StatCard
                 title="Historically Disbursed"
@@ -440,7 +440,7 @@ export default function MemberDashboard() {
         )}
       </AnimatePresence>
 
-      {/* Emergency Modal */}
+      
       <EmergencyModal
         open={emergencyOpen}
         onClose={() => setEmergencyOpen(false)}
@@ -476,7 +476,7 @@ export default function MemberDashboard() {
         sender={profile}
       />
 
-      {/* Official Print Layout heart */}
+      
       <div className="hidden print:block fixed inset-0 bg-white z-[9999] p-12">
         <div className="flex justify-between items-start border-b-2 border-stone-900 pb-8 mb-8">
           <div className="flex items-center gap-4">

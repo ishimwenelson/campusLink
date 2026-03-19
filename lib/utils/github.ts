@@ -1,7 +1,4 @@
-/**
- * GitHub Storage Utility for CampusLink
- * Uses GitHub REST API to store documents
- */
+
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_OWNER = process.env.GITHUB_OWNER;
@@ -40,7 +37,7 @@ export async function uploadToGithub(
       throw new Error(data.message || "Failed to upload to GitHub");
     }
 
-    // Return the raw download URL
+    
     return {
       success: true,
       url: data.content.download_url,

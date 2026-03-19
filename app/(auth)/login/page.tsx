@@ -1,4 +1,4 @@
-// app/(auth)/login/page.tsx
+
 "use client";
 
 import { useState } from "react";
@@ -48,15 +48,15 @@ export default function LoginPage() {
         throw new Error("Account not found. Contact your secretary.");
       }
 
-      // Set session cookie for middleware
+      
       document.cookie = `campuslink_session=${JSON.stringify({
         uid:  cred.user.uid,
         role: profile.role,
       })}; path=/; max-age=${60 * 60 * 24 * 7}`;
 
-      toast.success(`Welcome back, ${profile.fullName.split(" ")[0]}! 👋`);
+      toast.success(`Welcome back, ${profile.fullName.split(" ")[0]}! `);
 
-      // Force password change on first login
+      
       if (!profile.passwordChanged) {
         router.push("/change-password");
         return;
@@ -73,7 +73,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#050505] bg-pattern flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background glow orbs */}
+      {}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#D4A017] opacity-[0.04] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-[#F5C842] opacity-[0.03] rounded-full blur-3xl pointer-events-none" />
 
@@ -83,7 +83,7 @@ export default function LoginPage() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="w-full max-w-md"
       >
-        {/* Logo */}
+        {}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -101,7 +101,7 @@ export default function LoginPage() {
           </p>
         </motion.div>
 
-        {/* Card */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -113,7 +113,7 @@ export default function LoginPage() {
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            {/* Email */}
+            {}
             <div>
               <label className="block text-sm font-medium text-[#9a8a6a] mb-2">
                 Email address
@@ -139,7 +139,7 @@ export default function LoginPage() {
               </AnimatePresence>
             </div>
 
-            {/* Password */}
+            {}
             <div>
               <label className="block text-sm font-medium text-[#9a8a6a] mb-2">
                 Password
@@ -174,7 +174,7 @@ export default function LoginPage() {
               </AnimatePresence>
             </div>
 
-            {/* Submit */}
+            {}
             <motion.button
               type="submit"
               disabled={loading}
@@ -201,7 +201,7 @@ export default function LoginPage() {
           </p>
         </motion.div>
 
-        {/* Footer */}
+        {}
         <p className="text-center text-xs text-[#3a3020] mt-6">
           © {new Date().getFullYear()} CampusLink Investment Association
         </p>

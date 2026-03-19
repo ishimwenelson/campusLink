@@ -60,13 +60,13 @@ export default function FinancialReports() {
         fetchData();
     }, []);
 
-    // Accounting Logic
+    
     const totalSavings = members.reduce((s, m) => s + (m.paidSoFar || 0), 0);
     const totalEmergencyDisbursed = members.reduce((s, m) => s + (m.emergencyTaken || 0), 0);
     const totalInterestIncome = members.reduce((s, m) => s + (m.interestOwed || 0), 0);
     const pendingDisbursement = approvedRequests.reduce((s, r) => s + r.amount, 0);
 
-    // Balance Sheet Logic
+    
     const cashOnHand = totalSavings - totalEmergencyDisbursed;
     const loansReceivable = totalEmergencyDisbursed + totalInterestIncome;
     const totalAssets = cashOnHand + loansReceivable;
@@ -80,7 +80,7 @@ export default function FinancialReports() {
         setDisbursingId(req.id);
         try {
             await disburseEmergencyRequest(req.userId, req.id, profile.uid);
-            toast.success(`Funds released to ${req.userDoc?.fullName} ✅`);
+            toast.success(`Funds released to ${req.userDoc?.fullName} `);
             fetchData();
         } catch (error) {
             console.error("Release error:", error);
@@ -104,7 +104,7 @@ export default function FinancialReports() {
             { key: "status",   width: 16 },
         ];
 
-        // Title row
+        
         ws.mergeCells("A1:E1");
         const titleCell = ws.getCell("A1");
         titleCell.value = "CAMPUSLINK — EMERGENCY DISBURSEMENT AUDIT";
@@ -113,7 +113,7 @@ export default function FinancialReports() {
         titleCell.alignment = { horizontal: "center", vertical: "middle" };
         ws.getRow(1).height = 30;
 
-        // Subtitle row
+        
         ws.mergeCells("A2:E2");
         const subCell = ws.getCell("A2");
         subCell.value = `Official Record of Released Capital  ·  Generated on ${new Date().toLocaleDateString()}`;
@@ -122,7 +122,7 @@ export default function FinancialReports() {
         subCell.alignment = { horizontal: "center", vertical: "middle" };
         ws.getRow(2).height = 18;
 
-        // Header row
+        
         const hdrRow = ws.addRow(["Recipient Member", "Principal Release", "Interest Applied", "Disbursement Date", "Status"]);
         hdrRow.height = 22;
         hdrRow.eachCell((cell) => {
@@ -134,7 +134,7 @@ export default function FinancialReports() {
         });
         ws.autoFilter = { from: "A3", to: "E3" };
 
-        // Data rows
+        
         disbursedRequests.forEach(r => {
             const row = ws.addRow([
                 r.userDoc?.fullName ?? "—",
@@ -155,10 +155,10 @@ export default function FinancialReports() {
             });
         });
 
-        // Empty row before totals
+        
         ws.addRow([]);
 
-        // Totals row
+        
         const totalPrincipal = disbursedRequests.reduce((a, b) => a + b.amount, 0);
         const totalInterest  = disbursedRequests.reduce((a, b) => a + b.interestAmount, 0);
         const totalRow = ws.addRow(["AUDIT TOTALS", totalPrincipal, totalInterest, "", ""]);
@@ -173,7 +173,7 @@ export default function FinancialReports() {
         const buffer = await wb.xlsx.writeBuffer();
         const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
         saveAs(blob, `CampusLink_Disbursement_Audit_${new Date().toISOString().split('T')[0]}.xlsx`);
-        toast.success("Premium audit report exported! 🏦");
+        toast.success("Premium audit report exported! ");
     };
 
     const handlePrintAudit = () => {
@@ -185,7 +185,7 @@ export default function FinancialReports() {
         wb.creator = "CampusLink Treasury";
         wb.created = new Date();
 
-        // ─── Income Statement Sheet ───────────────────────────────────────────
+        
         const is = wb.addWorksheet("Income Statement");
         is.columns = [
             { key: "section",  width: 26 },
@@ -194,7 +194,7 @@ export default function FinancialReports() {
             { key: "note",     width: 32 },
         ];
 
-        // Title row
+        
         is.mergeCells("A1:D1");
         const titleCell = is.getCell("A1");
         titleCell.value = "CAMPUSLINK — INCOME STATEMENT";
@@ -203,7 +203,7 @@ export default function FinancialReports() {
         titleCell.alignment = { horizontal: "center", vertical: "middle" };
         is.getRow(1).height = 30;
 
-        // Subtitle row
+        
         is.mergeCells("A2:D2");
         const subCell = is.getCell("A2");
         subCell.value = `Fiscal Year ${year}  ·  Generated on ${new Date().toLocaleDateString()}`;
@@ -212,7 +212,7 @@ export default function FinancialReports() {
         subCell.alignment = { horizontal: "center", vertical: "middle" };
         is.getRow(2).height = 18;
 
-        // Header row
+        
         const isHeaders = ["Section", "Line Item", "Amount (RWF)", "Notes"];
         const headerRow = is.addRow(isHeaders);
         headerRow.height = 22;
@@ -241,7 +241,7 @@ export default function FinancialReports() {
         is.addRow([]);
         addISRow("TOTAL",   "TOTAL GROSS REVENUE",       totalSavings + totalInterestIncome, "", true, "FFFFF3CD");
 
-        // ─── Balance Sheet Sheet ──────────────────────────────────────────────
+        
         const bs = wb.addWorksheet("Balance Sheet");
         bs.columns = [
             { key: "side",    width: 20 },
@@ -301,7 +301,7 @@ export default function FinancialReports() {
         const buffer = await wb.xlsx.writeBuffer();
         const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
         saveAs(blob, `CampusLink_Financial_Report_${year}.xlsx`);
-        toast.success("Premium financial report exported! 🏦");
+        toast.success("Premium financial report exported! ");
     };
 
     if (loading) return (
@@ -315,7 +315,7 @@ export default function FinancialReports() {
 
     return (
         <div className="pt-2 lg:pt-3 px-4 lg:px-6 pb-20 max-w-[1500px] mx-auto space-y-8">
-            {/* Header Redesign */}
+            {}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="tracking-tight text-3xl font-black text-stone-900 leading-none">
@@ -356,7 +356,7 @@ export default function FinancialReports() {
                 </div>
             </div>
 
-            {/* Top Summaries — Official StatCards */}
+            {}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatCard title="Total Capital"    value={formatRF(totalSavings)}          icon={DollarSign}  color="gold"   delay={0} />
                 <StatCard title="Cash On Hand"     value={formatRF(cashOnHand)}            icon={Landmark}    color="green"  delay={0.05} />
@@ -372,7 +372,7 @@ export default function FinancialReports() {
                         className="space-y-8"
                     >
                         <div className="grid lg:grid-cols-2 gap-8">
-                            {/* Income Statement */}
+                            {}
                             <div className="bg-white rounded-[2.5rem] border border-stone-100 shadow-xl overflow-hidden">
                                 <div className="p-8 border-b border-stone-50 flex items-center justify-between bg-amber-50/30">
                                     <div className="flex items-center gap-3">
@@ -401,7 +401,7 @@ export default function FinancialReports() {
                                 </div>
                             </div>
 
-                            {/* Balance Sheet */}
+                            {}
                             <div className="bg-white rounded-[2.5rem] border border-stone-100 shadow-xl overflow-hidden text-[12px]">
                                 <div className="p-8 border-b border-stone-50 flex items-center justify-between bg-blue-50/30">
                                     <div className="flex items-center gap-3">
@@ -438,7 +438,7 @@ export default function FinancialReports() {
                             </div>
                         </div>
 
-                        {/* Ratios Mini Hub */}
+                        {}
                         <div className="grid md:grid-cols-3 gap-6">
                             <RatioCard label="Liquidity Coverage" value={`${Math.round((cashOnHand / totalAssets) * 100)}%`} icon={PieChart} color="blue" />
                             <RatioCard label="Capital Utilization" value={`${Math.round((totalEmergencyDisbursed / totalSavings) * 100)}%`} icon={Briefcase} color="amber" />
@@ -506,7 +506,7 @@ export default function FinancialReports() {
                                 </tbody>
                             </table>
                         </div>
-                        {/* Ledger Pagination heart */}
+                        {}
                         <div className="p-4 bg-stone-50/50 border-t border-stone-50 flex items-center justify-between">
                             <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest px-2">
                                 Page {ledgerPage} of {Math.ceil(members.length / LEDGER_PAGE_SIZE)}
@@ -630,7 +630,7 @@ export default function FinancialReports() {
                             </div>
                         </div>
 
-                        {/* Print Header heart */}
+                        {}
                         <div className="hidden print:block p-10 border-b-4 border-stone-900 mb-8">
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center gap-5">
@@ -697,7 +697,7 @@ export default function FinancialReports() {
                             </table>
                         </div>
 
-                        {/* Print Signatures heart */}
+                        {}
                         <div className="hidden print:grid grid-cols-2 gap-20 p-12 mt-10 border-t-2 border-stone-100">
                             <div>
                                 <p className="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-1">Verified by (Treasurer)</p>

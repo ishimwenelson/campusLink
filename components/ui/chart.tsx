@@ -5,9 +5,9 @@ import * as RechartsPrimitive from "recharts"
 
 import { cn } from "@/lib/utils/cn"
 
-// Format: <chartId>
-// Theme: <light|dark>
-// Key: <label|color|...>
+
+
+
 type ChartConfig = {
   [k in string]: {
     label?: React.ReactNode
@@ -297,7 +297,7 @@ const ChartLegendContent = React.forwardRef<
 })
 ChartLegendContent.displayName = "ChartLegend"
 
-// Helper to extract item config from a payload.
+
 function getPayloadConfigFromCustomKey(
   config: ChartConfig,
   payload: unknown,

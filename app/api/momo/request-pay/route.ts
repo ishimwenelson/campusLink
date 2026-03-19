@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     try {
         const { amount, phoneNumber, orderId } = await request.json();
 
-        // Get access token (your existing code)
+        
         const tokenResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/momo/token`, {
             method: 'POST',
         });
@@ -16,20 +16,20 @@ export async function POST(request: Request) {
         const transactionUuid = uuidv4();
         const externalId = orderId || `ORDER-${Date.now()}`;
 
-        // IMPORTANT: Format phone number correctly (remove any + or spaces)
+        
         const formattedPhone = phoneNumber.replace(/[^0-9]/g, '');
 
-        // For sandbox, use the test number format
+        
         const testPhone = formattedPhone.startsWith('467') ? formattedPhone : `467${formattedPhone}`;
 
-        // CRITICAL: The request body must match EXACTLY this format
+        
         const requestBody = {
             amount: amount.toString(),
-            currency: 'EUR',  // Sandbox uses EUR
+            currency: 'EUR',  
             externalId: externalId,
             payer: {
                 partyIdType: 'MSISDN',
-                partyId: testPhone  // e.g., "46733123450"
+                partyId: testPhone  
             },
             payerMessage: `Payment for order ${externalId}`,
             payeeNote: 'Thank you for your purchase'
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                     'X-Reference-Id': transactionUuid,
-                    'X-Target-Environment': 'sandbox',  // Hardcode for testing
+                    'X-Target-Environment': 'sandbox',  
                     'Ocp-Apim-Subscription-Key': process.env.MOMO_SUBSCRIPTION_KEY!,
                     'X-Callback-Url': `https://${process.env.MOMO_CALLBACK_HOST}/api/momo/callback`,
                     'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export async function POST(request: Request) {
             }
         );
 
-        // Log the raw response for debugging
+        
         const responseText = await momoResponse.text();
         console.log('Response Status:', momoResponse.status);
         console.log('Response Headers:', Object.fromEntries(momoResponse.headers));
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
                 externalId: externalId,
             });
         } else {
-            // Try to parse error
+            
             let errorData;
             try {
                 errorData = JSON.parse(responseText);

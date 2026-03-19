@@ -46,7 +46,7 @@ export default function SecretaryOverview() {
   const pendingDocs = members.filter(m => !m.documentsUploaded).length;
   const totalFund = members.reduce((sum, m) => sum + (m.paidSoFar || 0), 0);
 
-  // Trend Calculations (Basic logic: Compare counts vs items older than 30 days)
+  
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
@@ -88,7 +88,7 @@ export default function SecretaryOverview() {
           </motion.button>
         </div>
       </motion.div>
-      {/* Stats */}
+      {}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard 
           title="Total Membership" value={members.length} icon={Users} color="gold" delay={0.1} 
@@ -108,7 +108,7 @@ export default function SecretaryOverview() {
         />
       </div>
 
-      {/* Main Analytics Section */}
+      {}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -130,7 +130,7 @@ export default function SecretaryOverview() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pb-10">
-        {/* Administrative Actions */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
           className="lg:col-span-1"
@@ -163,12 +163,12 @@ export default function SecretaryOverview() {
           </div>
         </motion.div>
 
-        {/* Latest Registrations — modern table */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
           className="lg:col-span-2 bg-white rounded-[2.5rem] border border-stone-100 shadow-xl overflow-hidden"
         >
-          {/* Table header */}
+          {}
           <div className="flex items-center justify-between px-6 py-4 border-b border-stone-50">
             <div className="flex items-center gap-3">
               <h2 className="text-sm font-black text-stone-900 tracking-tight">Latest Registrations</h2>
@@ -184,7 +184,7 @@ export default function SecretaryOverview() {
             </button>
           </div>
 
-          {/* Table */}
+          {}
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>

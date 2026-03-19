@@ -1,4 +1,4 @@
-// components/dashboard/RegisterMemberModal.tsx
+
 "use client";
 
 import { useState } from "react";
@@ -100,7 +100,7 @@ export default function RegisterMemberModal({ open, onClose, onSuccess }: Props)
             className="relative w-full max-w-lg bg-white rounded-[2rem] shadow-2xl overflow-hidden border border-stone-100"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Balanced Header */}
+            {}
             <div className="px-6 py-4 border-b border-stone-50 flex items-center justify-between bg-stone-50/20">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-white shadow-md">
@@ -117,7 +117,7 @@ export default function RegisterMemberModal({ open, onClose, onSuccess }: Props)
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-5">
-              {/* Compact Security Note */}
+              {}
               <div className="bg-amber-50/50 rounded-xl px-4 py-2.5 border border-amber-100 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <ShieldCheck size={16} className="text-amber-600" />

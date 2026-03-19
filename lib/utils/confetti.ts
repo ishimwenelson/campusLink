@@ -1,4 +1,4 @@
-// lib/utils/confetti.ts
+
 "use client";
 
 export async function fireConfetti() {
@@ -27,7 +27,7 @@ export async function fireConfetti() {
   };
   frame();
 
-  // Big burst in the middle
+  
   setTimeout(() => {
     confetti({
       particleCount: 120,

@@ -36,10 +36,10 @@ export function StatCard({ title, value, subtitle, icon: Icon, trend, color = "g
       animate={{ opacity: 1, y: 0, scale: isActive ? 1.03 : 1 }}
       transition={{ delay, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Subtle Overlay Effect */}
+      {}
       <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors duration-500" />
       
-      {/* Background Decorative Image */}
+      {}
       <img 
         src="/assets/cards design.png" 
         alt="" 
@@ -47,7 +47,7 @@ export function StatCard({ title, value, subtitle, icon: Icon, trend, color = "g
       />
       
       <div className="relative flex items-center justify-between">
-        {/* Content Section */}
+        {}
         <div className="flex flex-col gap-0.5">
           <h3 className="font-display text-2xl font-black text-white leading-none tracking-tight">
             {value}
@@ -75,7 +75,7 @@ export function StatCard({ title, value, subtitle, icon: Icon, trend, color = "g
           )}
         </div>
 
-        {/* Icon Section */}
+        {}
         <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 backdrop-blur-sm border border-white/10 shadow-[0_8px_16px_rgba(0,0,0,0.2)]">
           <Icon size={22} strokeWidth={2} />
         </div>

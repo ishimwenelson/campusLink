@@ -100,7 +100,7 @@ export default function TreasurerDashboard() {
         </div>
       </motion.div>
 
-      {/* Strategic Metrics */}
+      {}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 px-1">
         <StatCard 
           title="Institutional Fund" value={formatRF(totalPaid)} subtitle="Collective capital" icon={DollarSign} color="gold" delay={0.1} 
@@ -121,7 +121,7 @@ export default function TreasurerDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Financial Controls - Compact Grid */}
+        {}
         <motion.div
           initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}
           className="flex flex-col h-full"
@@ -157,14 +157,14 @@ export default function TreasurerDashboard() {
           </div>
         </motion.div>
 
-        {/* Financial Analytics - Institutional Flow */}
+        {}
         <motion.div
           initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
           className="h-full flex flex-col"
         >
           <TreasurerDashboardCharts treasurerData={{ members }} />
           
-          {/* System Settings Section */}
+          {}
           <div className="mt-8 bg-[#09090b] text-white rounded-[2.5rem] border border-stone-800 shadow-2xl p-8">
             <div className="flex items-center justify-between mb-8">
               <div>
@@ -203,7 +203,7 @@ export default function TreasurerDashboard() {
         </motion.div>
       </div>
 
-      {/* Full Width Share Distribution */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

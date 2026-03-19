@@ -52,7 +52,7 @@ export default function ShareholdersLedger() {
         m.email.toLowerCase().includes(search.toLowerCase())
     );
 
-    // Summary stats
+    
     const totalEquity    = members.reduce((s, m) => s + (m.paidSoFar || 0), 0);
     const totalLoans     = members.reduce((s, m) => s + (m.emergencyTaken || 0), 0);
     const totalInterest  = members.reduce((s, m) => s + (m.interestOwed || 0), 0);
@@ -72,7 +72,7 @@ export default function ShareholdersLedger() {
     return (
         <div className="pt-2 lg:pt-3 px-4 lg:px-6 pb-20 max-w-[1500px] mx-auto space-y-8">
 
-            {/* Header */}
+            {}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="tracking-tight text-3xl font-black text-stone-900 leading-none">
@@ -80,7 +80,7 @@ export default function ShareholdersLedger() {
                     </h1>
                     <p className="text-stone-500 font-medium text-xs mt-2">Institutional record of member equity, contributions, and capital activity.</p>
                 </div>
-                {/* Search */}
+                {}
                 <div className="relative group w-full md:w-80">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-300 group-focus-within:text-amber-500 transition-colors" size={16} />
                     <input
@@ -92,7 +92,7 @@ export default function ShareholdersLedger() {
                 </div>
             </div>
 
-            {/* Stat Strip */}
+            {}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatCard title="Total Shareholders" value={`${members.length} members`} icon={Users}    color="gold"  delay={0} />
                 <StatCard title="Total Equity Pool"  value={formatRF(totalEquity)}       icon={DollarSign} color="green" delay={0.05} />
@@ -100,7 +100,7 @@ export default function ShareholdersLedger() {
                 <StatCard title="Avg. Completion"    value={`${avgCompletion}%`}         icon={BarChart3}  color="blue" delay={0.15} />
             </div>
 
-            {/* Members Table */}
+            {}
             <div className="bg-white rounded-[2.5rem] border border-stone-100 shadow-2xl overflow-hidden">
                 <div className="p-6 border-b border-stone-50 flex items-center justify-between bg-stone-50/30">
                     <div className="flex items-center gap-3">
@@ -133,7 +133,7 @@ export default function ShareholdersLedger() {
                                         onClick={() => fetchHistory(m)}
                                         className="group hover:bg-amber-50/20 transition-colors cursor-pointer"
                                     >
-                                        {/* Name */}
+                                        {}
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="w-9 h-9 rounded-xl bg-stone-950 flex items-center justify-center text-white font-black text-sm group-hover:bg-amber-500 transition-colors duration-300 flex-shrink-0">
@@ -145,17 +145,17 @@ export default function ShareholdersLedger() {
                                                 </div>
                                             </div>
                                         </td>
-                                        {/* Shares */}
+                                        {}
                                         <td className="px-6 py-4">
                                             <p className="text-[11px] font-black text-stone-900">{totalUnits} <span className="text-stone-400 font-bold">shares</span></p>
                                             <p className="text-[9px] text-stone-400 font-bold mt-0.5">Target: {formatRF(m.totalShareValue)}</p>
                                         </td>
-                                        {/* Equity */}
+                                        {}
                                         <td className="px-6 py-4">
                                             <p className="text-[11px] font-black text-stone-900">{formatRF(m.paidSoFar)}</p>
                                             <p className="text-[9px] text-emerald-600 font-black mt-0.5">{Math.round(pct)}% fulfilled</p>
                                         </td>
-                                        {/* Progress bar */}
+                                        {}
                                         <td className="px-6 py-4 w-36">
                                             <div className="w-full h-1.5 bg-stone-100 rounded-full overflow-hidden">
                                                 <div
@@ -165,14 +165,14 @@ export default function ShareholdersLedger() {
                                             </div>
                                             <p className="text-[8px] text-stone-400 font-bold mt-1">{Math.round(pct)}%</p>
                                         </td>
-                                        {/* Account */}
+                                        {}
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-1.5 text-[10px] font-bold text-stone-500">
                                                 <CreditCard size={11} className="text-stone-300" />
                                                 {m.accountUsedWhileSaving || "—"}
                                             </div>
                                         </td>
-                                        {/* CTA */}
+                                        {}
                                         <td className="px-6 py-4">
                                             <div className="w-8 h-8 rounded-xl bg-stone-50 border border-stone-100 flex items-center justify-center text-stone-300 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500 transition-all">
                                                 <ChevronRight size={16} />
@@ -193,23 +193,23 @@ export default function ShareholdersLedger() {
                 </div>
             </div>
 
-            {/* History Slide-over */}
+            {}
             <AnimatePresence>
                 {selectedMember && (
                     <div className="fixed inset-0 z-50 flex justify-end">
-                        {/* Backdrop */}
+                        {}
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                             onClick={() => setSelectedMember(null)}
                             className="absolute inset-0 bg-stone-950/50 backdrop-blur-sm"
                         />
-                        {/* Panel */}
+                        {}
                         <motion.div
                             initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
                             transition={{ type: "spring", damping: 28, stiffness: 220 }}
                             className="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col overflow-hidden"
                         >
-                            {/* Panel Header */}
+                            {}
                             <div className="bg-stone-950 p-6 flex items-center justify-between flex-shrink-0">
                                 <div className="flex items-center gap-4">
                                     <div className="w-12 h-12 rounded-2xl bg-amber-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-amber-900/30">
@@ -225,7 +225,7 @@ export default function ShareholdersLedger() {
                                 </button>
                             </div>
 
-                            {/* Summary Strip */}
+                            {}
                             <div className="grid grid-cols-2 divide-x divide-stone-100 border-b border-stone-100 flex-shrink-0">
                                 <div className="p-5">
                                     <p className="text-[9px] font-black text-stone-400 uppercase tracking-widest mb-1">Total Paid</p>
@@ -251,7 +251,7 @@ export default function ShareholdersLedger() {
                                 </div>
                             </div>
 
-                            {/* Content */}
+                            {}
                             <div className="flex-1 overflow-y-auto p-6 space-y-8">
                                 {historyLoading ? (
                                     <div className="flex flex-col items-center justify-center py-24 gap-4">
@@ -260,7 +260,7 @@ export default function ShareholdersLedger() {
                                     </div>
                                 ) : memberHistory && (
                                     <>
-                                        {/* Contribution History */}
+                                        {}
                                         <section className="space-y-3">
                                             <div className="flex items-center gap-2 mb-4">
                                                 <div className="w-8 h-8 rounded-xl bg-amber-500 flex items-center justify-center text-white shadow-lg shadow-amber-200">
@@ -286,7 +286,7 @@ export default function ShareholdersLedger() {
                                             ))}
                                         </section>
 
-                                        {/* Emergency Disbursements */}
+                                        {}
                                         <section className="space-y-3">
                                             <div className="flex items-center gap-2 mb-4">
                                                 <div className="w-8 h-8 rounded-xl bg-red-500 flex items-center justify-center text-white shadow-lg shadow-red-200">

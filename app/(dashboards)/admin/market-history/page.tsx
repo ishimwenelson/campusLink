@@ -44,7 +44,7 @@ export default function MarketHistoryPage() {
 
     return (
         <div className="pt-2 lg:pt-3 px-4 lg:px-6 pb-20 max-w-[1500px] mx-auto space-y-8">
-            {/* Header */}
+            {}
             <motion.div 
                 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
                 className="flex flex-col md:flex-row md:items-end justify-between gap-6"
@@ -68,7 +68,7 @@ export default function MarketHistoryPage() {
                 </div>
             </motion.div>
 
-            {/* Summary Cards */}
+            {}
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
                 <StatCard 
                     title="Cumulative Volume" 
@@ -96,12 +96,12 @@ export default function MarketHistoryPage() {
                 />
             </div>
 
-            {/* Audit Table - Modern Card Style */}
+            {}
             <motion.div
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
                 className="bg-white rounded-[2.5rem] border border-stone-100 shadow-xl overflow-hidden"
             >
-                {/* Search & Status Bar */}
+                {}
                 <div className="flex flex-col md:flex-row items-center justify-between px-6 py-5 gap-4 border-b border-stone-50">
                     <div className="relative group w-full md:w-96">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-300 group-focus-within:text-amber-500 transition-colors" size={16} />
@@ -204,7 +204,7 @@ export default function MarketHistoryPage() {
                 </div>
             </motion.div>
 
-            {/* Institutional Compliance Notice */}
+            {}
             <motion.div 
                 initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.5 }}
                 className="flex items-start gap-5 p-6 rounded-[2.5rem] bg-stone-950 text-white shadow-2xl relative overflow-hidden group"

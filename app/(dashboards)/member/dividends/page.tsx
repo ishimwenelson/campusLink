@@ -39,7 +39,7 @@ export default function MemberDividends() {
       }
       
       toast.success("Dividend claimed successfully!");
-      // Refresh summary
+      
       getUserDividendSummary(profile.uid).then(setDividendSummary);
     } catch (error) {
       toast.error("Failed to claim dividend");
@@ -68,7 +68,7 @@ export default function MemberDividends() {
 
   return (
     <div className="p-4 lg:p-6 max-w-7xl mx-auto space-y-6">
-      {/* Header */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between"
@@ -81,7 +81,7 @@ export default function MemberDividends() {
         </div>
       </motion.div>
 
-      {/* Stats */}
+      {}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Total Dividends" value={formatRF(dividendSummary.totalDividends)} icon={TrendingUp} color="gold" delay={0.1} />
         <StatCard title="Claimed" value={formatRF(dividendSummary.claimedDividends)} icon={CheckCircle} color="green" delay={0.15} />
@@ -90,7 +90,7 @@ export default function MemberDividends() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Pending Dividends */}
+        {}
         {pendingProjects.length > 0 && (
           <motion.div
             className="bg-white rounded-[2rem] border border-stone-100 shadow-xl overflow-hidden"
@@ -147,7 +147,7 @@ export default function MemberDividends() {
           </motion.div>
         )}
 
-        {/* Claim History */}
+        {}
         {claimedProjects.length > 0 && (
           <motion.div
             className="bg-white rounded-[2rem] border border-stone-100 shadow-xl overflow-hidden"
@@ -197,7 +197,7 @@ export default function MemberDividends() {
         )}
       </div>
 
-      {/* Empty State */}
+      {}
       {dividendSummary.projects.length === 0 && (
         <motion.div
           className="bg-white rounded-[2rem] border border-stone-100 shadow-xl overflow-hidden text-center py-16"

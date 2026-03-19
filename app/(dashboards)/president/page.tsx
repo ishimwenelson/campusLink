@@ -5,7 +5,7 @@ import { getAllUsers, getAllPendingEmergencyRequests, approveEmergencyRequest, r
 import { motion, AnimatePresence } from "framer-motion";
 import { Users, DollarSign, AlertCircle, TrendingUp, CheckCircle, XCircle, Loader2, FileText, Vote, ShieldCheck, FileSearch, ChevronRight } from "lucide-react";
 import { StatCard } from "@/components/dashboard/StatCard";
-// Removed PresidentDashboardCharts import
+
 import { formatRF, currentYear, getPaymentsForYear, formatDate } from "@/lib/utils/format";
 import type { CampusUser, EmergencyRequest, Proposal } from "@/lib/types";
 import { toast } from "sonner";
@@ -20,7 +20,7 @@ export default function PresidentDashboard() {
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [selectedProposal, setSelectedProposal] = useState<Proposal | null>(null);
   
-  // Rejection Modal State
+  
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
   const [requestToReject, setRequestToReject] = useState<any | null>(null);
   const [isRejecting, setIsRejecting] = useState(false);
@@ -38,7 +38,7 @@ export default function PresidentDashboard() {
   const totalTarget = users.reduce((s, u) => s + u.totalShareValue, 0);
   const completedCount = users.filter((u) => u.paidSoFar >= u.totalShareValue).length;
 
-  // Trend Calculations (Basic logic: Compare counts vs items older than 30 days)
+  
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
@@ -62,7 +62,7 @@ export default function PresidentDashboard() {
     try {
       await approveEmergencyRequest(req.userId, req.id, profile!.uid);
       setPendingReqs((prev) => prev.filter((r) => r.id !== req.id));
-      toast.success(`Emergency request of ${formatRF(req.amount)} approved ✅`);
+      toast.success(`Emergency request of ${formatRF(req.amount)} approved `);
     } catch { toast.error("Failed to approve request"); }
     finally { setProcessingId(null); }
   };
@@ -93,7 +93,7 @@ export default function PresidentDashboard() {
     try {
       await updateProposalStatus(proposalId, "active");
       setPendingProposals(prev => prev.filter(p => p.id !== proposalId));
-      toast.success("Strategic proposal authorized for voting ✅");
+      toast.success("Strategic proposal authorized for voting ");
     } catch (e) { toast.error("Failed to authorize proposal"); }
     finally { setProcessingId(null); }
   };
@@ -126,7 +126,7 @@ export default function PresidentDashboard() {
 
   return (
     <div className="p-4 lg:p-6 max-w-[1500px] mx-auto space-y-10">
-      {/* Header */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
         className="flex flex-col md:flex-row md:items-end justify-between gap-6"
@@ -147,7 +147,7 @@ export default function PresidentDashboard() {
         </div>
       </motion.div>
 
-      {/* Stats */}
+      {}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard title="Total Membership" value={users.length} icon={Users} color="gold" delay={0.1} trend={{ value: userTrend, label: "vs last month" }} />
         <StatCard title="Institutional Fund" value={formatRF(totalFunds)} subtitle="Collective capital" icon={DollarSign} color="green" delay={0.15} trend={{ value: fundTrend, label: "vs last month" }} />
@@ -155,7 +155,7 @@ export default function PresidentDashboard() {
         <StatCard title="Cycle Completion" value={completedCount} subtitle="Fulfilled accounts" icon={TrendingUp} color="blue" delay={0.25} trend={{ value: completedTrend, label: "growth" }} />
       </div>
 
-      {/* Pending Emergency Requests */}
+      {}
       <motion.div
         className="bg-white p-10 rounded-[2.5rem] border border-stone-100 shadow-[0_20px_50px_rgba(0,0,0,0.04)]"
         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
@@ -191,7 +191,7 @@ export default function PresidentDashboard() {
                 initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}
                 className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-6 rounded-[2rem] bg-white border border-stone-100 shadow-sm hover:shadow-md hover:border-amber-200 transition-all group"
               >
-                {/* Left side: Avatar + Info */}
+                {}
                 <div className="flex items-start gap-4 flex-1">
                    <div className="w-12 h-12 shrink-0 rounded-[1rem] bg-stone-100 flex items-center justify-center text-stone-600 font-black text-lg group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300">
                     {req.userDoc?.fullName?.charAt(0) || "?"}
@@ -211,7 +211,7 @@ export default function PresidentDashboard() {
                   </div>
                 </div>
                 
-                {/* Right side: Amount + Actions */}
+                {}
                 <div className="flex items-center gap-6 md:w-auto w-full justify-between md:justify-end border-t md:border-t-0 border-stone-100 pt-4 md:pt-0">
                   <div className="text-right shrink-0">
                     <p className="text-[9px] font-black text-stone-400 uppercase tracking-widest mb-0.5">Capital Amount</p>
@@ -248,7 +248,7 @@ export default function PresidentDashboard() {
         )}
       </motion.div>
 
-      {/* Pending Proposals */}
+      {}
       <motion.div
         className="bg-white p-10 rounded-[2.5rem] border border-stone-100 shadow-[0_20px_50px_rgba(0,0,0,0.04)]"
         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
@@ -326,7 +326,7 @@ export default function PresidentDashboard() {
         loading={isRejecting}
       />
 
-      {/* Slide-over Proposal Modal */}
+      {}
       <AnimatePresence>
         {selectedProposal && (
           <div className="fixed inset-0 z-50 flex justify-end">

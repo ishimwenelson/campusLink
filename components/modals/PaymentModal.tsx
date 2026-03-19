@@ -33,13 +33,13 @@ export function PaymentModal({ open, onClose, userId, userName }: PaymentModalPr
 
         setLoading(true);
         try {
-            // 1. Update user's paidSoFar
+            
             const userRef = doc(db, "users", userId);
             await updateDoc(userRef, {
                 paidSoFar: increment(numAmount)
             });
 
-            // 2. Record payment in subcollection
+            
             const paymentData = {
                 amount: numAmount,
                 date: new Date().toISOString(),
@@ -122,7 +122,7 @@ export function PaymentModal({ open, onClose, userId, userName }: PaymentModalPr
 
                                 <form onSubmit={handleSubmit} className="space-y-4">
                                     <div className="grid grid-cols-2 gap-4">
-                                        {/* Amount Input */}
+                                        
                                         <div>
                                             <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-1.5 block px-1">Amount (RF)</label>
                                             <div className="relative group">
@@ -139,7 +139,7 @@ export function PaymentModal({ open, onClose, userId, userName }: PaymentModalPr
                                             </div>
                                         </div>
 
-                                        {/* Phone Number */}
+                                        
                                         <div>
                                             <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-1.5 block px-1">Mobile Number</label>
                                             <div className="relative group">
@@ -156,7 +156,7 @@ export function PaymentModal({ open, onClose, userId, userName }: PaymentModalPr
                                         </div>
                                     </div>
 
-                                    {/* Provider Selection */}
+                                    
                                     <div>
                                         <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-1.5 block px-1">Choose Network</label>
                                         <div className="grid grid-cols-2 gap-2">
@@ -185,7 +185,7 @@ export function PaymentModal({ open, onClose, userId, userName }: PaymentModalPr
                                         </div>
                                     </div>
 
-                                    {/* Summary Box */}
+                                    
                                     {numAmount > 0 && (
                                         <motion.div
                                             initial={{ opacity: 0, height: 0 }}

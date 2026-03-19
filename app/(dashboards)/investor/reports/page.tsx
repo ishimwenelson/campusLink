@@ -38,16 +38,16 @@ export default function InvestorReports() {
 
     const filteredProposals = useMemo(() => {
         return proposals.filter(p => {
-             // 1. Filter out under_review unless it's the author looking at their own
+             
             if (p.status === "under_review" && p.proposedBy !== profile?.uid) return false;
 
-            // 2. Tab Filter
+            
             if (activeTab === "my_proposals" && p.proposedBy !== profile?.uid) return false;
             if (activeTab === "approved" && p.status !== "approved") return false;
             if (activeTab === "active" && p.status !== "active" && p.status !== "pending") return false;
             if (activeTab === "rejected" && p.status !== "rejected") return false;
 
-            // 3. Search Filter
+            
             if (searchQuery) {
                 const query = searchQuery.toLowerCase();
                 return p.title.toLowerCase().includes(query) || p.description.toLowerCase().includes(query) || p.proposedByName.toLowerCase().includes(query);
@@ -57,7 +57,7 @@ export default function InvestorReports() {
         });
     }, [proposals, activeTab, searchQuery, profile?.uid]);
 
-    // Analytics for the Pie Chart based on ENTIRE dataset (to show the big picture)
+    
     const chartData = useMemo(() => {
         const approved = proposals.filter(p => p.status === 'approved').length;
         const active = proposals.filter(p => p.status === 'active' || p.status === 'pending').length;
@@ -82,7 +82,7 @@ export default function InvestorReports() {
         const workbook = new ExcelJS.Workbook();
         const worksheet = workbook.addWorksheet('Proposal Report');
 
-        // Define column widths explicitly (no header definition here to avoid automatic row 1)
+        
         worksheet.columns = [
             { key: 'title', width: 40 },
             { key: 'description', width: 50 },
@@ -95,7 +95,7 @@ export default function InvestorReports() {
             { key: 'status', width: 15 },
         ];
 
-        // Title row
+        
         worksheet.mergeCells("A1:I1");
         const titleCell = worksheet.getCell("A1");
         titleCell.value = "CAMPUSLINK — INVESTOR PROPOSAL REPORT";
@@ -104,7 +104,7 @@ export default function InvestorReports() {
         titleCell.alignment = { horizontal: "center", vertical: "middle" };
         worksheet.getRow(1).height = 30;
 
-        // Subtitle row
+        
         worksheet.mergeCells("A2:I2");
         const subCell = worksheet.getCell("A2");
         subCell.value = `Official Record of Proposals  ·  Filter: ${activeTab.replace('_', ' ').toUpperCase()}  ·  Generated on ${new Date().toLocaleDateString()}`;
@@ -113,7 +113,7 @@ export default function InvestorReports() {
         subCell.alignment = { horizontal: "center", vertical: "middle" };
         worksheet.getRow(2).height = 18;
 
-        // Header row
+        
         const headers = [
             'PROPOSAL TITLE', 'DESCRIPTION', 'PROPOSED BY', 'DATE SUBMITTED', 
             'CATEGORY', 'TARGET QUORUM %', 'YES VOTES', 'NO VOTES', 'STATUS'
@@ -127,10 +127,10 @@ export default function InvestorReports() {
             cell.border = { bottom: { style: "thin", color: { argb: "FFCC9900" } } };
         });
         
-        // Auto Filter
+        
         worksheet.autoFilter = { from: "A3", to: "I3" };
 
-        // Data rows
+        
         filteredProposals.forEach(p => {
             const row = worksheet.addRow([
                 p.title || "—",
@@ -148,7 +148,7 @@ export default function InvestorReports() {
                 cell.font = { name: "Calibri", size: 11, color: { argb: "FF333333" } };
                 cell.alignment = { horizontal: [6, 7, 8].includes(col) ? "center" : "left", vertical: "middle" };
                 
-                // Status Color coding
+                
                 if (col === 9) {
                      if (p.status === 'approved') {
                          cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFE8F5E9" } };
@@ -167,14 +167,14 @@ export default function InvestorReports() {
             });
         });
 
-        // Auto-Size Columns (Safe implementation for only specific columns)
+        
         [3, 4, 5, 6, 7, 8, 9].forEach(colIndex => {
             const column = worksheet.getColumn(colIndex);
             let maxColumnLength = 0;
-            // Use optional chaining safely just in case
+            
             if (column && column.eachCell) {
                 column.eachCell({ includeEmpty: true }, (cell, rowNumber) => {
-                    if (rowNumber > 2) { // Skip title and subtitle row
+                    if (rowNumber > 2) { 
                         const columnLength = cell.value ? cell.value.toString().length : 10;
                         if (columnLength > maxColumnLength) {
                             maxColumnLength = columnLength;
@@ -185,7 +185,7 @@ export default function InvestorReports() {
             }
         });
 
-        // Generate and save
+        
         const buffer = await workbook.xlsx.writeBuffer();
         const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         saveAs(blob, `COMPASLINK_Proposals_${new Date().toISOString().split('T')[0]}.xlsx`);
@@ -202,7 +202,7 @@ export default function InvestorReports() {
 
     return (
         <div className="p-4 lg:p-6 max-w-7xl mx-auto space-y-6 print:p-0">
-            {/* Header - Hidden on Print */}
+            {}
             <motion.div
                 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
                 className="flex flex-col md:flex-row md:items-center justify-between gap-4 print:hidden"
@@ -229,7 +229,7 @@ export default function InvestorReports() {
                 </div>
             </motion.div>
 
-            {/* Print Header - Visible only on Print */}
+            {}
             <div className="hidden print:block p-8 border-b-4 border-stone-900 mb-10">
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-5">
@@ -250,7 +250,7 @@ export default function InvestorReports() {
                 </div>
             </div>
 
-            {/* Analytics Dashboard */}
+            {}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
                 <div className="lg:col-span-2 grid grid-cols-2 gap-4 print:hidden">
                     <StatCard title="Total Proposals" value={proposals.length.toString()} icon={FileText} color="gold" delay={0} />
@@ -299,15 +299,15 @@ export default function InvestorReports() {
                 </div>
             </div>
 
-            {/* Filters & Table */}
+            {}
             <motion.div 
                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
                className="bg-white rounded-[2.5rem] border border-stone-100 shadow-xl overflow-hidden print:shadow-none print:border-none print:rounded-none"
             >
-                {/* Table Controls - Hidden on Print */}
+                {}
                 <div className="p-6 border-b border-stone-50 flex flex-col gap-4 print:hidden">
                     <div className="flex flex-wrap items-center gap-2 w-full">
-                        {/* Tabs */}
+                        {}
                         <div className="flex bg-stone-100 p-1 rounded-2xl overflow-x-auto w-full md:w-auto hide-scrollbar">
                             {[
                                 { id: "all", label: "All Proposals" },
@@ -330,7 +330,7 @@ export default function InvestorReports() {
                             ))}
                         </div>
 
-                        {/* Search */}
+                        {}
                         <div className="relative ml-auto w-full md:w-64">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" size={14} />
                             <input
@@ -342,7 +342,7 @@ export default function InvestorReports() {
                     </div>
                 </div>
 
-                {/* Report Content */}
+                {}
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
                         <thead>
@@ -414,7 +414,7 @@ export default function InvestorReports() {
                                 </tr>
                             )}
                         </tbody>
-                        {/* Table Footer - Totals */}
+                        {}
                         <tfoot className="bg-stone-50/80 print:bg-stone-100 border-t border-stone-200">
                             <tr>
                                 <td colSpan={2} className="px-5 py-4 text-[10px] font-black uppercase tracking-widest text-stone-600">Report Summary</td>
@@ -429,9 +429,9 @@ export default function InvestorReports() {
                     </table>
                 </div>
 
-                {/* Signatures & Footer - Visible only on Print */}
+                {}
                 <div className="hidden print:grid grid-cols-2 gap-20 p-12 mt-12">
-                     {/* Print footprint matching Secretary Style */}
+                     {}
                     <div className="border-t-2 border-stone-300 pt-4">
                         <p className="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-1">Generated by</p>
                         <p className="text-sm font-black text-stone-900 leading-tight">{profile?.fullName}</p>

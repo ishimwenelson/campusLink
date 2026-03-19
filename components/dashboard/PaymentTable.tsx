@@ -79,7 +79,7 @@ export function PaymentTable({ payments, showExport, title = "Payment History" }
 
   const filtered = useMemo(() => {
     return payments.filter((p) => {
-      // 1. Column-specific Search
+      
       const query = search.toLowerCase();
       let matchesSearch = false;
       if (searchColumn === 'all') {
@@ -98,7 +98,7 @@ export function PaymentTable({ payments, showExport, title = "Payment History" }
 
       if (!matchesSearch) return false;
 
-      // 2. Duration Filter
+      
       if (durationFilter === "all") return true;
       
       const paymentDate = new Date(p.date).getTime();

@@ -40,7 +40,7 @@ export default function InvestorDashboard() {
         await voteOnProposal(proposal.id, profile.uid, vote, totalVoters);
         const updated = await getProposals();
         setProposals(updated);
-        toast.success(`Vote cast: ${vote === "yes" ? "✅ Yes" : "❌ No"}`);
+        toast.success(`Vote cast: ${vote === "yes" ? " Yes" : " No"}`);
     };
 
     const handleComment = async (proposalId: string) => {
@@ -73,7 +73,7 @@ export default function InvestorDashboard() {
     return (
         <div className="pt-2 lg:pt-3 px-4 lg:px-6 pb-20 max-w-[1500px] mx-auto space-y-8">
 
-            {/* Header */}
+            {}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="tracking-tight text-3xl font-black text-stone-900 leading-none">
@@ -85,7 +85,7 @@ export default function InvestorDashboard() {
                 </div>
             </div>
 
-            {/* StatCards */}
+            {}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatCard title="Institutional Fund"  value={formatRF(totalFund)}   icon={DollarSign}  color="gold"   delay={0}    trend={{ value: 12, label: "vs last quarter" }} />
                 <StatCard title="Active Proposals"    value={`${openCount} open`}   icon={Vote}        color="blue"   delay={0.05} trend={{ value: openCount, label: "pending votes" }} />
@@ -93,7 +93,7 @@ export default function InvestorDashboard() {
                 <StatCard title="My Participation"    value={`${myVotedCount} votes`} icon={BarChart3} color="purple" delay={0.15} />
             </div>
 
-            {/* Proposal Feed */}
+            {}
             <div className="space-y-6">
                 {proposals.length === 0 ? (
                     <div className="bg-white p-20 rounded-[3rem] border border-stone-100 shadow-xl text-center">
@@ -114,10 +114,10 @@ export default function InvestorDashboard() {
                                 className="bg-white rounded-[2.5rem] border border-stone-100 shadow-xl overflow-hidden hover:border-amber-500/20 transition-all duration-500"
                                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}
                             >
-                                {/* Card Header */}
+                                {}
                                 <div className="p-6 border-b border-stone-50 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                                     <div className="flex items-center gap-3 flex-wrap">
-                                        {/* Status badge */}
+                                        {}
                                         <span className={cn(
                                             "px-2.5 py-1 rounded-xl text-[8px] font-black uppercase tracking-widest border",
                                             p.status === "approved"
@@ -128,36 +128,36 @@ export default function InvestorDashboard() {
                                         )}>
                                             {isOpen ? "Active Vote" : p.status === "approved" ? "Passed" : "Failed"}
                                         </span>
-                                        {/* Quorum indicator */}
+                                        {}
                                         {yesPercent >= 70 && isOpen && (
                                             <span className="px-2.5 py-1 bg-green-50 text-green-700 rounded-xl text-[8px] font-black uppercase tracking-widest border border-green-100 animate-pulse">
-                                                ✓ Quorum Reached
+                                                 Quorum Reached
                                             </span>
                                         )}
-                                        {/* My vote */}
+                                        {}
                                         {hasVoted && (
                                             <span className="px-2.5 py-1 bg-stone-50 text-stone-500 rounded-xl text-[8px] font-black uppercase tracking-widest border border-stone-100">
-                                                Voted: {myVote === "yes" ? "✅ Yes" : "❌ No"}
+                                                Voted: {myVote === "yes" ? " Yes" : " No"}
                                             </span>
                                         )}
                                     </div>
-                                    {/* Meta */}
+                                    {}
                                     <div className="flex items-center gap-4 text-[9px] font-black text-stone-400 uppercase tracking-widest">
                                         <span className="flex items-center gap-1.5"><Calendar size={11} /> {formatDate(p.proposedAt)}</span>
                                         <span className="flex items-center gap-1.5"><MessageCircle size={11} /> {p.comments.length} comments</span>
                                     </div>
                                 </div>
 
-                                {/* Card Body */}
+                                {}
                                 <div className="p-6 flex flex-col lg:flex-row gap-8">
-                                    {/* Left — proposal info */}
+                                    {}
                                     <div className="flex-1 space-y-4">
                                         <div>
                                             <h3 className="font-black text-stone-900 text-lg tracking-tight leading-tight">{p.title}</h3>
                                             <p className="text-stone-500 text-xs leading-relaxed font-medium mt-2 line-clamp-3">{p.description}</p>
                                         </div>
 
-                                        {/* Proposer & Document */}
+                                        {}
                                         <div className="flex items-center gap-3">
                                             <div className="flex items-center gap-3 p-3 rounded-2xl bg-stone-50 border border-stone-100 w-fit">
                                                 <div className="w-8 h-8 rounded-xl bg-stone-900 flex items-center justify-center text-white font-black text-xs">
@@ -186,7 +186,7 @@ export default function InvestorDashboard() {
                                             )}
                                         </div>
 
-                                        {/* Vote Buttons */}
+                                        {}
                                         {isOpen && !hasVoted ? (
                                             <div className="flex gap-3 pt-2">
                                                 <motion.button
@@ -219,7 +219,7 @@ export default function InvestorDashboard() {
                                         )}
                                     </div>
 
-                                    {/* Right — Vote tracker */}
+                                    {}
                                     <div className="lg:w-72 shrink-0">
                                         <div className="bg-stone-950 p-6 rounded-[2rem] shadow-2xl relative overflow-hidden h-full">
                                             <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full -mr-12 -mt-12 blur-2xl pointer-events-none" />
@@ -228,7 +228,7 @@ export default function InvestorDashboard() {
                                                     <span className="text-[9px] font-black text-stone-500 uppercase tracking-widest">Consensus Track</span>
                                                     <span className="text-white font-black text-2xl tracking-tighter">{Math.round(yesPercent)}%</span>
                                                 </div>
-                                                {/* Progress bar */}
+                                                {}
                                                 <div className="h-2 bg-white/5 rounded-full overflow-hidden">
                                                     <motion.div
                                                         className="h-full bg-amber-500 rounded-full shadow-[0_0_12px_rgba(245,158,11,0.5)]"
@@ -237,11 +237,11 @@ export default function InvestorDashboard() {
                                                         transition={{ duration: 1.2, ease: "easeOut", delay: i * 0.04 }}
                                                     />
                                                 </div>
-                                                {/* Quorum line marker */}
+                                                {}
                                                 <div className="flex items-center gap-2">
                                                     <div className="w-px h-3 bg-amber-500/50 mx-auto" style={{ marginLeft: "70%" }} />
                                                 </div>
-                                                {/* Votes grid */}
+                                                {}
                                                 <div className="grid grid-cols-2 gap-3">
                                                     <div className="p-3 rounded-xl bg-white/5 border border-white/5 text-center">
                                                         <p className="text-[8px] font-black text-green-400 uppercase tracking-widest mb-1">Affirm</p>
@@ -261,7 +261,7 @@ export default function InvestorDashboard() {
                                     </div>
                                 </div>
 
-                                {/* Discussion Thread */}
+                                {}
                                 <div className="px-6 pb-6 pt-2 border-t border-stone-50 mt-2">
                                     <div className="flex items-center gap-2 mb-4">
                                         <div className="w-7 h-7 rounded-xl bg-stone-100 flex items-center justify-center text-stone-400">
@@ -270,7 +270,7 @@ export default function InvestorDashboard() {
                                         <h4 className="text-[10px] font-black text-stone-900 uppercase tracking-widest">Discussion ({p.comments.length})</h4>
                                     </div>
 
-                                    {/* Comments */}
+                                    {}
                                     {p.comments.length > 0 && (
                                         <div className="space-y-2 mb-4 max-h-40 overflow-y-auto pr-1 scrollbar-thin">
                                             {p.comments.map((c, ci) => (
@@ -287,7 +287,7 @@ export default function InvestorDashboard() {
                                         </div>
                                     )}
 
-                                    {/* Comment input */}
+                                    {}
                                     <div className="flex gap-3 p-3 rounded-2xl border border-stone-100 bg-stone-50/50 focus-within:border-amber-400/30 focus-within:bg-white transition-all">
                                         <input
                                             value={commentTexts[p.id] || ""}

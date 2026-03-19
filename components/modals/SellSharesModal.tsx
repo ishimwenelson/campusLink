@@ -85,7 +85,7 @@ export function SellSharesModal({ isOpen, onClose, uid, userName, currentPaid }:
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Liquidation Toggle */}
+                {}
                 <div className="p-6 rounded-[2rem] bg-stone-50 border border-stone-100 flex items-center justify-between group cursor-pointer"
                   onClick={() => {
                     const next = !isLiquidation;
@@ -143,7 +143,7 @@ export function SellSharesModal({ isOpen, onClose, uid, userName, currentPaid }:
                   </div>
                 </div>
 
-                {/* Calculation Summary */}
+                {}
                 <div
                   className={cn(
                     "p-6 rounded-[2rem] border transition-all duration-500",

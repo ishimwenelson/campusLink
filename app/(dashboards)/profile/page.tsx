@@ -73,7 +73,7 @@ export default function ProfilePage() {
             const data = await res.json();
             if (data.error) throw new Error(data.error);
 
-            // Save to Firestore
+            
             const docData: Omit<UserDocument, "id"> = {
                 type: type as any,
                 url: data.url,
@@ -81,7 +81,7 @@ export default function ProfilePage() {
             };
             await saveUserDocument(profile.uid, docData);
 
-            // Update user doc flag if all 3 uploaded (quick check)
+            
             const updatedDocs = [...documents, { ...docData, id: 'temp' } as UserDocument];
             if (updatedDocs.length >= 3) {
                 await updateUser(profile.uid, { documentsUploaded: true });
@@ -107,7 +107,7 @@ export default function ProfilePage() {
             await reauthenticateWithCredential(auth.currentUser, credential);
             await updatePassword(auth.currentUser, pwdData.new);
 
-            // Mark as password changed in Firestore if first time
+            
             if (!profile.passwordChanged) {
                 await updateUser(profile.uid, { passwordChanged: true });
             }
@@ -130,7 +130,7 @@ export default function ProfilePage() {
 
     return (
         <div className="p-4 lg:p-10 max-w-5xl mx-auto space-y-10">
-            {/* Header Profile Section */}
+            {}
             <motion.div
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                 className="relative overflow-hidden card-gold p-8 rounded-3xl border border-amber-200 shadow-2xl"
@@ -167,7 +167,7 @@ export default function ProfilePage() {
             </motion.div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Account Details & Security */}
+                {}
                 <div className="space-y-8">
                     <motion.section initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
                         <div className="flex items-center gap-3">
@@ -241,7 +241,7 @@ export default function ProfilePage() {
                     </motion.section>
                 </div>
 
-                {/* Documentation Section */}
+                {}
                 <motion.section initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600">
@@ -299,7 +299,7 @@ export default function ProfilePage() {
                 </motion.section>
             </div>
 
-            {/* Change Password Modal */}
+            {}
             <AnimatePresence>
                 {showPwdModal && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">

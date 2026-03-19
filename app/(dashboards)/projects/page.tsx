@@ -47,7 +47,7 @@ export default function ProjectsPage() {
   useEffect(() => {
     if (!profile?.uid) return;
     
-    // Track user votes
+    
     const votes: Record<string, 'yes' | 'no' | null> = {};
     proposals.forEach(proposal => {
       votes[proposal.id] = proposal.votes.voters[profile.uid] || null;
@@ -134,7 +134,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="p-4 lg:p-6 max-w-7xl mx-auto space-y-6">
-      {/* Header */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between"
@@ -147,7 +147,7 @@ export default function ProjectsPage() {
         </div>
       </motion.div>
 
-      {/* Tabs */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
         className="flex items-center gap-1 p-1.5 bg-stone-100 rounded-xl w-fit"
@@ -186,7 +186,7 @@ export default function ProjectsPage() {
         </button>
       </motion.div>
 
-      {/* Quick Stats - Only show for Proposals */}
+      {}
       {activeTab === "proposals" && (
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
@@ -231,12 +231,12 @@ export default function ProjectsPage() {
         </motion.div>
       )}
 
-      {/* Content */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
         className="min-h-[400px]"
       >
-        {/* Proposals Tab */}
+        {}
         {activeTab === "proposals" && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
              {filteredProposals.length === 0 ? (
@@ -261,13 +261,13 @@ export default function ProjectsPage() {
                       isActive ? 'border-amber-200 bg-amber-50/10' : 'border-stone-100'
                     }`}
                   >
-                    {/* Content Body - Social Post Style */}
+                    {}
                     <div className="flex flex-col gap-1 mb-4">
                       <div className="flex items-start justify-between gap-4">
                         <h3 className="font-extrabold text-stone-900 text-lg lg:text-xl tracking-tight leading-tight">
                           {proposal.title}
                         </h3>
-                        {/* Status Badge */}
+                        {}
                         <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest border shrink-0 ${getStatusBg(proposal.status)} ${getStatusColor(proposal.status)}`}>
                           {proposal.status}
                         </span>
@@ -276,9 +276,9 @@ export default function ProjectsPage() {
                         {proposal.description}
                       </p>
                     </div>
-                    {/* Stats & Interactions Bar */}
+                    {}
                     <div className="flex flex-col gap-2.5">
-                      {/* Voting Track */}
+                      {}
                       <div className="flex flex-col gap-1 w-full bg-stone-50 rounded-xl p-2.5 border border-stone-100">
                         <div className="flex items-center justify-between px-1 mb-1">
                           <span className="text-[10px] font-black uppercase tracking-widest text-stone-500">Vote Progress</span>
@@ -301,10 +301,10 @@ export default function ProjectsPage() {
                         </p>
                       </div>
 
-                      {/* Action Row */}
+                      {}
                       <div className="flex items-center justify-between pt-1">
                         <div className="flex items-center gap-2">
-                           {/* YES Action */}
+                           {}
                            <button
                              onClick={() => handleVote(proposal.id, 'yes')}
                              disabled={voting === proposal.id || !canInteract}
@@ -324,7 +324,7 @@ export default function ProjectsPage() {
                              {proposal.votes.yes} YES
                            </button>
 
-                           {/* NO Action */}
+                           {}
                            <button
                              onClick={() => handleVote(proposal.id, 'no')}
                              disabled={voting === proposal.id || !canInteract}
@@ -345,7 +345,7 @@ export default function ProjectsPage() {
                            </button>
                         </div>
 
-                        {/* Right Footer: Category & Date */}
+                        {}
                         <div className="flex items-center gap-2">
                           <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">
                             {formatDate(proposal.proposedAt)}
@@ -365,7 +365,7 @@ export default function ProjectsPage() {
           </div>
         )}
 
-        {/* Campus Info Tab */}
+        {}
         {activeTab === "campus" && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {campusInfo.length === 0 ? (
@@ -386,7 +386,7 @@ export default function ProjectsPage() {
                   }`}
                   onClick={() => info.status === 'published' && handleViewCampusInfo(info.id)}
                 >
-                  {/* Header */}
+                  {}
                   <div className="flex items-start justify-between gap-3 mb-4 flex-1">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-4 mb-3">
@@ -404,7 +404,7 @@ export default function ProjectsPage() {
                     </div>
                   </div>
 
-                  {/* Footer */}
+                  {}
                   <div className="flex items-center justify-between pt-4 border-t border-stone-100 mt-2">
                     <div className="flex items-center gap-3">
                       <span className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-stone-400">

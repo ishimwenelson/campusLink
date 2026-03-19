@@ -85,7 +85,7 @@ export default function MemberProfile() {
   return (
     <div className="p-4 lg:p-6 max-w-6xl mx-auto space-y-6">
       
-      {/* Header */}
+      {}
       <motion.button 
         initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
         onClick={() => router.back()}
@@ -94,7 +94,7 @@ export default function MemberProfile() {
         <ArrowLeft size={14} /> Back to Directory
       </motion.button>
 
-      {/* Main Profile Header */}
+      {}
       <motion.div 
         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
         className="bg-white rounded-[2.5rem] border border-stone-100 shadow-xl overflow-hidden relative"
@@ -129,7 +129,7 @@ export default function MemberProfile() {
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column (Stats & Docs) */}
+        {}
         <div className="lg:col-span-1 space-y-6">
           
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-white rounded-[2rem] border border-stone-100 shadow-xl p-6">
@@ -191,7 +191,7 @@ export default function MemberProfile() {
           </motion.div>
         </div>
 
-        {/* Right Column (Payments & Activity) */}
+        {}
         <div className="lg:col-span-2 space-y-6">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bg-white rounded-[2rem] border border-stone-100 shadow-xl p-6">
              <div className="flex items-center justify-between mb-6">
@@ -264,7 +264,7 @@ export default function MemberProfile() {
         </div>
       </div>
 
-      {/* PDF Viewer Modal */}
+      {}
       <AnimatePresence>
         {viewingDoc && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">

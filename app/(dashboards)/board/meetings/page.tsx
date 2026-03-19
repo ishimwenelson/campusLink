@@ -29,7 +29,7 @@ export default function MeetingsPage() {
     const [creating, setCreating] = useState(false);
     const [currentTime, setCurrentTime] = useState(new Date());
 
-    // New Meeting Form State
+    
     const [newMeeting, setNewMeeting] = useState({
         title: "",
         date: "",
@@ -72,10 +72,10 @@ export default function MeetingsPage() {
 
             await createMeeting(meetingData);
 
-            // Send notifications to all invited roles
+            
             await Promise.all(newMeeting.invitedRoles.map(role => 
                 createNotification({
-                    userId: role, // Assuming backend handles role-based userId or we send to a topic
+                    userId: role, 
                     title: "New Meeting scheduled",
                     message: `${newMeeting.title} has been scheduled for ${formatDate(newMeeting.date)}`,
                     type: "meeting_invite",
@@ -110,7 +110,7 @@ export default function MeetingsPage() {
         return matchesSearch && (isInvited || isCreator);
     });
 
-    // Auto-expiration check
+    
     useEffect(() => {
         const checkExpirations = async () => {
             const now = currentTime.getTime();
@@ -135,7 +135,7 @@ export default function MeetingsPage() {
             if (changed) fetchMeetings();
         };
 
-        const interval = setInterval(checkExpirations, 30000); // Check every 30s
+        const interval = setInterval(checkExpirations, 30000); 
         return () => clearInterval(interval);
     }, [meetings, currentTime]);
 
@@ -168,7 +168,7 @@ export default function MeetingsPage() {
 
     return (
         <div className="p-4 lg:p-10 max-w-[1600px] mx-auto space-y-10 pb-32">
-            {/* Imperial Header */}
+            {}
             <motion.div 
                 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
                 className="flex flex-col md:flex-row md:items-end justify-between gap-8"
@@ -204,7 +204,7 @@ export default function MeetingsPage() {
                 </div>
             </motion.div>
 
-            {/* Advanced Search & Control Bar */}
+            {}
             <div className="flex flex-col lg:flex-row gap-6">
                 <div className="relative flex-1 group">
                     <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-amber-500 transition-colors" size={18} />
@@ -225,7 +225,7 @@ export default function MeetingsPage() {
                 </div>
             </div>
 
-            {/* Meeting Grid */}
+            {}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filtered.length === 0 && !loading ? (
                     <div className="col-span-full py-32 text-center bg-stone-50/50 rounded-[3rem] border border-dashed border-stone-200">
@@ -333,7 +333,7 @@ export default function MeetingsPage() {
                 )}
             </div>
 
-            {/* Imperial Create Modal */}
+            {}
             <AnimatePresence>
                 {isModalOpen && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">

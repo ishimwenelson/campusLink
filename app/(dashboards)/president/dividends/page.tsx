@@ -83,7 +83,7 @@ export default function DividendManagement() {
         status: "active"
       });
       
-      // Refresh projects
+      
       getDividendProjects().then(setProjects);
     } catch (error) {
       toast.error("Failed to create project");
@@ -115,11 +115,11 @@ export default function DividendManagement() {
 
   const getCategoryIcon = (category: DividendProject['category']) => {
     switch (category) {
-      case 'agriculture': return '🌾';
-      case 'real_estate': return '🏢';
-      case 'business': return '💼';
-      case 'infrastructure': return '🏗️';
-      default: return '📊';
+      case 'agriculture': return '';
+      case 'real_estate': return '';
+      case 'business': return '';
+      case 'infrastructure': return '️';
+      default: return '';
     }
   };
 
@@ -140,7 +140,7 @@ export default function DividendManagement() {
 
   return (
     <div className="p-4 lg:p-6 max-w-7xl mx-auto space-y-6">
-      {/* Header */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between"
@@ -159,7 +159,7 @@ export default function DividendManagement() {
         </div>
       </motion.div>
 
-      {/* Stats */}
+      {}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Total Projects" value={projects.length} icon={Briefcase} color="gold" delay={0.1} />
         <StatCard title="Total Investment" value={formatRF(totalInvestment)} icon={DollarSign} color="green" delay={0.15} />
@@ -167,7 +167,7 @@ export default function DividendManagement() {
         <StatCard title="Total Profit" value={formatRF(totalProfit)} icon={Award} color="purple" delay={0.25} />
       </div>
 
-      {/* Projects List */}
+      {}
       <motion.div
         className="card-gold overflow-hidden"
         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
@@ -255,7 +255,7 @@ export default function DividendManagement() {
         )}
       </motion.div>
 
-      {/* Create Project Modal */}
+      {}
       {showCreateModal && (
         <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }}

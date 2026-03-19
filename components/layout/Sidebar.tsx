@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import { cn } from "@/lib/utils/cn";
-import { ChevronRight, LogOut } from "lucide-react";
+import { ChevronRight, LogOut, Loader2 } from "lucide-react";
 import type { UserRole, CampusUser } from "@/lib/types";
 
 type NavItem = { label: string; href: string; icon: any; roles: UserRole[]; badgeCount?: number };
@@ -32,10 +32,12 @@ export default function Sidebar({
     const router = useRouter();
     const pathname = usePathname();
     const [activeHref, setActiveHref] = useState(pathname);
+    const [clickedHref, setClickedHref] = useState<string | null>(null);
 
-    // Sync activeHref with pathname when navigating via browser buttons
+    
     useEffect(() => {
         setActiveHref(pathname);
+        setClickedHref(null); 
     }, [pathname]);
 
     return (
@@ -47,7 +49,7 @@ export default function Sidebar({
             )}
             initial={false}
         >
-            {/* Logo Section */}
+            {}
             <div className={cn(
                 "px-6 py-8 flex items-center gap-4 relative", 
                 !sidebarOpen && "justify-center px-0"
@@ -82,17 +84,14 @@ export default function Sidebar({
                     )}
                 </AnimatePresence>
                 
-                {/* Underline */}
+                {}
                 {sidebarOpen && (
                     <div className="absolute bottom-0 left-6 right-6 h-[1px] bg-gradient-to-r from-stone-800 via-stone-700 to-transparent" />
                 )}
             </div>
 
-            {/* Navigation Groups */}
-            <nav className={cn(
-                "flex-1 px-3 space-y-0.5 scrollbar-hide py-4",
-                sidebarOpen ? "overflow-y-auto" : "overflow-hidden"
-            )}>
+            {}
+            <nav className="flex-1 px-3 space-y-0.5 overflow-y-auto scrollbar-hide py-4">
                 {filteredNav.map((item) => {
                     const Icon = item.icon;
                     const isActive = activeHref === item.href || (
@@ -103,16 +102,20 @@ export default function Sidebar({
                         <motion.button
                             key={item.href}
                             onClick={() => { 
-                                setActiveHref(item.href);
-                                router.push(item.href); 
+                                if (activeHref !== item.href) {
+                                    setClickedHref(item.href);
+                                    router.push(item.href); 
+                                }
                                 setMobileSidebarOpen(false); 
                             }}
+                            disabled={clickedHref === item.href}
                             className={cn(
                                 "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-bold transition-all duration-500 relative group overflow-hidden",
                                 isActive
                                     ? "bg-white text-stone-950 shadow-xl shadow-black/20"
                                     : "text-stone-500 hover:text-stone-200 hover:bg-white/5",
-                                !sidebarOpen && "justify-center px-0 h-10 w-10 mx-auto"
+                                !sidebarOpen && "justify-center px-0 h-10 w-10 mx-auto",
+                                clickedHref === item.href && "opacity-70"
                             )}
                             whileTap={{ scale: 0.96 }}
                             title={!sidebarOpen ? item.label : undefined}
@@ -123,7 +126,11 @@ export default function Sidebar({
                                     className="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-transparent pointer-events-none"
                                 />
                             )}
-                            <Icon size={18} className={cn("flex-shrink-0 transition-all duration-500", isActive ? "text-amber-500 scale-110" : "group-hover:text-amber-500 group-hover:scale-110")} />
+                            {clickedHref === item.href ? (
+                                <Loader2 size={18} className="animate-spin text-amber-500 flex-shrink-0" />
+                            ) : (
+                                <Icon size={18} className={cn("flex-shrink-0 transition-all duration-500", isActive ? "text-amber-500 scale-110" : "group-hover:text-amber-500 group-hover:scale-110")} />
+                            )}
                             <AnimatePresence>
                                 {sidebarOpen && (
                                     <motion.span
@@ -135,19 +142,22 @@ export default function Sidebar({
                                 )}
                             </AnimatePresence>
 
-                            {/* Badge */}
+                            {}
                             {item.badgeCount ? (
                                 <div className={cn(
-                                    "flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-md text-[10px] font-black shadow-sm ml-auto z-10 transition-colors",
+                                    "flex items-center justify-center rounded-md font-black shadow-sm z-10 transition-colors",
                                     isActive 
                                         ? "bg-amber-500 text-white shadow-amber-500/20" 
-                                        : "bg-red-500 text-white"
+                                        : "bg-red-500 text-white",
+                                    sidebarOpen 
+                                        ? "ml-auto min-w-[18px] h-[18px] px-1 text-[10px]" 
+                                        : "absolute top-1.5 right-1.5 min-w-[14px] h-[14px] text-[8px] px-0.5"
                                 )}>
-                                    {item.badgeCount}
+                                    {item.badgeCount > 9 && !sidebarOpen ? "9+" : item.badgeCount}
                                 </div>
                             ) : null}
 
-                            {/* Active Dot */}
+                            {}
                             {isActive && sidebarOpen && !item.badgeCount && (
                                 <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} className="ml-auto w-1 h-1 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b] z-10" />
                             )}
@@ -156,7 +166,7 @@ export default function Sidebar({
                 })}
             </nav>
 
-            {/* Profile Section */}
+            {}
             <div className="mx-3 mb-4 p-1 rounded-2xl bg-stone-900/30 border border-stone-800/30">
                 {profile && (
                     <motion.div
@@ -193,7 +203,7 @@ export default function Sidebar({
                     </motion.div>
                 )}
 
-                {/* Logout Button */}
+                {}
                 <motion.button
                     onClick={handleLogout}
                     className={cn(

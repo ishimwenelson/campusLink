@@ -17,7 +17,7 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-// Enable offline persistence (Client-side only)
+
 if (typeof window !== "undefined") {
   enableIndexedDbPersistence(db).catch((err) => {
     if (err.code === 'failed-precondition') {

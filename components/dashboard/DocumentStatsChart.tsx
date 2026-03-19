@@ -27,7 +27,7 @@ export function DocumentStatsChart({ members }: Props) {
 
   return (
     <div className="bg-white rounded-[2.5rem] border border-stone-100 shadow-xl p-3 h-full flex flex-col gap-2">
-      {/* Header */}
+      {}
       <div className="flex items-center gap-2">
         <div className="w-7 h-7 rounded-lg bg-blue-500 flex items-center justify-center text-white shadow-md shadow-blue-200">
           <FileText size={14} />
@@ -38,7 +38,7 @@ export function DocumentStatsChart({ members }: Props) {
         </div>
       </div>
 
-      {/* Pie chart */}
+      {}
       <div className="flex-1 min-h-[150px]">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
@@ -75,7 +75,7 @@ export function DocumentStatsChart({ members }: Props) {
         </ResponsiveContainer>
       </div>
 
-      {/* Progress bar only */}
+      {}
       <div>
         <div className="flex justify-between mb-1">
           <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wide">Completion</span>

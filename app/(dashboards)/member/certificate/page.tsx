@@ -1,4 +1,4 @@
-// app/(dashboards)/member/certificate/page.tsx
+
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -19,7 +19,7 @@ export default function CertificatePage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const scalingWrapperRef = useRef<HTMLDivElement>(null);
 
-  // Responsive Scaling Logic
+  
   useEffect(() => {
     const handleResize = () => {
       if (containerRef.current && scalingWrapperRef.current) {
@@ -43,12 +43,12 @@ export default function CertificatePage() {
     setDownloading(type);
     
     try {
-      // Small delay to ensure everything is rendered
+      
       await new Promise(resolve => setTimeout(resolve, 500));
       
       const dataUrl = await toPng(certRef.current, {
         quality: 1,
-        pixelRatio: 2, // Higher resolution
+        pixelRatio: 2, 
       });
 
       if (type === "png") {
@@ -107,7 +107,7 @@ export default function CertificatePage() {
       </div>
 
       {!isComplete ? (
-        /* Locked state */
+        
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -141,16 +141,16 @@ export default function CertificatePage() {
           </div>
         </motion.div>
       ) : (
-        /* Preview state */
+        
         <div className="space-y-8 max-w-5xl mx-auto">
           <div 
             ref={containerRef}
             className="relative w-full overflow-hidden rounded-2xl shadow-2xl border border-stone-800 bg-stone-900/50"
           >
-            {/* Aspect Ratio Box to reserve space */}
-            <div className="w-full pb-[70.47%]" /> {/* 740 / 1050 = 0.7047 */}
+            {}
+            <div className="w-full pb-[70.47%]" /> {}
             
-            {/* Scaled Content Wrapped */}
+            {}
             <div className="absolute inset-0 flex items-center justify-center p-4">
               <div 
                 ref={scalingWrapperRef}

@@ -1,4 +1,4 @@
-// components/shared/StatCard.tsx
+
 "use client";
 
 import { useEffect, useRef } from "react";

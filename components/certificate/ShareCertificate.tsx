@@ -5,7 +5,7 @@ import {
 import type { CampusUser } from "@/lib/types";
 import { getShareCount, BUSINESS_RULES } from "@/lib/types";
 
-// Register fonts
+
 Font.register({
   family: "Playfair",
   fonts: [
@@ -187,15 +187,15 @@ export function ShareCertificate({ user }: CertificateProps) {
   return (
     <Document>
       <Page size="A4" orientation="landscape" style={styles.page}>
-        {/* Borders */}
+        {}
         <View style={styles.goldBorder} />
         <View style={styles.innerBorder} />
 
-        {/* Watermark */}
+        {}
         <Text style={styles.watermark}>PAID</Text>
 
         <View style={styles.content}>
-          {/* Logo */}
+          {}
           <PDFImage src="/assets/icon.png" style={styles.logo} />
 
           <Text style={styles.orgName}>CampusLink Investment Association</Text>
@@ -220,7 +220,7 @@ export function ShareCertificate({ user }: CertificateProps) {
             at 1,000 RF per share
           </Text>
 
-          {/* Info boxes */}
+          {}
           <View style={styles.infoBox}>
             <View style={styles.infoItem}>
               <Text style={styles.infoLabel}>Total Shares</Text>
@@ -240,7 +240,7 @@ export function ShareCertificate({ user }: CertificateProps) {
             </View>
           </View>
 
-          {/* Signatures */}
+          {}
           <View style={styles.signaturesRow}>
             <View style={styles.signature}>
               <View style={styles.signatureLine} />

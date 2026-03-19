@@ -43,8 +43,8 @@ export default function MarketPage() {
       const marketListings = await getMarketListings();
       setListings(marketListings);
       
-      // Fetch user's offers (we'd need a specific function or filter)
-      // For now, I'll focus on the listings and their nested offers
+      
+      
     } catch (error) {
       console.error(error);
       toast.error("Failed to load market listings");
@@ -62,7 +62,7 @@ export default function MarketPage() {
 
   return (
     <div className="space-y-8 pb-20">
-      {/* Header section */}
+      {}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
           <h1 className="tracking-tight text-3xl font-black">
@@ -83,7 +83,7 @@ export default function MarketPage() {
         </motion.button>
       </div>
 
-      {/* Stats row */}
+      {}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard 
           title="Market Volume" 
@@ -113,9 +113,9 @@ export default function MarketPage() {
         />
       </div>
 
-      {/* Main Content Area */}
+      {}
       <div className="bg-white rounded-[2.5rem] border border-stone-100 shadow-xl overflow-hidden min-h-[500px] relative">
-        {/* Tab Navigation */}
+        {}
         <div className="flex border-b border-stone-50 px-6 bg-stone-50/30 backdrop-blur-md sticky top-0 z-10">
           <TabButton active={activeTab === 'market'} onClick={() => setActiveTab('market')} label="Live Market" count={listings.length} />
           <TabButton active={activeTab === 'my-listings'} onClick={() => setActiveTab('my-listings')} label="My Listings" count={myActiveListings.length} />
@@ -125,7 +125,7 @@ export default function MarketPage() {
         <div className="p-6">
           {activeTab === 'market' && (
             <div className="space-y-4">
-              {/* Search & Filter */}
+              {}
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1 group">
                    <div className="absolute inset-0 bg-amber-500/5 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -140,7 +140,7 @@ export default function MarketPage() {
                 </div>
               </div>
 
-              {/* Listings Table */}
+              {}
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
                   <thead>

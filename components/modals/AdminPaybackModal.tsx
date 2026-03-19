@@ -82,7 +82,7 @@ export function AdminPaybackModal({ isOpen, onClose, preSelectedUser }: AdminPay
             );
             toast.success(`Payback of ${formatRF(amount)} recorded for ${recipient.fullName}!`);
             
-            // Optionally update the local recipient state for visual confirmation, though the modal closes usually.
+            
             
             handleClose();
         } catch (err: any) {
@@ -120,7 +120,7 @@ export function AdminPaybackModal({ isOpen, onClose, preSelectedUser }: AdminPay
                     exit={{ scale: 0.9, opacity: 0, y: 20 }}
                     className="relative w-full max-w-lg bg-stone-900 border border-stone-800 rounded-[30px] sm:rounded-[40px] overflow-hidden shadow-2xl"
                 >
-                    {/* Progress Bar */}
+                    {}
                     <div className="absolute top-0 left-0 h-1 bg-stone-800 w-full">
                         <motion.div 
                             className="h-full bg-amber-500"
@@ -271,7 +271,7 @@ export function AdminPaybackModal({ isOpen, onClose, preSelectedUser }: AdminPay
                                         </div>
                                     </div>
 
-                                    {/* Breakdown Info */}
+                                    {}
                                     <div className="flex gap-3 p-4 rounded-2xl bg-blue-500/5 border border-blue-500/10 italic text-[10px] font-bold text-blue-200/60 leading-snug">
                                         <AlertCircle className="shrink-0 text-blue-500" size={16} />
                                         System allocates {formatRF(Math.min(amount, recipient.interestOwed || 0))} to interest and {formatRF(Math.max(0, amount - (recipient.interestOwed || 0)))} to principal.

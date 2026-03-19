@@ -27,7 +27,7 @@ export async function POST() {
                     'Ocp-Apim-Subscription-Key': subscriptionKey,
                     'Content-Type': 'application/json',
                 },
-                body: '{}', // Must be empty JSON object
+                body: '{}', 
             }
         );
 
@@ -35,7 +35,7 @@ export async function POST() {
         console.log('Token response status:', response.status);
         console.log('Token response body:', responseText);
 
-        // Check for HTML rejection
+        
         if (responseText.includes('<html>')) {
             return NextResponse.json(
                 { error: 'Token request rejected by MTN gateway', details: responseText },

@@ -49,7 +49,7 @@ export default function Navbar({
     const profileRef = useRef<HTMLDivElement>(null);
     const notifRef = useRef<HTMLDivElement>(null);
 
-    // Keyboard shortcut Ctrl+K / Cmd+K
+    
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -66,7 +66,7 @@ export default function Navbar({
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, []);
 
-    // Close dropdowns on outside click
+    
     useEffect(() => {
         const handleClick = (e: MouseEvent) => {
             if (profileRef.current && !profileRef.current.contains(e.target as Node)) setProfileOpen(false);
@@ -89,9 +89,9 @@ export default function Navbar({
     const currentPage = navItems.find((n) => pathname === n.href || pathname.startsWith(n.href + "/"))?.label || "Dashboard";
 
     return (
-        <header className="sticky top-0 z-40 w-full h-20 bg-white/70 backdrop-blur-xl border-b border-stone-100 flex items-center justify-between px-6 lg:px-10 gap-6 transition-all">
+        <header className="sticky top-0 z-40 w-full h-16 bg-white/70 backdrop-blur-xl border-b border-stone-100 flex items-center justify-between px-6 lg:px-10 gap-4 transition-all">
 
-            {/* Left Area: Title & Toggle */}
+            {}
             <div className="flex items-center gap-6 flex-1 lg:flex-none">
                 <button
                     onClick={() => setMobileSidebarOpen(true)}
@@ -102,9 +102,9 @@ export default function Navbar({
 
                 <button
                     onClick={() => setSidebarOpen(!sidebarOpen)}
-                    className="hidden lg:flex p-2.5 rounded-xl bg-white border border-stone-200 text-stone-600 hover:text-amber-500 hover:border-amber-200 transition-all duration-300 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_rgba(245,158,11,0.1)] active:scale-95"
+                    className="hidden lg:flex p-2 rounded-xl bg-white border border-stone-200 text-stone-600 hover:text-amber-500 hover:border-amber-200 transition-all duration-300 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_rgba(245,158,11,0.1)] active:scale-95"
                 >
-                    {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
+                    {sidebarOpen ? <X size={16} /> : <Menu size={16} />}
                 </button>
 
                 <div className="hidden md:block">
@@ -115,7 +115,7 @@ export default function Navbar({
                 </div>
             </div>
 
-            {/* Center: Universal Search (GREEN-HOUSE Style) */}
+            {}
             <div className="flex-1 max-w-xl hidden md:block">
                 <AnimatePresence mode="wait">
                     {searchOpen ? (
@@ -132,7 +132,7 @@ export default function Navbar({
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Search tools, members, financials..."
-                                className="w-full bg-white border-2 border-amber-500/20 rounded-[20px] py-3.5 pl-12 pr-12 text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:border-amber-500 shadow-2xl shadow-amber-900/10 transition-all"
+                                className="w-full bg-white border-2 border-amber-500/20 rounded-[16px] py-2 pl-12 pr-12 text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:border-amber-500 shadow-2xl shadow-amber-900/10 transition-all"
                             />
                             <button
                                 onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
@@ -141,7 +141,7 @@ export default function Navbar({
                                 <X size={16} />
                             </button>
 
-                            {/* Search Results Dropdown */}
+                            {}
                             <AnimatePresence>
                                 {searchQuery.length > 0 && (
                                     <motion.div
@@ -181,7 +181,7 @@ export default function Navbar({
                             key="search-trigger"
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                             onClick={() => setSearchOpen(true)}
-                            className="w-full group bg-stone-50 border border-stone-100 hover:border-amber-200 hover:bg-white px-5 py-3 rounded-[20px] flex items-center gap-3 transition-all"
+                            className="w-full group bg-stone-50 border border-stone-100 hover:border-amber-200 hover:bg-white px-5 py-2 rounded-[16px] flex items-center gap-3 transition-all"
                         >
                             <Search className="text-stone-400 group-hover:text-amber-500 transition-colors" size={18} />
                             <span className="text-sm text-stone-400 text-left flex-1">Type <span className="text-amber-500 font-bold">⌘K</span> to jump anywhere...</span>
@@ -191,25 +191,25 @@ export default function Navbar({
                 </AnimatePresence>
             </div>
 
-            {/* Right Area: Actions & Profile */}
+            {}
             <div className="flex items-center gap-4">
-                {/* Dark Mode */}
+                {}
                 <button
                     onClick={() => setDarkMode(!darkMode)}
-                    className="p-3 rounded-2xl bg-stone-50 hover:bg-stone-100/80 transition-all text-stone-500 shadow-sm active:scale-95"
+                    className="p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100/80 transition-all text-stone-500 shadow-sm active:scale-95"
                 >
                     {darkMode ? <Sun size={18} /> : <Moon size={18} />}
                 </button>
 
-                {/* Notifications */}
+                {}
                 <div className="relative" ref={notifRef}>
                     <button
                         onClick={() => setNotifOpen(!notifOpen)}
-                        className="p-3 rounded-2xl bg-stone-50 hover:bg-stone-100/80 transition-all text-stone-500 shadow-sm active:scale-95 relative"
+                        className="p-2.5 rounded-xl bg-stone-50 hover:bg-stone-100/80 transition-all text-stone-500 shadow-sm active:scale-95 relative"
                     >
                         <Bell size={18} />
                         {unreadCount > 0 && (
-                            <span className="absolute top-2 right-2 w-4 h-4 bg-amber-500 border-2 border-white rounded-full flex items-center justify-center text-[8px] font-black text-white shadow-lg shadow-amber-500/30">
+                            <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-amber-500 border-2 border-white rounded-full flex items-center justify-center text-[8px] font-black text-white shadow-lg shadow-amber-500/30">
                                 {unreadCount > 9 ? "9+" : unreadCount}
                             </span>
                         )}
@@ -267,22 +267,22 @@ export default function Navbar({
                     </AnimatePresence>
                 </div>
 
-                {/* Profile Dropdown */}
+                {}
                 <div className="relative" ref={profileRef}>
                     <button
                         onClick={() => setProfileOpen(!profileOpen)}
-                        className="flex items-center gap-2 p-1.5 pl-3 rounded-2xl bg-stone-50 hover:bg-stone-100/80 transition-all active:scale-95 border border-stone-100 shadow-sm"
+                        className="flex items-center gap-2 p-1 pl-2.5 rounded-xl bg-stone-50 hover:bg-stone-100/80 transition-all active:scale-95 border border-stone-100 shadow-sm"
                     >
-                        <div className="hidden sm:block text-right pr-1">
+                        <div className="hidden sm:block text-right pr-0.5">
                             <p className="text-[11px] font-black text-stone-900 leading-none">{profile?.fullName.split(' ')[0]}</p>
-                            <p className="text-[9px] text-amber-500 font-black uppercase tracking-widest mt-1">{profile?.role}</p>
+                            <p className="text-[9px] text-amber-500 font-black uppercase tracking-widest mt-0.5">{profile?.role}</p>
                         </div>
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-yellow-600 
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-600 
                             flex items-center justify-center text-white font-black text-sm shadow-xl relative">
                             {profile?.fullName.charAt(0)}
-                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full" />
+                            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
                         </div>
-                        <ChevronDown size={14} className={cn("text-stone-400 transition-transform", profileOpen && "rotate-180")} />
+                        <ChevronDown size={12} className={cn("text-stone-400 transition-transform", profileOpen && "rotate-180")} />
                     </button>
 
                     <AnimatePresence>

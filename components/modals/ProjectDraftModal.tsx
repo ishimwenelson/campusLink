@@ -100,7 +100,7 @@ export function ProjectDraftModal({ isOpen, onClose, draft, onUpdate }: ProjectD
             };
             await addDraftComment(draft.id, comment);
             
-            // If board member comments, mark as feedback_given or under_review
+            
             if (isBoard && draft.status === 'submitted') {
                 await updateProjectDraft(draft.id, { status: 'feedback_given' });
             }
@@ -133,7 +133,7 @@ export function ProjectDraftModal({ isOpen, onClose, draft, onUpdate }: ProjectD
                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
                     className="relative w-full max-w-4xl bg-white rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row max-h-[90vh]"
                 >
-                    {/* Left Panel: Sidebar info */}
+                    {}
                     <div className="lg:w-1/3 bg-stone-900 p-8 text-white flex flex-col">
                         <div className="flex-1 space-y-8">
                             <div className="space-y-2">
@@ -208,7 +208,7 @@ export function ProjectDraftModal({ isOpen, onClose, draft, onUpdate }: ProjectD
                         )}
                     </div>
 
-                    {/* Right Panel: Content */}
+                    {}
                     <div className="flex-1 bg-white p-8 overflow-y-auto min-h-[400px]">
                         <div className="flex justify-end mb-6">
                             <button onClick={onClose} className="p-2 hover:bg-stone-100 rounded-full transition-colors text-stone-400">

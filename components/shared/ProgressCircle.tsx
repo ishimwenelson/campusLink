@@ -1,11 +1,11 @@
-// components/shared/ProgressCircle.tsx
+
 "use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 interface ProgressCircleProps {
-  percent:   number;  // 0–100
+  percent:   number;  
   size?:     number;
   stroke?:   number;
   label?:    string;
@@ -14,12 +14,12 @@ interface ProgressCircleProps {
 }
 
 function getEmoji(pct: number): string {
-  if (pct >= 100) return "🏆";
-  if (pct >= 80)  return "🔥";
-  if (pct >= 60)  return "💪";
-  if (pct >= 40)  return "📈";
-  if (pct >= 20)  return "🌱";
-  return "🚀";
+  if (pct >= 100) return "";
+  if (pct >= 80)  return "";
+  if (pct >= 60)  return "";
+  if (pct >= 40)  return "";
+  if (pct >= 20)  return "";
+  return "";
 }
 
 export default function ProgressCircle({
@@ -52,13 +52,13 @@ export default function ProgressCircle({
     <div className="flex flex-col items-center gap-2">
       <div className="relative" style={{ width: size, height: size }}>
         <svg width={size} height={size} className="rotate-[-90deg]">
-          {/* Background track */}
+          {}
           <circle
             cx={center} cy={center} r={radius}
             fill="none" stroke="rgba(255,255,255,0.05)"
             strokeWidth={stroke}
           />
-          {/* Progress arc */}
+          {}
           <motion.circle
             cx={center} cy={center} r={radius}
             fill="none"
@@ -72,7 +72,7 @@ export default function ProgressCircle({
           />
         </svg>
 
-        {/* Center content */}
+        {}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           {showEmoji && (
             <span className="text-lg mb-0.5">{getEmoji(displayed)}</span>

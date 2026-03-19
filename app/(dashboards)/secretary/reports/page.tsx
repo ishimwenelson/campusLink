@@ -73,7 +73,7 @@ export default function SecretaryReports() {
             if (joinedDate.getFullYear() !== now.getFullYear()) return false;
         } else if (durationFilter === "custom") {
             if (joinDateStart && joined < new Date(joinDateStart).getTime()) return false;
-            // Add 1 day to end date to make it inclusive
+            
             if (joinDateEnd && joined > new Date(joinDateEnd).getTime() + 86400000) return false;
         }
 
@@ -95,7 +95,7 @@ export default function SecretaryReports() {
         const workbook = new ExcelJS.Workbook();
         const worksheet = workbook.addWorksheet('Secretary Report');
 
-        // Define columns
+        
         worksheet.columns = [
             { header: 'Member Name', key: 'fullName', width: 25 },
             { header: 'Email Address', key: 'email', width: 30 },
@@ -109,7 +109,7 @@ export default function SecretaryReports() {
             { header: 'Account Status', key: 'status', width: 15 },
         ];
 
-        // Add rows
+        
         filteredMembers.forEach(m => {
             worksheet.addRow({
                 fullName: m.fullName,
@@ -125,16 +125,16 @@ export default function SecretaryReports() {
             });
         });
 
-        // Style the Header Row
+        
         const headerRow = worksheet.getRow(1);
         headerRow.eachCell((cell) => {
             cell.fill = {
                 type: 'pattern',
                 pattern: 'solid',
-                fgColor: { argb: 'FFD4AF37' } // Premium Gold
+                fgColor: { argb: 'FFD4AF37' } 
             };
             cell.font = {
-                color: { argb: 'FFFFFFFF' }, // White
+                color: { argb: 'FFFFFFFF' }, 
                 bold: true,
                 size: 11
             };
@@ -147,7 +147,7 @@ export default function SecretaryReports() {
             };
         });
 
-        // Add Auto Filter
+        
         worksheet.autoFilter = {
             from: 'A1',
             to: {
@@ -156,7 +156,7 @@ export default function SecretaryReports() {
             }
         };
 
-        // Auto-Size Columns (Simplified)
+        
         worksheet.columns.forEach(column => {
             let maxColumnLength = 0;
             column.eachCell!({ includeEmpty: true }, (cell) => {
@@ -168,7 +168,7 @@ export default function SecretaryReports() {
             column.width = maxColumnLength < 12 ? 12 : maxColumnLength + 2;
         });
 
-        // Generate and save
+        
         const buffer = await workbook.xlsx.writeBuffer();
         const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         saveAs(blob, `COMPASLINK_Report_${new Date().toISOString().split('T')[0]}.xlsx`);
@@ -184,7 +184,7 @@ export default function SecretaryReports() {
 
     return (
         <div className="p-4 lg:p-6 max-w-7xl mx-auto space-y-6 print:p-0">
-            {/* Header - Hidden on Print */}
+            {}
             <motion.div
                 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
                 className="flex flex-col md:flex-row md:items-center justify-between gap-4 print:hidden"
@@ -211,7 +211,7 @@ export default function SecretaryReports() {
                 </div>
             </motion.div>
 
-            {/* Stat Cards - Hidden on Print */}
+            {}
             <motion.div 
                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
                className="grid grid-cols-2 lg:grid-cols-4 gap-4 print:hidden"
@@ -222,15 +222,15 @@ export default function SecretaryReports() {
                 <StatCard title="Doc Compliance" value={`${stats.total - stats.pendingDocs}/${stats.total}`} icon={AlertCircle} color="purple" delay={0.15} />
             </motion.div>
 
-            {/* Filters & Table */}
+            {}
             <motion.div 
                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
                className="bg-white rounded-[2.5rem] border border-stone-100 shadow-xl overflow-hidden"
             >
-                {/* Table Controls - Hidden on Print */}
+                {}
                 <div className="p-6 border-b border-stone-50 flex flex-col gap-4 print:hidden">
 
-                    {/* Active Filters Display */}
+                    {}
                     {(search || filter !== "all" || joinDateStart || joinDateEnd) && (
                         <div className="flex flex-wrap items-center gap-2 mb-2 p-3 bg-amber-50/50 rounded-xl border border-amber-100">
                             <span className="text-[10px] font-black uppercase tracking-widest text-amber-800">Active Filters:</span>
@@ -263,7 +263,7 @@ export default function SecretaryReports() {
 
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                         <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                            {/* Search */}
+                            {}
                             <div className="flex items-center gap-1 bg-stone-50 rounded-xl border border-stone-200 p-1">
                                 <select 
                                     value={searchColumn} onChange={e => setSearchColumn(e.target.value as any)}
@@ -286,7 +286,7 @@ export default function SecretaryReports() {
                                 </div>
                             </div>
 
-                            {/* Registration Duration Filter */}
+                            {}
                             <div className="flex items-center gap-1 bg-amber-50/50 rounded-xl border border-amber-100 p-1">
                                 <span className="text-[10px] font-black uppercase tracking-widest text-amber-800 pl-3">Joined:</span>
                                 <select 
@@ -323,7 +323,7 @@ export default function SecretaryReports() {
                     </div>
                 </div>
 
-                {/* Print Header - Visible only on Print heart */}
+                {}
                 <div className="hidden print:block p-8 border-b-4 border-stone-900 mb-10">
                     <div className="flex justify-between items-center">
                         <div className="flex items-center gap-5">
@@ -344,7 +344,7 @@ export default function SecretaryReports() {
                     </div>
                 </div>
 
-                {/* Report Content */}
+                {}
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
                         <thead>
@@ -393,7 +393,7 @@ export default function SecretaryReports() {
                                 </tr>
                             )}
                         </tbody>
-                        {/* Table Footer - Totals */}
+                        {}
                         <tfoot className="bg-amber-50/50 print:bg-stone-50 border-t border-amber-100 print:border-stone-300">
                             <tr>
                                 <td colSpan={2} className="px-5 py-4 text-[10px] font-black uppercase tracking-widest text-amber-800 print:text-stone-800">Report Totals</td>
@@ -406,7 +406,7 @@ export default function SecretaryReports() {
                     </table>
                 </div>
 
-                {/* Signatures & Footer - Visible only on Print */}
+                {}
                 <div className="hidden print:grid grid-cols-2 gap-20 p-12 mt-12">
                     <div className="border-t-2 border-stone-300 pt-4">
                         <p className="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-1">Prepared by</p>

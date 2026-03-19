@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Project ID is required" }, { status: 400 });
     }
 
-    // Get project details
+    
     const project = await getDividendProject(projectId);
     if (!project) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
@@ -35,30 +35,30 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "No profit available to distribute" }, { status: 400 });
     }
 
-    // Calculate per-share dividend
+    
     const users = await getAllUsers();
     const totalShares = users.reduce((sum, user) => sum + getShareCount(user.totalShareValue), 0);
     const perShareAmount = project.profit / totalShares;
 
-    // Distribute dividends
+    
     await distributeDividends(projectId, perShareAmount);
     
-    // Update project status
+    
     await updateDividendProject(projectId, { status: 'completed' });
 
-    // Create notifications for all users who received dividends
+    
     const notifications = users
       .filter(user => getShareCount(user.totalShareValue) > 0)
       .map(user => ({
         userId: user.uid,
-        title: "Dividend Distributed! 🎉",
+        title: "Dividend Distributed! ",
         message: `You've received ${perShareAmount.toFixed(2)} RF per share from ${project.name}. Total: ${(getShareCount(user.totalShareValue) * perShareAmount).toFixed(2)} RF`,
         type: "dividend_distributed" as const,
         read: false,
         createdAt: new Date().toISOString(),
       }));
 
-    // Send all notifications
+    
     await Promise.all(notifications.map(notif => createNotification(notif)));
 
     return NextResponse.json({

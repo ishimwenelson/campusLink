@@ -19,7 +19,7 @@
     --ring: 38 92% 50%;
     --radius: 1rem;
 
-    /* CampusLink Gold Tokens */
+    
     --gold-primary: #d97706;
     --gold-light: #f59e0b;
     --gold-dark: #b45309;
@@ -49,7 +49,7 @@
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
-    font-size: 0.8125rem; /* Reduced to 13px */
+    font-size: 0.8125rem; 
   }
 
   h1, h2, h3, h4, .font-display {
@@ -64,7 +64,7 @@
 }
 
 @layer components {
-  /* Gold gradient button */
+  
   .btn-gold {
     @apply relative overflow-hidden bg-stone-900 
            text-white font-bold px-5 py-2.5 rounded-[1.5rem] shadow-[0_10px_30px_rgba(217,119,6,0.15)] 
@@ -82,7 +82,7 @@
     @apply opacity-20;
   }
 
-  /* Shimmer skeleton */
+  
   .skeleton {
     @apply relative overflow-hidden bg-amber-50 rounded-lg;
   }
@@ -94,13 +94,13 @@
     animation: shimmer 1.5s linear infinite;
   }
 
-  /* Gold card */
+  
   .card-gold {
     @apply bg-white border border-stone-100 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]
            hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-500;
   }
 
-  /* Stat card */
+  
   .stat-card {
     @apply card-gold p-8 relative overflow-hidden;
   }
@@ -111,12 +111,12 @@
     filter: blur(40px);
   }
 
-  /* Progress circle wrapper */
+  
   .progress-circle {
     @apply relative inline-flex items-center justify-center;
   }
 
-  /* Sidebar nav item */
+  
   .nav-item {
     @apply flex items-center gap-3 px-4 py-2.5 rounded-xl text-[13px] font-semibold
            text-stone-500 hover:text-stone-900 hover:bg-stone-50
@@ -126,7 +126,7 @@
     @apply bg-stone-900 text-white shadow-xl shadow-stone-200/50;
   }
 
-  /* Badge */
+  
   .badge-gold {
     @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold
            bg-amber-100 text-amber-800;
@@ -163,7 +163,7 @@
     @apply border-2 border-amber-400/30;
   }
 
-  /* Notched accent for cards - Scalloped edge effect */
+  
   .card-notch-accent {
     position: absolute;
     top: 50%;
@@ -176,7 +176,7 @@
     mask-image: radial-gradient(circle at 100% 50%, transparent 8px, black 9px);
   }
 
-  /* Circular progress indicator utilities */
+  
   .circular-progress-bg {
     @apply fill-none stroke-stone-100;
   }
@@ -185,7 +185,7 @@
     stroke-linecap: round;
   }
 
-  /* Custom Scrollbar for dashboards */
+  
   ::-webkit-scrollbar {
     width: 6px;
   }

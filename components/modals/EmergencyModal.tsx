@@ -118,7 +118,7 @@ export function EmergencyModal({
                         <span className="font-black text-amber-600">{formatRF(remainingCapacity)}</span>
                     </div>
                     <p className="text-[10px] text-amber-800 font-bold uppercase tracking-tight mt-2 opacity-70">
-                      ⚠️ 5% interest applied per request.
+                      ️ 5% interest applied per request.
                     </p>
                   </div>
                 </div>

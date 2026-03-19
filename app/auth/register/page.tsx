@@ -19,7 +19,7 @@ import { toast } from "sonner";
 import type { UserRole } from "@/lib/types";
 import { BUSINESS_RULES } from "@/lib/types";
 
-// ── Role definitions with icons & colors ───────────────────────────
+
 const ROLES: {
   value: UserRole;
   label: string;
@@ -87,7 +87,7 @@ const ROLE_ROUTES: Record<UserRole, string> = {
   boardMember: "/board",
 };
 
-// Steps
+
 type Step = "role" | "info" | "done";
 
 export default function RegisterPage() {
@@ -95,7 +95,7 @@ export default function RegisterPage() {
   const [step, setStep] = useState<Step>("role");
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(null);
 
-  // Form fields
+  
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -109,7 +109,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [createdName, setCreatedName] = useState("");
 
-  // ── Handle registration ───────────────────────────────────────────
+  
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedRole) return;
@@ -129,7 +129,7 @@ export default function RegisterPage() {
 
     setLoading(true);
     try {
-      // 1. Create Firebase Auth user
+      
       const cred = await createUserWithEmailAndPassword(
         auth,
         form.email,
@@ -137,7 +137,7 @@ export default function RegisterPage() {
       );
       await updateProfile(cred.user, { displayName: form.fullName });
 
-      // 2. Create Firestore profile
+      
       await setDoc(doc(db, "users", cred.user.uid), {
         email: form.email,
         role: selectedRole,
@@ -150,11 +150,11 @@ export default function RegisterPage() {
         emergencyTaken: 0,
         interestOwed: 0,
         isActive: true,
-        passwordChanged: true,   // already set their own password
+        passwordChanged: true,   
         documentsUploaded: false,
       });
 
-      // 3. Set session cookie
+      
       await fetch("/api/auth/session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -163,7 +163,7 @@ export default function RegisterPage() {
 
       setCreatedName(form.fullName.split(" ")[0]);
       setStep("done");
-      toast.success(`Account created for ${form.fullName} 🎉`);
+      toast.success(`Account created for ${form.fullName} `);
     } catch (err: any) {
       if (err.code === "auth/email-already-in-use") {
         toast.error("This email is already registered. Please login.");
@@ -182,10 +182,10 @@ export default function RegisterPage() {
   const updateForm = (key: string, value: string | number) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
-  // ── Render ─────────────────────────────────────────────────────────
+  
   return (
     <div className="min-h-screen flex bg-pattern-subtle">
-      {/* ── Left panel ── */}
+      {}
       <motion.div
         className="hidden lg:flex flex-col justify-between w-5/12 bg-gradient-to-br from-stone-900 via-amber-950 to-stone-900 p-12 relative overflow-hidden"
         initial={{ x: -60, opacity: 0 }}
@@ -215,7 +215,7 @@ export default function RegisterPage() {
             </p>
           </div>
 
-          {/* Progress steps */}
+          {}
           <div className="space-y-3">
             {[
               { label: "Choose your role", done: step !== "role" || selectedRole !== null },
@@ -225,7 +225,7 @@ export default function RegisterPage() {
               <div key={i} className="flex items-center gap-3">
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0
                   ${done ? "bg-amber-500 text-white" : "bg-amber-900/40 text-amber-400 border border-amber-700"}`}>
-                  {done ? "✓" : i + 1}
+                  {done ? "" : i + 1}
                 </div>
                 <span className={`text-sm ${done ? "text-white" : "text-stone-400"}`}>{label}</span>
               </div>
@@ -233,7 +233,7 @@ export default function RegisterPage() {
           </div>
 
           <div className="p-4 rounded-2xl bg-amber-900/20 border border-amber-800/30">
-            <p className="text-amber-300 text-sm font-semibold mb-1">⚠️ Dev / Testing Mode</p>
+            <p className="text-amber-300 text-sm font-semibold mb-1">️ Dev / Testing Mode</p>
             <p className="text-stone-400 text-xs leading-relaxed">
               This signup page is for initial setup & testing. In production,
               only the Secretary registers new members through their dashboard.
@@ -244,11 +244,11 @@ export default function RegisterPage() {
         <p className="text-stone-600 text-xs">© 2025 CampusLink Investment Association</p>
       </motion.div>
 
-      {/* ── Right panel ── */}
+      {}
       <div className="flex-1 flex items-center justify-center p-6 overflow-y-auto">
         <div className="w-full max-w-xl py-6">
 
-          {/* Mobile logo */}
+          {}
           <div className="lg:hidden mb-6 text-center">
             <Image src="/assets/icon.png" alt="" width={64} height={64} className="mx-auto mb-2 object-contain" />
             <h2 className="font-display text-xl text-gradient-gold">CampusLink Investment</h2>
@@ -256,7 +256,7 @@ export default function RegisterPage() {
 
           <AnimatePresence mode="wait">
 
-            {/* ─── STEP 1: Choose role ─── */}
+            {}
             {step === "role" && (
               <motion.div
                 key="role"
@@ -328,7 +328,7 @@ export default function RegisterPage() {
               </motion.div>
             )}
 
-            {/* ─── STEP 2: Fill in details ─── */}
+            
             {step === "info" && (
               <motion.div
                 key="info"
@@ -337,7 +337,7 @@ export default function RegisterPage() {
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Role badge + back */}
+                
                 <div className="flex items-center gap-3 mb-6">
                   <button
                     onClick={() => setStep("role")}
@@ -363,7 +363,7 @@ export default function RegisterPage() {
                 </div>
 
                 <form onSubmit={handleRegister} className="space-y-4">
-                  {/* Full name */}
+                  
                   <div>
                     <label className="text-sm font-medium text-stone-700 block mb-1.5">Full Name *</label>
                     <input
@@ -376,7 +376,7 @@ export default function RegisterPage() {
                     />
                   </div>
 
-                  {/* Email */}
+                  
                   <div>
                     <label className="text-sm font-medium text-stone-700 block mb-1.5">Email Address *</label>
                     <input
@@ -389,7 +389,7 @@ export default function RegisterPage() {
                     />
                   </div>
 
-                  {/* Phone + National ID side by side */}
+                  
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="text-sm font-medium text-stone-700 block mb-1.5">Phone</label>
@@ -413,7 +413,7 @@ export default function RegisterPage() {
                     </div>
                   </div>
 
-                  {/* Share value — only for member/investor roles */}
+                  
                   {(selectedRole === "member" || selectedRole === "investor") && (
                     <div>
                       <label className="text-sm font-medium text-stone-700 block mb-1.5">
@@ -435,7 +435,7 @@ export default function RegisterPage() {
                     </div>
                   )}
 
-                  {/* Password */}
+                  
                   <div>
                     <label className="text-sm font-medium text-stone-700 block mb-1.5">Password *</label>
                     <div className="relative">
@@ -457,7 +457,7 @@ export default function RegisterPage() {
                     </div>
                   </div>
 
-                  {/* Confirm password */}
+                  
                   <div>
                     <label className="text-sm font-medium text-stone-700 block mb-1.5">Confirm Password *</label>
                     <input
@@ -499,7 +499,7 @@ export default function RegisterPage() {
               </motion.div>
             )}
 
-            {/* ─── STEP 3: Success ─── */}
+            {}
             {step === "done" && (
               <motion.div
                 key="done"
@@ -524,7 +524,7 @@ export default function RegisterPage() {
                   transition={{ delay: 0.25 }}
                 >
                   <h2 className="font-display text-4xl text-stone-900 mb-2">
-                    Welcome, {createdName}! 🎉
+                    Welcome, {createdName}! 
                   </h2>
                   <p className="text-stone-500 mb-2">
                     Your account has been created as{" "}
@@ -534,7 +534,7 @@ export default function RegisterPage() {
                   </p>
                   {selectedRole === "secretary" && (
                     <div className="bg-violet-50 border border-violet-200 rounded-2xl p-4 text-left mt-4 mb-6">
-                      <p className="text-violet-800 font-semibold text-sm mb-1">🗂️ Secretary Access Granted</p>
+                      <p className="text-violet-800 font-semibold text-sm mb-1">️ Secretary Access Granted</p>
                       <p className="text-violet-600 text-sm">
                         You can now register other members from your dashboard.
                         Go to <strong>Member Management</strong> and use the

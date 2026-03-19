@@ -23,12 +23,12 @@ export function ProgressCircle({
   return (
     <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
-        {/* Track */}
+        {}
         <circle
           cx={center} cy={center} r={radius}
           fill="none" stroke="#f5e6c8" strokeWidth={strokeWidth}
         />
-        {/* Progress */}
+        {}
         <motion.circle
           cx={center} cy={center} r={radius}
           fill="none"

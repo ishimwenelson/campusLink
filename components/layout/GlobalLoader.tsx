@@ -11,7 +11,7 @@ export default function GlobalLoader({ progress = 0, message = "CampusLink Inves
   return (
     <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white">
       <div className="relative flex flex-col items-center">
-        {/* Pulsing Icon */}
+        {}
         <motion.div
           animate={{ 
             scale: [1, 1.1, 1],
@@ -34,7 +34,7 @@ export default function GlobalLoader({ progress = 0, message = "CampusLink Inves
         </motion.div>
 
         <div className="flex flex-col items-center gap-4">
-          {/* Institutional Progress Bar */}
+          {}
           <div className="w-48 lg:w-64 h-1.5 bg-stone-100 rounded-full overflow-hidden">
             <motion.div
               initial={{ width: 0 }}

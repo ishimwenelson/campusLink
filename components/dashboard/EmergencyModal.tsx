@@ -1,4 +1,4 @@
-// components/dashboard/EmergencyModal.tsx
+
 "use client";
 
 import { useState } from "react";
@@ -41,16 +41,16 @@ export default function EmergencyModal({
     setLoading(true);
     try {
       await createEmergencyRequest(profile.uid, profile.fullName, data.amount, data.reason);
-      // Notify president
+      
       await createNotification({
-        userId:    "president_notifications", // president role channel
+        userId:    "president_notifications", 
         title:     "Emergency Cash Request",
         message:   `${profile.fullName} requested ${formatRF(data.amount)}`,
         read:      false,
         createdAt: new Date().toISOString(),
         type:      "emergency_request",
       });
-      toast.success("Emergency request submitted! The President will review it shortly. ✅");
+      toast.success("Emergency request submitted! The President will review it shortly. ");
       reset();
       onClose();
     } catch (err) {
@@ -84,7 +84,7 @@ export default function EmergencyModal({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="glass-card rounded-2xl p-6 w-full max-w-md">
-              {/* Header */}
+              {}
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
@@ -102,7 +102,7 @@ export default function EmergencyModal({
                 </button>
               </div>
 
-              {/* Info banner */}
+              {}
               <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4 mb-5 flex gap-3">
                 <Info size={16} className="text-amber-400 flex-shrink-0 mt-0.5" />
                 <div className="text-xs text-[#9a8a6a] space-y-1">

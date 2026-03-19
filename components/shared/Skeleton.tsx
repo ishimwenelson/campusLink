@@ -1,4 +1,4 @@
-// components/shared/Skeleton.tsx
+
 import { cn } from "@/lib/utils";
 
 interface SkeletonProps { className?: string; }

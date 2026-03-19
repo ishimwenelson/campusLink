@@ -1,4 +1,4 @@
-// app/(auth)/change-password/page.tsx
+
 "use client";
 
 import { useState } from "react";
@@ -53,7 +53,7 @@ export default function ChangePasswordPage() {
       if (profile) {
         await updateUser(profile.uid, { passwordChanged: true });
         await refreshProfile();
-        toast.success("Password updated! Welcome to CampusLink 🎉");
+        toast.success("Password updated! Welcome to CampusLink ");
         router.push(ROLE_ROUTES[profile.role] ?? "/member");
       }
     } catch (err: unknown) {

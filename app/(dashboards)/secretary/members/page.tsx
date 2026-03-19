@@ -59,7 +59,7 @@ export default function MemberDirectory() {
     }
   };
 
-  // Stats
+  
   const stats = useMemo(() => {
     const total = members.length;
     const active = members.filter(m => m.isActive).length;
@@ -89,7 +89,7 @@ export default function MemberDirectory() {
   return (
     <div className="p-4 lg:p-6 max-w-7xl mx-auto space-y-6">
 
-      {/* Header */}
+      {}
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
         className="flex items-center justify-between">
         <div>
@@ -107,7 +107,7 @@ export default function MemberDirectory() {
         </motion.button>
       </motion.div>
 
-      {/* Stat Cards */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
         className="grid grid-cols-2 lg:grid-cols-4 gap-4"
@@ -130,12 +130,12 @@ export default function MemberDirectory() {
         ))}
       </motion.div>
 
-      {/* Table */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
         className="bg-white rounded-[2.5rem] border border-stone-100 shadow-xl overflow-hidden"
       >
-        {/* Table header */}
+        {}
         <div className="flex items-center justify-between px-6 py-4 border-b border-stone-50">
           <div className="flex items-center gap-3">
             <h2 className="text-sm font-black text-stone-900 tracking-tight">Member Directory</h2>
@@ -151,7 +151,7 @@ export default function MemberDirectory() {
               </button>
             )}
           </div>
-          {/* Search */}
+          {}
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" size={14} />
             <input
@@ -249,7 +249,7 @@ export default function MemberDirectory() {
         </div>
       </motion.div>
 
-      {/* Document Modal */}
+      {}
       <AnimatePresence>
         {selectedMember && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -356,7 +356,7 @@ export default function MemberDirectory() {
         onSuccess={() => { setShowRegister(false); fetchMembers(); }}
       />
 
-      {/* PDF Viewer Modal */}
+      {}
       <AnimatePresence>
         {viewingDoc && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6">

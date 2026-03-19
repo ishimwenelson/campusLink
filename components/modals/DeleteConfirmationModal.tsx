@@ -25,7 +25,7 @@ export function DeleteConfirmationModal({
     return (
         <AnimatePresence>
             <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
-                {/* Backdrop */}
+                {}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -34,14 +34,14 @@ export function DeleteConfirmationModal({
                     onClick={!loading ? onClose : undefined}
                 />
 
-                {/* Modal */}
+                {}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
                     className="relative w-full max-w-md bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-stone-100"
                 >
-                    {/* Header/Danger Zone Gradient */}
+                    {}
                     <div className="h-2 bg-red-500" />
 
                     <div className="p-8 space-y-6 text-center">

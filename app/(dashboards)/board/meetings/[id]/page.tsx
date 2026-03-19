@@ -39,7 +39,7 @@ export default function MeetingRoom() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [expandedAgenda, setExpandedAgenda] = useState(false);
 
-    // Media States
+    
     const [isMicOn, setIsMicOn] = useState(false);
     const [isVideoOn, setIsVideoOn] = useState(false);
     const [reactions, setReactions] = useState<Reaction[]>([]);
@@ -47,7 +47,7 @@ export default function MeetingRoom() {
 
     useEffect(() => {
         fetchData();
-        // Simulate real-time polling
+        
         const interval = setInterval(fetchData, 10000);
         return () => clearInterval(interval);
     }, [id]);
@@ -92,7 +92,7 @@ export default function MeetingRoom() {
         if (!loading && socket && profile && meeting) {
             socket.emit("joinMeeting", id, profile.uid);
             
-            // Listen for reactions
+            
             const handleIncomingReaction = (emoji: string) => {
                 const reaction: Reaction = {
                     id: Date.now() + Math.random(),
@@ -107,7 +107,7 @@ export default function MeetingRoom() {
 
             socket.on("reactionReceived", handleIncomingReaction);
 
-            // Listen for chat messages
+            
             const handleIncomingMessage = (msg: Message) => {
                 setMessages(prev => [...prev, msg]);
                 toast.info(`New comment from ${msg.senderName}`, {
@@ -130,11 +130,11 @@ export default function MeetingRoom() {
         const reaction: Reaction = {
             id: Date.now(),
             emoji,
-            x: Math.random() * 80 + 10, // 10% to 90%
+            x: Math.random() * 80 + 10, 
         };
         setReactions(prev => [...prev, reaction]);
         
-        // Emit to others
+        
         if (socket) {
             socket.emit("meetingReaction", { meetingId: id, emoji });
         }
@@ -149,7 +149,7 @@ export default function MeetingRoom() {
         if (meeting.attendees.includes(profile.uid)) return;
         try {
             await addAttendeeToMeeting(id, profile.uid);
-            // Local state update
+            
             setMeeting({ ...meeting, attendees: [...meeting.attendees, profile.uid] });
             toast.success("Joined Meeting");
         } catch (err) {
@@ -163,7 +163,7 @@ export default function MeetingRoom() {
             await handleAttend();
         }
         
-        // Optimistic UI update
+        
         setIsMicOn(true);
         setIsVideoOn(true);
         
@@ -176,7 +176,7 @@ export default function MeetingRoom() {
 
     const handleToggleMic = async () => {
         const newState = !isMicOn;
-        setIsMicOn(newState); // Immediate feedback
+        setIsMicOn(newState); 
         
         if (!localStream) {
             await handleJoinMedia();
@@ -187,7 +187,7 @@ export default function MeetingRoom() {
 
     const handleToggleVideo = async () => {
         const newState = !isVideoOn;
-        setIsVideoOn(newState); // Immediate feedback
+        setIsVideoOn(newState); 
         
         if (!localStream) {
             await handleJoinMedia();
@@ -253,7 +253,7 @@ export default function MeetingRoom() {
         }
     };
 
-    // Financial Data Mock for Charts
+    
     const chartData = [
         { name: "Total Capital", value: allUsers.reduce((s, u) => s + u.paidSoFar, 0) },
         { name: "Emergency Fund", value: allUsers.reduce((s, u) => s + u.emergencyTaken, 0) },
@@ -267,10 +267,10 @@ export default function MeetingRoom() {
 
     return (
         <div className="h-screen bg-stone-950 text-white overflow-hidden flex flex-col font-sans">
-            {/* Immersive Background */}
+            {}
             <div className="absolute inset-0 bg-gradient-to-b from-stone-900/50 to-stone-950 pointer-events-none" />
 
-            {/* Top Bar */}
+            {}
             <header className="relative z-20 px-6 py-4 border-b border-stone-800 bg-stone-900/40 backdrop-blur-md flex items-center justify-between">
                 <div className="flex items-center gap-4">
                     <button
@@ -348,7 +348,7 @@ export default function MeetingRoom() {
                 </div>
             </header>
 
-            {/* Main Content Area */}
+            {}
             <main className="relative z-10 flex-1 flex overflow-hidden">
                 {isExpired && (
                     <div className="absolute inset-x-0 top-0 z-50 p-4 bg-red-600 text-white flex items-center justify-center gap-3 font-black text-xs uppercase tracking-[0.3em] shadow-2xl">
@@ -373,10 +373,10 @@ export default function MeetingRoom() {
                     </div>
                 )}
 
-                {/* Left: Video Grid Simulation */}
+                {}
                 <div className="flex-1 p-6 relative flex flex-col">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 flex-1">
-                        {/* My Feed */}
+                        {}
                         {(isOngoing || isCompleted || (isPlanned && canManageMeeting)) && (
                             <ParticipantVideo
                                 name={`${profile?.fullName || 'Me'} (You)`}
@@ -388,7 +388,7 @@ export default function MeetingRoom() {
                             />
                         )}
 
-                        {/* Other Attendees */}
+                        {}
                         {attendees.map((u, i) => {
                             const remoteData = remoteStreams[u.uid];
                             const remoteStream = remoteData?.stream || null;
@@ -404,7 +404,7 @@ export default function MeetingRoom() {
                             );
                         })}
 
-                        {/* Empty Slots */}
+                        {}
                         {Array.from({ length: Math.max(0, 6 - attendees.length) }).map((_, i) => (
                             <div key={i} className="rounded-3xl bg-stone-900/50 border border-stone-800 border-dashed flex items-center justify-center text-stone-700">
                                 <Users size={40} opacity={0.1} />
@@ -412,7 +412,7 @@ export default function MeetingRoom() {
                         ))}
                     </div>
 
-                    {/* Reaction Overlay - Front of everything */}
+                    {}
                     <div className="absolute inset-x-0 top-0 bottom-24 pointer-events-none overflow-hidden z-[999]">
                         <AnimatePresence>
                             {reactions.map(r => (
@@ -435,7 +435,7 @@ export default function MeetingRoom() {
                         </AnimatePresence>
                     </div>
 
-                    {/* Floating Controls Bar */}
+                    {}
                     <div className="mt-6 flex justify-center">
                         <motion.div
                             initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
@@ -457,7 +457,7 @@ export default function MeetingRoom() {
                             <div className="w-px h-8 bg-stone-700 mx-2" />
 
                             <div className="flex gap-4">
-                                {["👍", "❤️", "👏", "🔥", "❓"].map(e => (
+                                {["", "️", "", "", ""].map(e => (
                                     <button
                                         key={e}
                                         onClick={() => addReaction(e)}
@@ -493,7 +493,7 @@ export default function MeetingRoom() {
                     </div>
                 </div>
 
-                {/* Overlay Backdrop when sidebar is open */}
+                {}
                 <AnimatePresence>
                     {isSidebarOpen && (
                         <motion.div
@@ -506,7 +506,7 @@ export default function MeetingRoom() {
                     )}
                 </AnimatePresence>
 
-                {/* Right: Tabbed Info Sidebar Overlay */}
+                {}
                 <AnimatePresence>
                     {isSidebarOpen && (
                         <motion.aside
@@ -691,7 +691,7 @@ export default function MeetingRoom() {
                     )}
                 </AnimatePresence>
 
-                {/* Modal for Expanded Agenda */}
+                {}
                 <AnimatePresence>
                     {expandedAgenda && (
                         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
@@ -751,7 +751,7 @@ function ParticipantVideo({ name, role, isMe, isVideoOn, isMicOn, stream }: any)
     return (
         <div className="relative rounded-[32px] bg-stone-900 border border-stone-800 overflow-hidden aspect-video group shadow-xl">
             <div className="absolute inset-0 flex items-center justify-center">
-                {/* Always render video element if stream exists to keep audio playing */}
+                {}
                 {stream && (
                     <video
                         ref={videoRef}

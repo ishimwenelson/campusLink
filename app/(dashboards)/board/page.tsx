@@ -33,17 +33,17 @@ export default function BoardDashboard() {
     });
   }, []);
 
-  // ─── Real Financial Metrics ───────────────────────────────────────────
+  
   const totalFund = members.reduce((s, m) => s + (m.paidSoFar || 0), 0);
   const totalEmergencyTaken = members.reduce((s, m) => s + (m.emergencyTaken || 0), 0);
   const cashOnHand = totalFund - totalEmergencyTaken;
 
-  // ─── Governance Metrics ────────────────────────────────────────────────
+  
   const activeProposals = proposals.filter(p => p.status === "active" || p.status === "pending").length;
   const underReviewCount = proposals.filter(p => p.status === "under_review").length;
   const upcomingMeetings = meetings.filter(m => m.status === "planned").length;
 
-  // ─── Trend Calculations (Month-over-Month) ───────────────────────────
+  
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setMonth(thirtyDaysAgo.getMonth() - 1);
 
@@ -68,7 +68,7 @@ export default function BoardDashboard() {
 
   return (
     <div className="p-4 lg:p-8 max-w-[1600px] mx-auto space-y-8 pb-20">
-      {/* Header Section */}
+      {}
       <motion.div 
         initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
         className="flex flex-col md:flex-row md:items-end justify-between gap-6"
@@ -109,7 +109,7 @@ export default function BoardDashboard() {
         </div>
       </motion.div>
 
-      {/* Strategic Metrics Hub */}
+      {}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard 
           title="Total Portfolio" 
@@ -149,7 +149,7 @@ export default function BoardDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: Calendar */}
+        {}
         <div className="lg:col-span-8 space-y-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}
@@ -215,7 +215,7 @@ export default function BoardDashboard() {
           </motion.div>
         </div>
 
-        {/* Right Column: Controls & Pipeline */}
+        {}
         <div className="lg:col-span-4 space-y-8">
           <motion.div
             initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}
@@ -264,7 +264,7 @@ export default function BoardDashboard() {
         </div>
       </div>
 
-      {/* Full-Width Analytics Section */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}
         className="pt-8 border-t border-stone-100"

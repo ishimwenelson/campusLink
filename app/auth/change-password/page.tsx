@@ -26,7 +26,7 @@ export default function ChangePasswordPage() {
       await reauthenticateWithCredential(user, cred);
       await updatePassword(user, newPw);
       await updateUser(user.uid, { passwordChanged: true });
-      toast.success("Password updated! Welcome to CampusLink 🎉");
+      toast.success("Password updated! Welcome to CampusLink ");
       router.push("/member");
     } catch {
       toast.error("Failed to update password. Check your current password.");

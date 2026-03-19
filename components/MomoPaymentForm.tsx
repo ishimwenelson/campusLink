@@ -25,10 +25,10 @@ export default function MomoPaymentForm({
         message: string;
     }>({ type: null, message: '' });
 
-    // Test phone numbers for sandbox
+    
     const testNumbers = [
-        { number: '46733123450', label: '✅ Success' },
-        { number: '46733123451', label: '❌ Reject' },
+        { number: '46733123450', label: ' Success' },
+        { number: '46733123451', label: ' Reject' },
         { number: '46733123452', label: '⏱️ Expire' },
     ];
 
@@ -171,8 +171,8 @@ export default function MomoPaymentForm({
                             'bg-blue-100 text-blue-700 border border-blue-200'
                     }`}>
                     <div className="flex items-start">
-                        {status.type === 'success' && <span className="mr-2">✅</span>}
-                        {status.type === 'error' && <span className="mr-2">❌</span>}
+                        {status.type === 'success' && <span className="mr-2"></span>}
+                        {status.type === 'error' && <span className="mr-2"></span>}
                         {status.type === 'info' && <span className="mr-2">ℹ️</span>}
                         <span>{status.message}</span>
                     </div>
@@ -181,10 +181,10 @@ export default function MomoPaymentForm({
 
             {process.env.NODE_ENV === 'development' && (
                 <div className="mt-6 p-3 bg-gray-50 rounded text-xs">
-                    <p className="font-semibold mb-2 text-gray-700">🔧 Sandbox Testing Guide:</p>
+                    <p className="font-semibold mb-2 text-gray-700"> Sandbox Testing Guide:</p>
                     <ul className="list-disc pl-4 space-y-1 text-gray-600">
-                        <li><span className="font-mono">46733123450</span> → ✅ Successful payment</li>
-                        <li><span className="font-mono">46733123451</span> → ❌ Payment rejected</li>
+                        <li><span className="font-mono">46733123450</span> →  Successful payment</li>
+                        <li><span className="font-mono">46733123451</span> →  Payment rejected</li>
                         <li><span className="font-mono">46733123452</span> → ⏱️ Payment expires</li>
                         <li>Amount in EUR (sandbox currency)</li>
                         <li>Check your webhook.site for callbacks</li>

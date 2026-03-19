@@ -6,17 +6,17 @@ export async function POST(req: Request) {
   const { email, fullName, phone, nationalID, totalShareValue, role, accountUsed } = await req.json();
 
   try {
-    // Create user in Firebase Auth
+    
     const userRecord = await adminAuth.createUser({
       email,
       password: BUSINESS_RULES.DEFAULT_PASSWORD,
       displayName: fullName,
     });
 
-    // Set custom claim for role
+    
     await adminAuth.setCustomUserClaims(userRecord.uid, { role: role || "member" });
 
-    // Create Firestore profile
+    
     const userData = {
       email,
       role: role || "member",

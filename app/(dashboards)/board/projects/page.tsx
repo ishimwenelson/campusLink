@@ -58,7 +58,7 @@ export default function BoardProjectsPage() {
 
     return (
         <div className="space-y-8 pb-12">
-            {/* Header section */}
+            {}
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
                 <div className="space-y-2">
                     <div className="flex items-center gap-2">
@@ -74,7 +74,7 @@ export default function BoardProjectsPage() {
                 </div>
             </div>
 
-            {/* Functional bar */}
+            {}
             <div className="flex flex-col lg:flex-row gap-4 items-center justify-between p-2 rounded-3xl bg-white shadow-sm border border-stone-100">
                 <div className="flex-1 flex items-center gap-3 px-4 w-full">
                     <Search size={18} className="text-stone-400" />
@@ -102,7 +102,7 @@ export default function BoardProjectsPage() {
                 </div>
             </div>
 
-            {/* Grid of drafts */}
+            {}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredDrafts.map((draft) => (
                     <motion.div 
@@ -113,7 +113,7 @@ export default function BoardProjectsPage() {
                         onClick={() => { setSelectedDraft(draft); setIsModalOpen(true); }}
                         className="group relative bg-white rounded-[2rem] border border-stone-100 p-6 shadow-sm hover:shadow-2xl hover:shadow-stone-200/50 transition-all cursor-pointer overflow-hidden"
                     >
-                        {/* Status bar */}
+                        {}
                         <div className={`absolute top-0 left-0 w-full h-1.5 ${
                             draft.status === 'submitted' ? 'bg-blue-500 animate-pulse' :
                             draft.status === 'under_review' ? 'bg-indigo-500' :

@@ -48,7 +48,7 @@ export function useWebRTC(meetingId: string, socket: Socket | null, userId: stri
     pcs.current[socketId] = pc;
     userIdBySocketId.current[socketId] = peerUserId;
 
-    // Add current local tracks if they exist
+    
     if (localStreamRef.current) {
       console.log(`[WebRTC] Adding local tracks to new connection for ${peerUserId}`);
       localStreamRef.current.getTracks().forEach((track) => {
@@ -152,12 +152,12 @@ export function useWebRTC(meetingId: string, socket: Socket | null, userId: stri
       setLocalStream(stream);
       localStreamRef.current = stream;
 
-      // Update all existing connections with the new stream
+      
       for (const [socketId, pc] of Object.entries(pcs.current)) {
         const peerUserId = userIdBySocketId.current[socketId];
         console.log(`[WebRTC] Adding local tracks to existing connection for ${peerUserId}`);
         
-        // Remove old tracks if any (to avoid duplicates)
+        
         const senders = pc.getSenders();
         senders.forEach(sender => pc.removeTrack(sender));
 
@@ -165,7 +165,7 @@ export function useWebRTC(meetingId: string, socket: Socket | null, userId: stri
           pc.addTrack(track, stream);
         });
         
-        // Renegotiate
+        
         const offer = await pc.createOffer();
         await pc.setLocalDescription(offer);
         socket?.emit("offer", { to: socketId, offer, fromUserId: userId });

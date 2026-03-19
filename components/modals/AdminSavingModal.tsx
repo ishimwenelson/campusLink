@@ -32,13 +32,13 @@ export function AdminSavingModal({ isOpen, onClose }: AdminSavingModalProps) {
         if (!searchTerm.trim()) return;
         setSearching(true);
         try {
-            // Priority: National ID exact match
+            
             const byId = await searchUserByNationalID(searchTerm.trim());
             if (byId) {
                 setRecipient(byId);
                 setStep("amount");
             } else {
-                // Secondary: Name search in pre-fetched members
+                
                 const byName = allMembers.find(m => 
                     m.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                     m.nationalID.includes(searchTerm)
@@ -97,7 +97,7 @@ export function AdminSavingModal({ isOpen, onClose }: AdminSavingModalProps) {
                     exit={{ scale: 0.9, opacity: 0, y: 20 }}
                     className="relative w-full max-w-xl bg-stone-900 border border-stone-800 rounded-[40px] overflow-hidden shadow-2xl"
                 >
-                    {/* Progress Bar */}
+                    {}
                     <div className="absolute top-0 left-0 h-1 bg-stone-800 w-full">
                         <motion.div 
                             className="h-full bg-emerald-500"

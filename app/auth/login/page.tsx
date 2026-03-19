@@ -28,7 +28,7 @@ export default function LoginPage() {
   const [initialLoading, setInitialLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
 
-  // Initial session check
+  
   useEffect(() => {
     const timer = setInterval(() => {
       setLoadProgress(prev => (prev < 95 ? prev + Math.random() * 10 : prev));
@@ -60,7 +60,7 @@ export default function LoginPage() {
     setLoading(true);
     setLoadProgress(0);
 
-    // Simulate progress
+    
     const timer = setInterval(() => {
       setLoadProgress(prev => (prev < 90 ? prev + 5 : prev));
     }, 100);
@@ -99,14 +99,14 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex bg-stone-950 overflow-hidden font-sans selection:bg-amber-500/30 selection:text-amber-200">
-      {/* Dynamic Background */}
+      {}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-amber-600/10 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-amber-900/10 rounded-full blur-[150px]" />
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-leather.png')] opacity-[0.03] mix-blend-overlay" />
       </div>
 
-      {/* Left side – Brand & Value Proposition */}
+      {}
       <div className="hidden lg:flex flex-col justify-between w-[42%] p-16 relative z-10 border-r border-stone-800/50">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -142,7 +142,7 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Right side – Authentication Portal */}
+      
       <div className="flex-1 flex items-center justify-center p-6 relative z-10 bg-gradient-to-l from-stone-900/20 to-transparent">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -150,14 +150,14 @@ export default function LoginPage() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="w-full max-w-md"
         >
-          {/* Mobile Header */}
+          
           <div className="lg:hidden mb-12 flex flex-col items-center">
             <Image src="/assets/icon.png" alt="CampusLink" width={100} height={100} className="mb-4 drop-shadow-2xl" />
             <h2 className="text-white font-black text-2xl uppercase tracking-tighter">CampusLink Portal</h2>
           </div>
 
           <div className="relative group">
-            {/* Soft Glow */}
+            
             <div className="relative bg-stone-900/60 backdrop-blur-3xl border border-stone-800/80 rounded-[32px] p-8 lg:p-10 lg:pt-8 overflow-hidden shadow-2xl">
               <div className="mb-6">
                 <div className="text-[10px] font-black text-amber-500 uppercase tracking-[0.4em] mb-2">Authenticated Access</div>

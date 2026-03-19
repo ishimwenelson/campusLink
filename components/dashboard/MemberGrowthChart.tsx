@@ -32,7 +32,7 @@ export function MemberGrowthChart({ members }: Props) {
     const now = new Date();
     const data: Record<string, number> = {};
     
-    // Last 6 months
+    
     for (let i = 5; i >= 0; i--) {
       const d = new Date();
       d.setMonth(now.getMonth() - i);

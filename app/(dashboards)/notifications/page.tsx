@@ -41,7 +41,7 @@ export default function NotificationsPage() {
 
     return (
         <div className="p-4 lg:p-8 max-w-5xl mx-auto space-y-10">
-            {/* Header Section */}
+            {}
             <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-100 pb-10">
                 <div>
                     <h1 className="text-3xl lg:text-4xl font-black text-stone-900 tracking-tight flex items-center gap-4">
@@ -64,7 +64,7 @@ export default function NotificationsPage() {
                 </div>
             </header>
 
-            {/* Filter Pills */}
+            {}
             <div className="flex flex-wrap gap-2.5">
                 {[
                     { id: 'all', label: 'All Updates', icon: Filter },
@@ -89,7 +89,7 @@ export default function NotificationsPage() {
                 ))}
             </div>
 
-            {/* Notifications List */}
+            {}
             <div className="space-y-4">
                 <AnimatePresence mode="popLayout">
                     {filteredNotifs.length === 0 ? (
@@ -118,7 +118,7 @@ export default function NotificationsPage() {
                                     )}
                                     onClick={() => markRead(n.id)}
                                 >
-                                    {/* Icon Column */}
+                                    {}
                                     <div className={cn(
                                         "w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 duration-500 border",
                                         config.bg, config.color, config.border
@@ -126,7 +126,7 @@ export default function NotificationsPage() {
                                         <config.icon size={22} />
                                     </div>
 
-                                    {/* Content Column */}
+                                    {}
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-start justify-between gap-4 mb-2">
                                             <h3 className="text-sm lg:text-base font-black text-stone-900 truncate tracking-tight">{n.title}</h3>
@@ -156,7 +156,7 @@ export default function NotificationsPage() {
                                         </div>
                                     </div>
 
-                                    {/* Visual Accent */}
+                                    {}
                                     {!n.read && (
                                         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-12 bg-amber-500 rounded-r-full" />
                                     )}
@@ -167,7 +167,7 @@ export default function NotificationsPage() {
                 </AnimatePresence>
             </div>
 
-            {/* Pagination / Footer placeholder */}
+            {}
             {filteredNotifs.length > 0 && (
                 <div className="pt-10 text-center border-t border-stone-100">
                     <p className="text-xs font-bold text-stone-400">Institutional Ledger v4.0.2 • Verified Transaction Feed</p>

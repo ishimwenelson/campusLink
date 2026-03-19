@@ -5,9 +5,9 @@ import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
     try {
-        // Basic auth check potentially via session cookie if needed, 
-        // but for now let's assume the client handles the token or we trust the request 
-        // in this internal environment. Ideally, we'd verify the user here.
+        
+        
+        
 
         const formData = await req.formData();
         const file = formData.get("file") as File;
