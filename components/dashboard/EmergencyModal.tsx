@@ -40,7 +40,7 @@ export default function EmergencyModal({
   const onSubmit = async (data: { amount: number; reason: string }) => {
     setLoading(true);
     try {
-      await createEmergencyRequest(profile.uid, data.amount);
+      await createEmergencyRequest(profile.uid, profile.fullName, data.amount, data.reason);
       // Notify president
       await createNotification({
         userId:    "president_notifications", // president role channel

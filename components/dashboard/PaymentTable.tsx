@@ -93,7 +93,7 @@ export function PaymentTable({ payments, showExport, title = "Payment History" }
       } else if (searchColumn === 'year') {
         matchesSearch = String(p.year).includes(query);
       } else {
-        matchesSearch = (p[searchColumn as keyof Payment] || "").toLowerCase().includes(query);
+        matchesSearch = String(p[searchColumn as keyof Payment] || "").toLowerCase().includes(query);
       }
 
       if (!matchesSearch) return false;

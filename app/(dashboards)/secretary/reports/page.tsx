@@ -41,7 +41,7 @@ export default function SecretaryReports() {
         if (searchColumn === 'all') {
             matchesSearch = m.fullName.toLowerCase().includes(query) || (m.email||"").toLowerCase().includes(query) || (m.phone||"").toLowerCase().includes(query) || (m.nationalID||"").toLowerCase().includes(query);
         } else {
-            matchesSearch = (m[searchColumn] || "").toLowerCase().includes(query);
+            matchesSearch = String(m[searchColumn] || "").toLowerCase().includes(query);
         }
 
         if (!matchesSearch) return false;
