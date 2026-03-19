@@ -318,15 +318,15 @@ export default function FinancialReports() {
             {}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="tracking-tight text-3xl font-black text-stone-900 leading-none">
+                    <h1 className="tracking-tight text-2xl sm:text-3xl font-black text-stone-900 leading-none truncate" title="Financial Hub">
                         Financial <span className="text-amber-500">Hub</span>
                     </h1>
-                    <p className="text-stone-500 font-medium text-xs mt-2 max-w-xl">
+                    <p className="text-stone-500 font-medium text-[10px] sm:text-xs mt-2 max-w-xl line-clamp-1 sm:line-clamp-none">
                         Official institutional accounting, money distribution, and capital release gateway.
                     </p>
                 </div>
-                <div className="flex flex-wrap items-center gap-3">
-                    <div className="flex bg-stone-100 p-1 rounded-2xl border border-stone-200">
+                <div className="flex items-center gap-3 w-full overflow-hidden">
+                    <div className="flex bg-stone-100 p-1 rounded-2xl border border-stone-200 overflow-x-auto scrollbar-hide flex-nowrap w-full">
                         {[
                             { id: "statements", icon: LayoutDashboard, label: "Statements" },
                             { id: "ledger", icon: Database, label: "Member Ledger" },
@@ -337,16 +337,16 @@ export default function FinancialReports() {
                                 key={t.id}
                                 onClick={() => setActiveTab(t.id as TabType)}
                                 className={cn(
-                                    "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all",
+                                    "flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-[9px] sm:text-[10px] font-black uppercase tracking-wider transition-all whitespace-nowrap",
                                     activeTab === t.id 
                                         ? "bg-white text-amber-600 shadow-sm border border-stone-200" 
                                         : "text-stone-400 hover:text-stone-600"
                                 )}
                             >
-                                <t.icon size={14} className={activeTab === t.id ? "text-amber-500" : ""} />
-                                {t.label}
+                                <t.icon size={13} className={activeTab === t.id ? "text-amber-500" : ""} />
+                                <span>{t.label}</span>
                                 {t.id === 'emergency' && approvedRequests.length > 0 && (
-                                    <span className="w-4 h-4 rounded-full bg-red-500 text-white flex items-center justify-center text-[8px] ml-1 shadow-sm">
+                                    <span className="w-3.5 h-3.5 rounded-full bg-red-500 text-white flex items-center justify-center text-[7px] ml-1 shadow-sm shrink-0">
                                         {approvedRequests.length}
                                     </span>
                                 )}
@@ -742,10 +742,10 @@ function SummaryMiniCard({ label, value, icon: Icon, color }: any) {
 
 function FinancialRow({ label, value, highlight }: any) {
     return (
-        <div className="flex justify-between items-center group">
-            <span className="text-stone-500 text-sm font-medium transition-colors group-hover:text-stone-900">{label}</span>
+        <div className="flex justify-between items-center group gap-4 min-w-0">
+            <span className="text-stone-500 text-[11px] sm:text-sm font-medium transition-colors group-hover:text-stone-900 truncate" title={label}>{label}</span>
             <span className={cn(
-                "font-black tracking-tight",
+                "font-black tracking-tight text-xs sm:text-base shrink-0",
                 highlight === 'green' ? "text-emerald-600" : "text-stone-800"
             )}>{value}</span>
         </div>

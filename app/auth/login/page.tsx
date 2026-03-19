@@ -36,13 +36,24 @@ export default function LoginPage() {
 
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const profile = await getUser(user.uid);
-        if (profile) {
-          setLoadProgress(100);
-          setTimeout(() => {
-            router.push(ROLE_ROUTES[profile.role] || "/member");
-          }, 500);
-          return;
+        try {
+          const profile = await getUser(user.uid);
+          if (profile) {
+            
+            await fetch("/api/auth/session", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ uid: user.uid, role: profile.role }),
+            });
+
+            setLoadProgress(100);
+            setTimeout(() => {
+              router.push(ROLE_ROUTES[profile.role] || "/member");
+            }, 500);
+            return;
+          }
+        } catch (err) {
+          console.error("Session sync failed:", err);
         }
       }
       setInitialLoading(false);

@@ -46,23 +46,22 @@ export function StatCard({ title, value, subtitle, icon: Icon, trend, color = "g
         className="absolute inset-0 w-full h-full object-cover object-bottom opacity-20 mix-blend-overlay pointer-events-none"
       />
       
-      <div className="relative flex items-center justify-between">
-        {}
-        <div className="flex flex-col gap-0.5">
-          <h3 className="font-display text-2xl font-black text-white leading-none tracking-tight">
+      <div className="relative flex items-center justify-between gap-4">
+        <div className="flex flex-col gap-0.5 min-w-0 flex-1">
+          <h3 className="font-display text-xl sm:text-2xl font-black text-white leading-none tracking-tight truncate" title={String(value)}>
             {value}
           </h3>
-          <p className="text-white/80 font-medium tracking-tight group-hover:text-white transition-colors text-xs">
+          <p className="text-white/80 font-medium tracking-tight group-hover:text-white transition-colors text-[10px] sm:text-xs truncate">
             {title}
           </p>
           
           {trend && (
-            <div className="flex items-center gap-1 mt-2 bg-white/15 w-fit px-2 py-0.5 rounded-full border border-white/10 backdrop-blur-md shadow-sm">
+            <div className="flex items-center gap-1 mt-2 bg-white/15 w-fit px-2 py-0.5 rounded-full border border-white/10 backdrop-blur-md shadow-sm shrink-0">
               {trend.value >= 0 ? <TrendingUp size={10} className="text-white" /> : <TrendingDown size={10} className="text-white/80" />}
               <span className="text-[10px] font-black text-white">
                 {trend.value > 0 ? "+" : ""}{trend.value}%
               </span>
-              <span className="text-[9px] text-white/60 font-medium ml-0.5 tracking-tight group-hover:text-white/80 transition-colors">
+              <span className="text-[9px] text-white/60 font-medium ml-0.5 tracking-tight group-hover:text-white/80 transition-colors truncate max-w-[60px] sm:max-w-none">
                 {trend.label}
               </span>
             </div>

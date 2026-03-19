@@ -119,7 +119,7 @@ export default function MemberDashboard() {
           </h1>
           <p className="text-stone-500 text-sm mt-1 font-medium">Manage your portfolio, track progress, and access emergency funds.</p>
         </div>
-        <div className="flex bg-stone-100 p-1.5 rounded-[20px] w-fit self-start md:self-auto">
+        <div className="flex bg-stone-100 p-1.5 rounded-[20px] w-full sm:w-auto overflow-x-auto scrollbar-hide flex-nowrap shrink-0">
           {[
             { id: 'overview', label: 'Overview', icon: PieChart },
             { id: 'reports', label: 'Statements', icon: FileDown },
@@ -128,12 +128,12 @@ export default function MemberDashboard() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-[1.5rem] text-sm font-bold transition-all duration-500 ${activeTab === tab.id
+              className={`flex items-center gap-2 px-5 sm:px-6 py-3 rounded-[1.5rem] text-xs sm:text-sm font-bold transition-all duration-500 whitespace-nowrap ${activeTab === tab.id
                 ? "bg-white text-stone-900 shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
                 : "text-stone-400 hover:text-stone-600"
                 }`}
             >
-              <tab.icon size={16} />
+              <tab.icon size={15} />
               {tab.label}
             </button>
           ))}
@@ -233,7 +233,7 @@ export default function MemberDashboard() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-5 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
                   {yearlySchedule.map((yr, i) => {
                     const pct = Math.min((yr.paid / yr.target) * 100, 100);
                     const isCurrent = yr.isCurrent;
@@ -573,15 +573,15 @@ export default function MemberDashboard() {
 
 function StatusItem({ icon: Icon, label, value }: any) {
   return (
-    <div className="flex items-center gap-4 group">
-      <div className="w-10 h-10 rounded-xl bg-stone-50 flex items-center justify-center text-stone-400 group-hover:text-amber-500 group-hover:bg-amber-50 transition-all border border-stone-100">
+    <div className="flex items-center gap-4 group min-w-0">
+      <div className="w-10 h-10 rounded-xl bg-stone-50 flex items-center justify-center text-stone-400 group-hover:text-amber-500 group-hover:bg-amber-50 transition-all border border-stone-100 shrink-0">
         <Icon size={18} />
       </div>
-      <div>
-        <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">{label}</p>
-        <p className="text-sm font-bold text-stone-800">{value}</p>
+      <div className="min-w-0 flex-1">
+        <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest truncate">{label}</p>
+        <p className="text-sm font-bold text-stone-800 truncate" title={String(value)}>{value}</p>
       </div>
-      <ChevronRight size={14} className="ml-auto text-stone-200 group-hover:text-amber-400 transition-all" />
+      <ChevronRight size={14} className="ml-auto text-stone-200 group-hover:text-amber-400 transition-all shrink-0" />
     </div>
   );
 }

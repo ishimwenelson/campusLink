@@ -139,7 +139,7 @@ export default function PresidentDashboard() {
              Executive oversight, system governance, and institutional capital liquidity control.
           </p>
         </div>
-        <div className="flex gap-4">
+        <div className="hidden sm:flex gap-4">
            <span className="px-6 py-3 bg-stone-900 text-white rounded-[1.5rem] flex items-center gap-3 text-sm font-bold shadow-2xl shadow-stone-950">
             <div className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_10px_#f59e0b]" />
             Imperial Authority
@@ -197,8 +197,8 @@ export default function PresidentDashboard() {
                     {req.userDoc?.fullName?.charAt(0) || "?"}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-1.5">
-                      <h4 className="font-black text-stone-900 text-base tracking-tight truncate leading-none">{req.userDoc?.fullName || "Unknown Member"}</h4>
+                    <div className="flex items-center gap-3 mb-1.5 min-w-0">
+                      <h4 className="font-black text-stone-900 text-base tracking-tight truncate leading-none flex-1" title={req.userDoc?.fullName}>{req.userDoc?.fullName || "Unknown Member"}</h4>
                       <span className="text-[9px] font-black uppercase tracking-widest text-stone-400 shrink-0">
                         {formatDate(req.requestedAt)}
                       </span>
@@ -212,17 +212,17 @@ export default function PresidentDashboard() {
                 </div>
                 
                 {}
-                <div className="flex items-center gap-6 md:w-auto w-full justify-between md:justify-end border-t md:border-t-0 border-stone-100 pt-4 md:pt-0">
-                  <div className="text-right shrink-0">
+                <div className="flex flex-col xs:flex-row items-center gap-4 xs:gap-6 md:w-auto w-full justify-between md:justify-end border-t md:border-t-0 border-stone-100 pt-4 md:pt-0">
+                  <div className="text-left xs:text-right shrink-0 w-full xs:w-auto">
                     <p className="text-[9px] font-black text-stone-400 uppercase tracking-widest mb-0.5">Capital Amount</p>
                     <p className="font-black text-xl text-amber-600 tracking-tight">{formatRF(req.amount)}</p>
                   </div>
 
-                  <div className="flex gap-2 shrink-0">
+                  <div className="flex gap-2 shrink-0 w-full xs:w-auto">
                     <motion.button
                       onClick={() => handleApprove(req)}
                       disabled={processingId === req.id}
-                      className="flex items-center justify-center gap-2 px-5 py-2.5 bg-stone-900 text-white 
+                      className="flex-1 xs:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-stone-900 text-white 
                                  rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-stone-800 transition-all
                                  disabled:opacity-50 shadow-md"
                       whileTap={{ scale: 0.95 }}
@@ -233,7 +233,7 @@ export default function PresidentDashboard() {
                     <motion.button
                       onClick={() => handleRejectClick(req)}
                       disabled={processingId === req.id}
-                      className="flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-red-500 
+                      className="flex-1 xs:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-red-500 
                                  rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-red-50 transition-all
                                  disabled:opacity-50 border border-stone-200"
                       whileTap={{ scale: 0.95 }}
